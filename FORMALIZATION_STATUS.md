@@ -46,7 +46,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `lem:projection`: uniform finite-multiplicity integration | `FiniteMultiplicity`; `MultiplicityIntegral`; `RegularJacobian`; `SemialgebraicJacobian` | PARTIAL / CONDITIONAL | Uniform finite-fiber counts in arbitrary finite dimension follow from the explicit, unproved coordinate-projection premise, retaining both set parameters and target values. `uniform_semialgebraic_jacobian_bound_of_contDiffAt` proves the equal-dimensional Euclidean family estimate from projection and actual local C¹ regularity/derivatives. Measurable injective pieces, almost-everywhere finite fibers, and removal of the zero-Jacobian singular part are now proved, not assumed. Passage to manifold strata of ambient dimension greater than the integration dimension, negligible images of lower-dimensional strata, and identification with the restricted complex-form density remain open. |
 | `rem:uniform-parameters`: retain all family parameters | `SemialgebraicLineFamilies`; scope of the sphere obligations | PARTIAL | Uniform component and finite-fiber cardinal bounds are proved for real one-dimensional fibers of a fixed semialgebraic family, with all parameters retained and no compactness assumption. Arbitrary-dimensional finite-fiber counts and Euclidean Jacobian integration are now conditional as detailed in the preceding row; uniform sphere-family geometry and the full restricted-form projection integral remain open. Constants in `finite_of_common_radius` remain explicit uniform hypotheses. |
 | `cor:bounded-volume`: uniform bounded-family volume | `ScalarVariation`; `CurveVariation`; `CurveRectifiability` | PARTIAL | For given parametrized curves with semialgebraic coordinate graphs and local C¹ regularity, uniform integrated-speed and metric-variation bounds are proved directly from line-fiber counts, with no projection premise. This does not yet prove the general Hausdorff-volume statement for arbitrary semialgebraic set families or the higher-dimensional complex-form bound. |
-| `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation`; `SphereC1ChainObligation` | OPEN | Both the earlier rectifiable-path version and the finite-C¹-piece version needed by the checked integration estimate are unproved. No equivalence between these formulations is claimed. Given bounded continuous curve families with semialgebraic coordinate graphs and C¹ interiors now have uniform metric-variation bounds in `uniform_semialgebraic_rectifiable_curves`, including possibly unbounded endpoint velocities. Constructing the required model families by Hardt and compact triangulation, their decomposition/regular parametrizations, and component counts remain open. |
+| `lem:connecting-paths`: uniform compact-family connecting paths | `FiniteCoverPaths`; `PolygonalChain`; `SimplicialPaths`; `SpherePathObligation`; `SphereC1ChainObligation` | PARTIAL | A fixed finite geometric simplicial complex is compact, has at most one connected component per face, and admits actual C¹ connecting chains with uniform piece count and length. The polygonal paths remain in the model and each segment lies in a face. Given bounded continuous curve families with semialgebraic coordinate graphs and C¹ interiors have uniform metric-variation bounds in `uniform_semialgebraic_rectifiable_curves`. Constructing the model families by Hardt and semialgebraic triangulation, handling the regular parametrizations of their images, and applying the component bounds uniformly to the actual sphere fibers remain open. Both sphere-path obligations are still unproved; no equivalence between their rectifiable and finite-C¹ formulations is claimed. |
 | `rem:connecting-paths-background`: Teissier/KOS comparison | None | BACKGROUND ONLY | Not used as a replacement input. |
 | `thm:sublevel`: uniform middle-dimensional sublevel bound | None | OPEN | Full restricted complex density, derivative lemma, uniform coefficient induction. |
 | `lem:derivative`: one-derivative estimate | None | OPEN | Parameter-retaining projection estimate and complex-to-real wedge inequality. |
@@ -99,7 +99,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | C¹ regular fibers and measurable injective pieces | PROVED: `exists_measurable_injective_partition` uses second countability and disjointification. `countable_fiber_of_local_injectivity` uses discrete fibers; nonsingular C¹ points are locally injective by the inverse function theorem. `ae_countable_fibers_of_contDiffAt` removes the critical image using mathlib's equal-dimensional Jacobian critical-image measure-zero theorem. `measurableSet_regular_of_contDiffAt` derives regular-locus measurability from local C¹ regularity. This is a real integration input, not a substitute for common-radius asymptotic critical-value finiteness. |
 | Euclidean C¹ family Jacobian estimate | CONDITIONAL only on coordinate projection: `uniform_semialgebraic_jacobian_bound_of_contDiffAt` assumes an actual semialgebraic family graph and local C¹ maps with actual derivatives. `ae_finite_semialgebraic_fibers_of_contDiffAt` derives almost-everywhere finite fibers. Domain measurability follows from the graph and projection. One constant works for all parameters, including noncompact ranges and infinite image measure. No separate partition, exceptional-target, determinant-continuity, or finite-fiber premise remains. This does not cover arbitrary manifold strata or complex-form densities. |
 | Hardt triviality | OPEN. Required separately for path families and endpoint sweep. |
-| Compact semialgebraic triangulation, finite one-skeleton paths | OPEN. |
+| Compact semialgebraic triangulation | OPEN: existence and compatibility of a finite model triangulation for the required semialgebraic fibers are not proved. |
+| Paths in a fixed finite simplicial model | PROVED: `finite_simplicial_complex_isCompact`, `finite_simplicial_complex_finite_components`, and `finite_simplicial_complex_component_card_le` give compactness and an actual finite component count bounded by the number of faces. `finite_simplicial_complex_uniform_segment_chains` bounds segment count uniformly for all same-component endpoints, with each segment in a face. `finite_simplicial_complex_uniform_C1_chains` produces the existing `C1ArcChain` structure and a uniform length bound, deriving boundedness from compactness. These bounds concern the fixed model, not its images under Hardt maps. |
+| Finite closed-cover connectivity and convex path construction | PROVED: `finite_closed_cover_component_chain` separates reachable and unreachable cells into finite closed unions. Connectedness forces a finite intersection chain. `uniform_finite_relation_chains` chooses a single bound for every reachable pair in a finite index set. `convex_cover_segment_chain` joins endpoints through cell intersections; `finite_closed_convex_cover_uniform_segment_chains` combines the results. `C1ArcChain.ofNodes` has the exact length formula given by the sum of segment distances, and `finite_closed_convex_cover_uniform_C1_chains` bounds lengths for a bounded fixed cover. |
 | Semialgebraic cycle representatives of compact homology classes | OPEN. |
 | Stratification-independent integration and subdivision | OPEN. |
 | Bounded semialgebraic Hausdorff volume | OPEN for arbitrary set families; does not follow from topological compactness. The parametrized-curve integrated-speed and metric-variation special case is proved below. |
@@ -644,7 +646,26 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     It supplies a length bound for given model paths, not their existence,
     joint semialgebraic description, finite regular decomposition, or Hardt
     triviality. No uniform Lipschitz bound for Hardt maps has been introduced.
-38. No mathematical manuscript corrections or changes were made. No alternate
+38. `FiniteCoverPaths` proves the finite-model combinatorial path step using
+    the intersection relation of its closed convex faces. Reachable and
+    unreachable cells form disjoint finite closed unions; same-component
+    endpoints cannot lie in different unions. Choose a finite relation chain
+    for each reachable pair, take the maximum of their lengths, and join
+    through the convex intersections. Every segment lies in an original face.
+    This replaces the manuscript's route through fixed simplex vertices and
+    one-skeleton edge paths by a face-intersection route with the same required
+    uniform segment-count conclusion. The statement retains all pairs of
+    points in the same component, not merely vertices.
+    `PolygonalChain` gives actual continuously differentiable straight pieces
+    in the existing chain structure, with length equal to the sum of their
+    distances. `SimplicialPaths` applies the construction to mathlib's geometric
+    simplicial complexes, proves compactness of a finite complex, derives a
+    radius bound and hence a uniform model length, and bounds its number of
+    components by its number of faces. Empty complexes and singleton faces
+    are included. No dimension bound on the ambient normed real space is
+    needed. These model estimates do not imply uniform Lipschitz control of
+    Hardt maps, regularity of their images, or semialgebraic triangulation.
+39. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -660,7 +681,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 105 mathematical module files plus the root umbrella and
+The checkpoint has 108 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

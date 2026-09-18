@@ -101,3 +101,6 @@ import DuistermaatVanDerKallen.SemialgebraicJacobian
 import DuistermaatVanDerKallen.ScalarVariation
 import DuistermaatVanDerKallen.CurveVariation
 import DuistermaatVanDerKallen.CurveRectifiability
+import DuistermaatVanDerKallen.FiniteCoverPaths
+import DuistermaatVanDerKallen.PolygonalChain
+import DuistermaatVanDerKallen.SimplicialPaths
