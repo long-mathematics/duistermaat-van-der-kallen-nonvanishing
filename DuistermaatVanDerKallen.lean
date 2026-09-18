@@ -55,3 +55,8 @@ import DuistermaatVanDerKallen.RealExponentChange
 import DuistermaatVanDerKallen.PolynomialFactorization
 import DuistermaatVanDerKallen.VertexChart
 import DuistermaatVanDerKallen.VertexChartEvaluation
+import DuistermaatVanDerKallen.ResiduePolydisc
+import DuistermaatVanDerKallen.CoefficientSeries
+import DuistermaatVanDerKallen.TorusCoefficients
+import DuistermaatVanDerKallen.TorusCauchySeries
+import DuistermaatVanDerKallen.TorusMathieu

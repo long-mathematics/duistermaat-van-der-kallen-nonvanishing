@@ -182,3 +182,28 @@ example {d : ℕ} (hd : 1 ≤ d) (f : DuistermaatVanDerKallen.MultiLaurent d)
           ((AddMonoidAlgebra.mapDomainRingEquiv ℂ E.toAddEquiv f) ^ n) =
             DuistermaatVanDerKallen.constantTerm (f ^ n)) :=
   DuistermaatVanDerKallen.unimodular_vertex_chart hd f hf
+
+#check DuistermaatVanDerKallen.exists_polynomial_derivative_polydisc
+#check DuistermaatVanDerKallen.mvPolynomial_hasDerivAt_update
+#check DuistermaatVanDerKallen.residueFiberPolynomial_logderiv
+#check DuistermaatVanDerKallen.residueFiberPolynomial_deriv_ne_zero
+#check DuistermaatVanDerKallen.exists_residue_regular_polydisc
+#check DuistermaatVanDerKallen.coeff_pow_norm_le
+#check DuistermaatVanDerKallen.summable_constantTerm_series
+#check DuistermaatVanDerKallen.generatingFunction_eq_inv_of_vanishing
+#check DuistermaatVanDerKallen.integral_torusCharacter
+#check DuistermaatVanDerKallen.integral_torusLaurent_eq_constantTerm
+#check DuistermaatVanDerKallen.integral_torusLaurent_pow
+#check DuistermaatVanDerKallen.generatingFunction_eq_torusCauchy
+#check DuistermaatVanDerKallen.isFiniteFourierSum_iff_coefficients
+#check DuistermaatVanDerKallen.torus_mathieu_of_minimal
+
+-- The Cauchy-transform formula is a scalar Haar integral, not yet a residue period.
+example {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) (r : Fin d → ℝ)
+    (hr : ∀ i, r i ≠ 0) {s : ℂ}
+    (hs : DuistermaatVanDerKallen.weightedCoefficientMass f r < ‖s‖) :
+    DuistermaatVanDerKallen.constantTermGeneratingFunction f s =
+      MeasureTheory.integral (DuistermaatVanDerKallen.phaseTorusMeasure d)
+        (fun x => 1 / (s - DuistermaatVanDerKallen.laurentEval f
+          (DuistermaatVanDerKallen.torusPoint r x))) :=
+  DuistermaatVanDerKallen.generatingFunction_eq_torusCauchy f r hr hs

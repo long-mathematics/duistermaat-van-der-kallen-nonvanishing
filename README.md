@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 59 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 64 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -117,7 +117,14 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   ODE homology classes give continuous lifts in the module-stalk covering
   along arbitrary C¹ paths. Actual homology transport along finite C¹ chains
   agrees with covering monodromy and is invariant under arbitrary continuous
-  fixed-endpoint homotopies in the good locus.
+  fixed-endpoint homotopies in the good locus;
+- a zero-free closed polydisc and strict logarithmic-derivative estimates for
+  the local residue equation, including nonzero actual coordinate derivatives
+  at roots; convergence of the constant-term generating series; exact
+  normalized product-Haar coefficient extraction and its scalar Cauchy formula;
+- the finite-Fourier compact-torus Mathieu implication, conditional on the
+  still-unproved minimal nonvanishing theorem. The residue-cycle identity,
+  oriented-form comparison, and root-counting step remain open.
 
 Semialgebraic projection and uniform path bounds, critical-value finiteness,
 chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is
