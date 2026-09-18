@@ -232,15 +232,22 @@ actual fiber homology, gives linear germ isomorphisms on each convex chart,
 and proves that the underlying étalé projection is a covering map. Its sections
 agree with the actual ODE homology maps for paths inside a single chart.
 
-The next topological obligations are comparison of arbitrary ODE paths with
-lifts in this covering space, and general fixed-endpoint path-homotopy
-invariance. A proof can subdivide compact paths into chart-contained pieces
-and use the already proved local compatibility; this subdivision and its
-compatibility with the C¹ ODE maps have not yet been formalized. Loops may act
-nontrivially; monodromy invariance is not a target. Relevant pinned mathlib
-inputs include `Topology.Sheaves.EtaleSpace`, `Topology.Covering.Basic`,
-`Topology.Covering.Quotient`, and `Topology.Homotopy.Lifting` in addition to
-the singular-homology functor and local-predicate sheaf APIs.
+`TimeHomology` and `HomologyLift` now prove the global ODE/covering
+comparison. Near each time, the actual homology class has constant coordinates
+in a convex chart, by a homotopy obtained from nearby time slices of the
+jointly continuous trajectory. It therefore gives a continuous curve of germs
+in the module-valued étalé space. Its endpoints are identified with the initial
+class and the actual ODE homology image. Covering uniqueness and homotopy
+lifting give fixed-endpoint path-homotopy invariance with no differentiability
+assumption on the homotopy. `ChainHomologyHomotopy` extends the comparison and
+invariance to finite C¹ chains through concatenation and monodromy composition.
+Only null-homotopic loops are proved to act trivially. Arbitrary loop monodromy
+is retained.
+
+The transport and local-system components over the actual good locus are now
+proved. Critical-value finiteness remains unresolved and is required to identify
+the manuscript's finite exceptional set. The other principal analytic gaps are
+listed below; none follows merely from the constructed topological local system.
 
 Period transport, the separate endpoint Hardt sweep, sublevel/logarithmic
 estimates, and residues remain open. Openness of the whole velocity/initial-point

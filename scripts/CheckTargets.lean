@@ -119,3 +119,14 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.laurentHomologyGermLinearEquiv
 #check DuistermaatVanDerKallen.laurentHomologySheaf_isCoveringMap
 #check DuistermaatVanDerKallen.laurentHomologySection_transport
+#check DuistermaatVanDerKallen.LaurentC1Path.timeHomologyMap_coordinate_eq
+#check DuistermaatVanDerKallen.LaurentC1Path.exists_time_patch
+#check DuistermaatVanDerKallen.laurentHomologyModuleSheaf_isCoveringMap
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyLift_continuous
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyLift_zero
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyLift_one
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyLift_eq_liftPath
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyMap_eq_of_homotopicRel
+#check DuistermaatVanDerKallen.LaurentC1Chain.monodromy_homologyMap
+#check DuistermaatVanDerKallen.LaurentC1Chain.homologyMap_eq_of_homotopic
+#check DuistermaatVanDerKallen.LaurentC1Chain.homologyMap_eq_id_of_nullhomotopic

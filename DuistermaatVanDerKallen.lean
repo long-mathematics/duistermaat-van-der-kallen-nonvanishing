@@ -42,3 +42,6 @@ import DuistermaatVanDerKallen.HomologyTransitions
 import DuistermaatVanDerKallen.ConstantTransitionSheaf
 import DuistermaatVanDerKallen.ConstantTransitionModuleSheaf
 import DuistermaatVanDerKallen.HomologySheaf
+import DuistermaatVanDerKallen.TimeHomology
+import DuistermaatVanDerKallen.HomologyLift
+import DuistermaatVanDerKallen.ChainHomologyHomotopy
