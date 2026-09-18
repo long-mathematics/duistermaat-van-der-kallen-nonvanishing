@@ -49,17 +49,17 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Unlabeled sublevel remark: zero density on components in `P=0` | None | OPEN | Consequence of sublevel theorem; not a Euclidean-volume assertion. |
 | `thm:log-integrability`: logarithmic integrability and power bound | None | OPEN | Newton cube support bound, normalized dyadic family, sublevel theorem, countable additivity including boundaries. |
 | Proper affine-torus geometry, `eq:closed-embedding`–`eq:proper-radius` | `AffineTorus`; `TorusDifferential` | PROVED component | Closed image, chart homeomorphism, smoothness on the open torus, actual chart derivative, tangent image and linearized constraint characterization, proper L2 radius and compact sublevels. A separate abstract manifold instance is not needed for these statements. |
-| Restricted differential and `eq:embedding-metric`, `eq:lambda-formula` | `torusTangentMap_norm_sq`, `restricted_fderiv_norm_sq`, `polynomial_restricted_norm` | PROVED component | Exact induced metric and restricted operator norm, via tangent Riesz representative. Polynomial coordinate partials are analytically identified as `P_zᵢ − wᵢ² P_wᵢ`. The bridge from `MultiLaurent` to such representatives is still open. |
-| Explicit lift, `eq:gradient-lift`–`eq:gradient-identities` | `NormalizedGradient`; `polynomialVectorField_derivative`; `polynomialVectorField_embedded_norm` | PROVED component | Actual tangent lift, right inverse, unsquared norm, minimality, surjectivity, real/complex norm agreement. Both identities hold for the actual polynomial restriction; no ambient differential norm is substituted. |
+| Restricted differential and `eq:embedding-metric`, `eq:lambda-formula` | `torusTangentMap_norm_sq`, `restricted_fderiv_norm_sq`, `polynomial_restricted_norm` | PROVED component | Exact induced metric and restricted operator norm, via tangent Riesz representative. Polynomial coordinate partials are analytically identified as `P_zᵢ − wᵢ² P_wᵢ`. `LaurentEvaluation` constructs representatives for every `MultiLaurent` and proves agreement with its finite coefficient-sum evaluation. |
+| Explicit lift, `eq:gradient-lift`–`eq:gradient-identities` | `NormalizedGradient`; `polynomialVectorField_derivative`; `polynomialVectorField_embedded_norm` | PROVED component | Actual tangent lift, right inverse, unsquared norm, minimality, surjectivity, real/complex norm agreement. Both identities hold for the original Laurent evaluation through `LaurentGeometry`; no ambient differential norm is substituted. |
 | `lem:scalar-finiteness`: finiteness of `K₀` | `ordinaryCriticalValues` definition | OPEN | Semialgebraic critical-locus decomposition and constancy on smooth connected pieces. |
 | `lem:scalar-finiteness`: finiteness of `K∞` | `CommonRadius`; `RadiusTailObligation`; `SpherePathObligation` | CONDITIONAL | Full abstract common-radius finiteness is proved from uniform image diameters and radius tails. Derivation of those inputs for Laurent polynomials remains open. |
 | Compactness of `eq:small-gradient-sphere` | `smallGradientSphere_isCompact`, `ambientDifferentialNorm_continuous` | PROVED component | Exact family on ambient L2 spheres, all real parameters. This proves neither path length nor component bounds. |
 | `eq:small-gradient-diameter` | Explicit hypothesis of `finite_of_common_radius` | OPEN | Rectifiable chain rule and integration of restricted derivative along the controlled paths. |
 | `eq:common-radius-set`: existence of a common large radius | `PolynomialSignFormula.contains_tail_of_unbounded`; `common_radius_contradiction` | PARTIAL | Boolean-polynomial univariate tails and finite intersection of tails proved. Existential radius-set projection remains open. |
 | `prop:generalized-critical`: finite union of ordinary/asymptotic values | None | OPEN | Requires both parts of scalar finiteness. |
-| `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient` | PARTIAL | Full abstract proper-radius lemma proved, instantiated on the affine torus for continuous nonnegative `lam`. The polynomial expression is now identified with the restricted differential; the final `MultiLaurent` specialization remains open. No finiteness of the critical-value sets is needed for this lemma. |
-| ODE standard inputs before `lem:complete-segment` | `polynomialVectorField_contDiffAt`; `polynomialVectorField_local_solution` | PARTIAL | Joint real smoothness of the actual field and local integral curves remaining in its open regular domain proved using mathlib local existence. Smooth dependence of the flow and compact-domain global continuation remain open. |
-| `lem:complete-segment`: complete segment transport | `TransportControl`; `PolynomialGradient` | PARTIAL | Growth/Gronwall and compact-regular-region estimates, actual field smoothness and differential identity, and local existence proved. Global continuation, smooth flow dependence, inverse and cycle sweep remain open. |
+| `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
+| ODE standard inputs before `lem:complete-segment` | `polynomialVectorField_contDiffAt`; `laurentVectorField_local_solution` | PARTIAL | Joint real smoothness of the actual field and local integral curves remaining in its open regular domain proved for every `MultiLaurent` using mathlib local existence. Smooth dependence of the flow and compact-domain global continuation remain open. |
+| `lem:complete-segment`: complete segment transport | `TransportControl`; `PolynomialGradient`; `LaurentGeometry` | PARTIAL | Actual field smoothness, local existence, exact base motion, and proper-radius Gronwall proved for Laurent curves. The radius/base-controlled region is compact in the coordinate ODE space and lies inside its regular domain with the explicit positive norm lower bound. Global continuation, smooth flow dependence, inverse and cycle sweep remain open. |
 | `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | None beyond preceding controls | OPEN | ODE transport and smooth parameter dependence; fiber homology constructions. |
 | `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | None | OPEN | Example retained in the unchanged manuscript; derivative, limits, Newton interior and regular-value computation not formalized. |
 | `rem:transport-background`: smooth transport distinct from semialgebraic sweep | Module architecture and boundary documentation | DESIGN CONSTRAINT | No assertion that the normalized-gradient flow is semialgebraic. No background alternative is imported. |
@@ -103,10 +103,11 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Proper-radius contradiction for uniform gradient bound | PROVED abstract component, including bounded subsequence versus escape. |
 | Scalar weighted lift and actual tangent norm | PROVED components in `ScalarLift`, `TorusDifferential`, `NormalizedGradient`; differentiability and true polynomial partials established separately in `PolynomialCalculus`. |
 | Polynomial vector field joint real smoothness and local ODE existence | PROVED components in `PolynomialGradient`; no global continuation is inferred. |
-| `MultiLaurent` evaluation as an ambient polynomial restriction | OPEN: analytic polynomial modules and algebraic Laurent modules have not yet been connected. |
+| `MultiLaurent` evaluation as an ambient polynomial restriction | PROVED: `laurentRepresentative_eval`, `laurentEval_eq_polynomial_restriction`; `laurentEvalHom` also proves product/power compatibility on the open torus. |
 | Restricted-versus-ambient and inverse-metric regression checks | PROVED: `torusPartial_constraint_eval` and `restrictedDifferential_unit_rank_one`. |
-| Radius Gronwall estimate on an existing trajectory | PROVED component: `trajectory_radius_bound`. |
-| Compact sublevel ∩ compact-base inverse image, positive differential lower bound | PROVED component: `compact_regular_controlled_region`. |
+| Radius Gronwall estimate on an existing trajectory | PROVED component: `trajectory_radius_bound`, specialized to actual Laurent integral curves by `laurent_integral_curve_radius_bound`. |
+| Compact sublevel ∩ compact-base inverse image, positive differential lower bound | PROVED component: `compact_regular_controlled_region`; `laurentControlledRegion_isCompact` and `laurentControlledRegion_regular` transfer this to the actual coordinate ODE domain. |
+| Exact straight-segment base equation | PROVED component: `laurent_integral_curve_base` on every connected open time interval carrying an integral curve. |
 | Reverse-path inverse and smooth local segment trivialization | OPEN. |
 | Homology local system and analytic continuation without monodromy invariance | OPEN. |
 | Endpoint representative/ODE class comparison | OPEN. |
@@ -141,7 +142,13 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 6. Polynomial representatives are handled by polynomial induction and the
    analytic chain rule. Local ODE existence specializes mathlib to the actual
    smooth field. Neither step assumes a semialgebraic flow or global existence.
-7. No mathematical manuscript corrections or changes were made. No alternate
+7. `LaurentEvaluation` replaces each signed coordinate power with a power of
+   its corresponding ambient coordinate. Equality with the original finite
+   Laurent sum is proved term by term. The representative is not claimed to
+   preserve products off the torus; evaluation on the open torus is an algebra
+   homomorphism. `LaurentGeometry` then specializes the previously proved
+   analytic results without additional smoothness assumptions.
+8. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -157,7 +164,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 14 mathematical module files plus the root umbrella and
+The checkpoint has 16 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

@@ -10,3 +10,5 @@ import DuistermaatVanDerKallen.SphereFamily
 import DuistermaatVanDerKallen.NormalizedGradient
 import DuistermaatVanDerKallen.PolynomialCalculus
 import DuistermaatVanDerKallen.PolynomialGradient
+import DuistermaatVanDerKallen.LaurentEvaluation
+import DuistermaatVanDerKallen.LaurentGeometry

@@ -24,3 +24,11 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.polynomialVectorField_local_solution
 #check DuistermaatVanDerKallen.torusPartial_constraint_eval
 #check DuistermaatVanDerKallen.restrictedDifferential_unit_rank_one
+#check DuistermaatVanDerKallen.laurentRepresentative_eval
+#check DuistermaatVanDerKallen.laurentEval_pow
+#check DuistermaatVanDerKallen.laurentEval_hasFDerivAt
+#check DuistermaatVanDerKallen.laurent_uniform_gradient
+#check DuistermaatVanDerKallen.laurentControlledRegion_isCompact
+#check DuistermaatVanDerKallen.laurentControlledRegion_regular
+#check DuistermaatVanDerKallen.laurent_integral_curve_base
+#check DuistermaatVanDerKallen.laurent_integral_curve_radius_bound
