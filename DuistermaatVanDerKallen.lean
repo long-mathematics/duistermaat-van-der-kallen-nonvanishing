@@ -89,3 +89,5 @@ import DuistermaatVanDerKallen.CriticalFiniteness
 import DuistermaatVanDerKallen.RepresentativeInvariance
 import DuistermaatVanDerKallen.AsymptoticExample
 import DuistermaatVanDerKallen.AsymptoticExampleNewton
+import DuistermaatVanDerKallen.SemialgebraicLine
+import DuistermaatVanDerKallen.SemialgebraicLineFamilies

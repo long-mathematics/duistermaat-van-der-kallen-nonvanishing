@@ -363,3 +363,25 @@ example (c : ℂ) :
       (DuistermaatVanDerKallen.laurentDifferentialNorm
         (DuistermaatVanDerKallen.infinityExampleLaurent c)) :=
   DuistermaatVanDerKallen.infinityExample_regression c
+
+#check DuistermaatVanDerKallen.IsSemialgebraic.finite_interval_cover
+#check DuistermaatVanDerKallen.polynomial_curve_uniform_degree_bound
+#check DuistermaatVanDerKallen.IsSemialgebraic.uniform_convex_cover_polynomial_curves
+#check DuistermaatVanDerKallen.IsSemialgebraic.uniform_finite_intersection_bound
+
+-- The bound is chosen before every parameter; no compact parameter range or
+-- nonvanishing-coefficient assumption is present. Finiteness is explicit.
+example {ι : Type*} {S : Set ((ι ⊕ Unit) → ℝ)}
+    (hS : DuistermaatVanDerKallen.IsSemialgebraic (ι ⊕ Unit) S) :
+    ∃ N : ℕ, 1 ≤ N ∧ ∀ a : ι → ℝ,
+      Finite (ConnectedComponents {t : ℝ | Sum.elim a (fun _ => t) ∈ S}) ∧
+      Nat.card (ConnectedComponents {t : ℝ | Sum.elim a (fun _ => t) ∈ S}) ≤ N :=
+  hS.uniform_components_line_fibers
+
+-- Finite fibers are uniformly bounded even when other fibers are infinite.
+example {ι : Type*} {S : Set ((ι ⊕ Unit) → ℝ)}
+    (hS : DuistermaatVanDerKallen.IsSemialgebraic (ι ⊕ Unit) S) :
+    ∃ N : ℕ, ∀ a : ι → ℝ,
+      ({t : ℝ | Sum.elim a (fun _ => t) ∈ S}).Finite →
+      ({t : ℝ | Sum.elim a (fun _ => t) ∈ S}).ncard ≤ N :=
+  hS.uniform_finite_line_fibers

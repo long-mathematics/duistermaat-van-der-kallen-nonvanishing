@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 93 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 95 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -65,7 +65,10 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   now follows conditionally from the minimal theorem alone; classification and
   the Laurent Mathieu property also remain conditional on that theorem;
 - the common-radius pigeonhole argument under explicit geometric hypotheses;
-- the tail property for univariate Boolean polynomial inequalities;
+- the tail property and global finite interval decomposition for univariate
+  Boolean polynomial inequalities; uniform component counts and finite-fiber
+  cardinal bounds for real one-dimensional semialgebraic fibers, with all
+  parameters retained and no boundedness assumption;
 - the proper L2 affine-torus radius, compact sublevels, weighted scalar lift
   identities, an abstract uniform-gradient bound, and Gronwall/regular-domain control;
 - compactness of the actual small-gradient sphere family and precise unproved

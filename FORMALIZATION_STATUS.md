@@ -40,11 +40,11 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `lem:face`: minimal-face reduction | `face_reduction` in `FaceReduction` | PROVED | Every origin-containing Newton polytope reduces to a polynomial in `r ≤ d` variables with all power constant terms preserved, including `n = 0`. The reduced polynomial is either a nonzero constant in rank zero or has the origin in its full interior in positive rank. Successive supporting cuts replace the one-step minimal-face choice; an integer basis of the saturated lattice supplies coordinates. |
 | `lem:powers`: Newton polytope of powers | `newtonPolytope_pow`; `origin_in_newton_powers` in `NewtonPowers` | PROVED | Full equality `Newt(f^n) = n • Newt(f)` in arbitrary finite rank for every `n ≥ 1`. Support containment proves one inclusion; uniquely exposed support vertices survive with coefficient `a_v^n`, and finite convex-hull recovery proves the other. The result also handles the zero polynomial. |
 | `lem:chart`: unimodular vertex chart | `unimodular_vertex_chart`; `unimodular_vertex_chart_evaluation` | PROVED | In every positive rank, an integral linear automorphism gives `f = y^(-m) u`, every `m_i > 0`, and an ordinary polynomial with nonzero value at zero. Exact algebraic factorization, pointwise evaluation on the open torus, Newton interior, and all power constant terms are preserved. Integer separating weights and shears replace the primitive-vector choice and basis-extension step. |
-| `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicSets`; `ComplexSemialgebraic`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
+| `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicSets`; `SemialgebraicLine`; `SemialgebraicLineFamilies`; `ComplexSemialgebraic`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
 | `std:stokes`: integration and Stokes | None | OPEN | Chain integration, subdivision, reparametrization, finite measure, Stokes, and homology pairing. |
 | `def:density`: absolute restricted complex-form density | None | OPEN | Definition, independence of stratification, density identities, finite-chain multiplicities. |
 | `lem:projection`: uniform finite-multiplicity integration | None | OPEN | Uniform component count; smooth rank decomposition; dimension bounds; change of variables / area formula. |
-| `rem:uniform-parameters`: retain all family parameters | Scope of the two specialized obligations | OPEN | No uniform geometric theorem has been proved. Constants in `finite_of_common_radius` are explicitly uniform hypotheses. |
+| `rem:uniform-parameters`: retain all family parameters | `SemialgebraicLineFamilies`; scope of the sphere obligations | PARTIAL | Uniform component and finite-fiber cardinal bounds are proved for real one-dimensional fibers of a fixed semialgebraic family, with all parameters retained and no compactness assumption. Uniform sphere-family geometry and the general projection-integral bound remain open. Constants in `finite_of_common_radius` remain explicit uniform hypotheses. |
 | `cor:bounded-volume`: uniform bounded-family volume | None | OPEN | Projection estimates and real-coordinate wedge bounds. |
 | `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation`; `SphereC1ChainObligation` | OPEN | Both the earlier rectifiable-path version and the finite-C¹-piece version needed by the checked integration estimate are unproved. No equivalence between these formulations is claimed. Hardt + compact triangulation + uniform arc volume, including the needed regular parametrizations, remain dependencies. |
 | `rem:connecting-paths-background`: Teissier/KOS comparison | None | BACKGROUND ONLY | Not used as a replacement input. |
@@ -85,12 +85,13 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 
 | Obligation | Status / exact boundary |
 |---|---|
-| Arbitrary-real-coefficient semialgebraic descriptions | PROVED component: `IsSemialgebraic` defines finite Boolean combinations of polynomial inequalities. Finite Boolean closure and real/complex polynomial preimages are proved. `polynomial_real_parts` supplies explicit real polynomials for complex evaluations; `complexCoordinatesHomeomorph` identifies coordinate spaces. Projection and decomposition remain OPEN. |
+| Arbitrary-real-coefficient semialgebraic descriptions | PROVED component: `IsSemialgebraic` defines finite Boolean combinations of polynomial inequalities. Finite Boolean closure and real/complex polynomial preimages are proved. `polynomial_real_parts` supplies explicit real polynomials for complex evaluations; `complexCoordinatesHomeomorph` identifies coordinate spaces. Projection and higher-dimensional decomposition remain OPEN. |
 | Coordinate projection / Tarski–Seidenberg | OPEN: `SemialgebraicProjectionObligation` explicitly states this input. `radiusTail_of_semialgebraic_projection` derives the exact specialized `RadiusTailObligation` from it using proved incidence semialgebraicity, exact projection identification, and the univariate tail theorem. Neither obligation is proved. |
 | Univariate Boolean polynomial tail property | PROVED component: `polynomial_nonneg_eventuallyConstant`, `PolynomialSignFormula.eventuallyConstant`, `PolynomialSignFormula.contains_tail_of_unbounded`; `IsSemialgebraic.eventuallyConstant_polynomial_curve`; `IsSemialgebraic.contains_tail_of_unbounded`. Uses polynomial leading-term asymptotics; the set-based definition is now linked directly to them. |
-| Finite union of points/intervals on the whole real line | OPEN: tail property does not prove this stronger global decomposition. |
+| Finite union of points/intervals on the whole real line | PROVED: `IsSemialgebraic.finite_interval_cover` expresses the full set as a finite union of `OrdConnected` subsets of ℝ, allowing singleton, empty, bounded, and unbounded intervals. More generally, `finite_convex_cover_polynomial_curve` and `finite_components_polynomial_curve` apply to the inverse image along any polynomial curve. Polynomial-root finiteness bounds the frontier; order cells partition the real line. |
 | Nash stratification compatible with a finite collection | OPEN. |
-| Uniform connected-component counts | OPEN, including the specific sphere family. |
+| Uniform connected-component counts | PARTIAL: `uniform_components_polynomial_curves` gives one bound for all polynomial curves of bounded degree. `uniform_components_line_fibers` supplies a bound for all real one-dimensional fibers of any fixed semialgebraic family, with parameters unconstrained. Both finiteness and `Nat.card` are proved. Higher-dimensional counts, including the specific sphere family, remain OPEN. |
+| Uniform finite one-dimensional fiber cardinalities | PROVED special case: `uniform_finite_line_fibers` bounds the cardinality of every finite real line fiber of a fixed semialgebraic family, allowing infinite fibers for other parameter values. `uniform_finite_intersection_bound` applies more generally to bounded-degree polynomial curves. No projection or Hardt premise is used. |
 | Hardt triviality | OPEN. Required separately for path families and endpoint sweep. |
 | Compact semialgebraic triangulation, finite one-skeleton paths | OPEN. |
 | Semialgebraic cycle representatives of compact homology classes | OPEN. |
@@ -563,7 +564,23 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     It uses no projection, uniform-path, or finiteness premise. The additional
     explicit critical-point list and exact hull/metric formulas remain outside
     the checked coverage of this remark.
-34. No mathematical manuscript corrections or changes were made. No alternate
+34. `SemialgebraicLine` proves the global one-dimensional decomposition
+    from finite polynomial root sets. Boolean operations preserve finite
+    frontier. A cell records whether a point is below, equal to, or above each
+    boundary point; every cell is convex, and the set is constant on it.
+    Selecting cells gives at most `3 ^ (frontier S).ncard` convex pieces.
+    `OrdConnected` is the interval formulation, so no boundedness or endpoint
+    inclusion assumption is introduced. A general finite preconnected-cover
+    lemma bounds the actual connected-component quotient.
+    `SemialgebraicLineFamilies` bounds specialized univariate degrees by
+    structural polynomial induction, then bounds frontier size by polynomial
+    root counts and Boolean induction. The constants precede all bounded-degree
+    polynomial curves and hence all real line-fiber parameters. Zero polynomials,
+    arbitrary coefficients, noncompact parameter ranges, and degree drops are
+    included. This proves the one-dimensional standard-input components only;
+    it does not prove projection, higher-dimensional uniform components, Hardt,
+    uniform arc volume, or either required sphere-path obligation.
+35. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -579,7 +596,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 93 mathematical module files plus the root umbrella and
+The checkpoint has 95 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

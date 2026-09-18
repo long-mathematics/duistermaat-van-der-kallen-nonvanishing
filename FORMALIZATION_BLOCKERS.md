@@ -374,3 +374,14 @@ its asymptotic critical set. It has no open premises. This guards against
 removing the asymptotic set from the transport argument. The exact metric
 formula, hull vertex enumeration, and complete critical-point/value list in
 the manuscript remark have not been separately checked.
+
+The real one-dimensional standard-input cases are now proved in
+`SemialgebraicLine` and `SemialgebraicLineFamilies`. Polynomial-curve pullbacks
+have finite boundary and a finite convex/interval decomposition. For a fixed
+semialgebraic description and a degree bound, one bound controls all component
+counts and all finite intersection cardinalities, uniformly over arbitrary
+curve coefficients. In particular, real line fibers have uniform component
+and finite-fiber bounds over their entire parameter space. Zero specializations
+and degree drops are included. This does not eliminate the existential torus
+coordinates in the radius set and does not supply the higher-dimensional
+sphere-family path or Hardt inputs.
