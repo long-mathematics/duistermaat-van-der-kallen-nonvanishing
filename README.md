@@ -91,11 +91,14 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
 - smooth local product trivializations over the actual good-value locus, with
   base-coordinate preservation and compact sweeps of compact parameter sets.
   Openness of that locus is proved by proper-radius compactness; finiteness of
-  the critical-value sets remains open.
+  the critical-value sets remains open;
+- complete horizontal lifts of C¹ base paths, with exact base motion, using
+  continuous driving velocities, two-sided local existence, uniqueness, and
+  proper-radius compact control before continuation.
 
-Semialgebraic projection and uniform path bounds, general piecewise C¹ path
-transport, the homology local system, chain integration, periods, residues, and
-minimal nonvanishing remain open. No general-rank nonvanishing theorem is
+Semialgebraic projection and uniform path bounds, the C¹-path endpoint
+diffeomorphism and finite piecewise composition, the homology local system,
+chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is
 being claimed from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
 

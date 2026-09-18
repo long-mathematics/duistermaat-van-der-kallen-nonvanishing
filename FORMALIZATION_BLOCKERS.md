@@ -34,8 +34,9 @@ Additional checks:
   existence and reversal. `FiberContinuity` proves uniform Lipschitz dependence
   in initial points at bounded proper radius, joint continuity in initial point
   and time, fiber homeomorphisms, and compact sweeps. Analytic parameter
-  dependence and smooth local trivializations are now proved as detailed below. Time-dependent complete
-  transport remains open.
+  dependence and smooth local trivializations are now proved as detailed below.
+  Complete C¹-path lifting is also proved; its endpoint diffeomorphism and finite
+  piecewise composition remain open.
 - Differential forms and singular homology exist, in separate mathlib modules.
   The general semialgebraic-chain integration/Stokes/homology pairing needed
   here was not found. `Analysis/BoxIntegral/DivergenceTheorem.lean` is a box
@@ -188,11 +189,24 @@ closed by a local proper-radius gradient-bound argument. Thus
 it does not assume openness or finiteness. This is a local-triviality result,
 not a proof of either critical-value finiteness theorem.
 
-Continue with general piecewise C¹ horizontal transport, which still needs the
-time-dependent ODE package, and the homology local system / period transport.
-The separate endpoint Hardt sweep, sublevel/logarithmic estimates, and residues
-remain open. Openness of the whole velocity/initial-point admissible-parameter
-set has not been asserted and was not needed for the local product maps.
+`DrivenPicard` now permits a continuous velocity curve as a Banach parameter.
+An arbitrary primitive anchor and a midpoint initial value give two-sided local
+solutions. `DrivenLocalODE` supplies actual time rescaling and uniform local time
+on compact time/position sets. `DrivenContinuation` proves spatial Lipschitz
+control, uniqueness, gluing, and continuation from compact regular-domain control.
+`DrivenTransport` derives that control from the path image, velocity bound, and
+proper-radius Gronwall estimate. `laurent_complete_C1_path` gives complete lifts
+with exact base motion under one-sided base derivatives and velocity continuity
+on the closed unit interval; no global extension premise is required.
+
+Continue by identifying the local driven Picard endpoints with the complete
+chosen lifts via uniqueness, then propagate analytic dependence on initial
+points as in `AnalyticTransport`. Assemble reversal and the fiber endpoint
+diffeomorphism, then finite piecewise C¹ composition. The homology local system,
+period transport, separate endpoint Hardt sweep, sublevel/logarithmic estimates,
+and residues remain open. Openness of the whole velocity/initial-point
+admissible-parameter set has not been asserted and was not needed for the local
+product maps.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
 classification and Laurent Mathieu implications are ready to consume it; infinite

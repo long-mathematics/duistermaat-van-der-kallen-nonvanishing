@@ -13,3 +13,9 @@ project proofs establish compact-domain continuation and finite-time existence
 from a priori control. This module is distributed under the
 [Apache License 2.0](LICENSES/Apache-2.0.txt), rather than the repository's default
 MIT license. The upstream copyright notices are retained in the module.
+
+`DuistermaatVanDerKallen/DrivenContinuation.lean` adapts the project's
+`ODEContinuation.lean` uniqueness, gluing, and compact-domain continuation
+arguments to a continuous scalar time-dependent velocity. It retains the
+inherited notices and is also distributed under Apache License 2.0. The new
+driven Picard construction is separate, in `DrivenPicard.lean`.

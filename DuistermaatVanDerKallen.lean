@@ -27,3 +27,7 @@ import DuistermaatVanDerKallen.FiberAtlas
 import DuistermaatVanDerKallen.FiberDiffeomorph
 import DuistermaatVanDerKallen.CriticalNeighborhood
 import DuistermaatVanDerKallen.LocalTrivialization
+import DuistermaatVanDerKallen.DrivenPicard
+import DuistermaatVanDerKallen.DrivenLocalODE
+import DuistermaatVanDerKallen.DrivenContinuation
+import DuistermaatVanDerKallen.DrivenTransport

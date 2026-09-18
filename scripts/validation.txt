@@ -1,18 +1,18 @@
-Local smooth trivialization and critical-neighborhood checkpoint validation (2026-09-18 America/New_York)
+Complete C1-path horizontal lifting checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 2879 jobs (includes dependencies; not 2879 project proofs)
-Project mathematical module files: 31
+lake build: SUCCESS, 2883 jobs (includes dependencies; not 2883 project proofs)
+Project mathematical module files: 35
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 239 (comments excluded)
-Environment-level project declarations: 570
-Environment-level theorem declarations, including generated: 450
+Explicitly written theorem declarations: 259 (comments excluded)
+Environment-level project declarations: 612
+Environment-level theorem declarations, including generated: 488
 
-Source audit: PASS, 34 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 38 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.
