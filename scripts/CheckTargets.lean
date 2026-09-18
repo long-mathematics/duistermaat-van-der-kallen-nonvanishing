@@ -341,3 +341,25 @@ example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
     {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) :
     ((DuistermaatVanDerKallen.laurentGoodValues f : Set ℂ)ᶜ).Finite :=
   DuistermaatVanDerKallen.laurentGoodValues_finite_compl_of_projection_and_paths hproj hpaths f
+
+#check DuistermaatVanDerKallen.torusPartial_eval_eq_of_eqOn
+#check DuistermaatVanDerKallen.ambientDifferentialNorm_eq_of_eqOn
+#check DuistermaatVanDerKallen.infinityExample_line_partials
+#check DuistermaatVanDerKallen.infinityExample_inverse_norm
+#check DuistermaatVanDerKallen.infinityExample_inverse_gradient
+
+-- Unconditional regression using the exact Laurent definitions of the targets.
+example (c : ℂ) :
+    (0 : Fin 2 → ℝ) ∈ interior (DuistermaatVanDerKallen.newtonPolytope
+      (DuistermaatVanDerKallen.infinityExampleLaurent c)) ∧
+    c ∈ DuistermaatVanDerKallen.asymptoticCriticalValues
+      (DuistermaatVanDerKallen.laurentOnAffineTorus
+        (DuistermaatVanDerKallen.infinityExampleLaurent c)) (fun x => ‖x.val‖)
+      (DuistermaatVanDerKallen.laurentDifferentialNorm
+        (DuistermaatVanDerKallen.infinityExampleLaurent c)) ∧
+    c ∉ DuistermaatVanDerKallen.ordinaryCriticalValues
+      (DuistermaatVanDerKallen.laurentOnAffineTorus
+        (DuistermaatVanDerKallen.infinityExampleLaurent c))
+      (DuistermaatVanDerKallen.laurentDifferentialNorm
+        (DuistermaatVanDerKallen.infinityExampleLaurent c)) :=
+  DuistermaatVanDerKallen.infinityExample_regression c

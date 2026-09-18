@@ -366,3 +366,11 @@ and cycle infrastructure.
 `TorusMathieu` supplies
 the complete finite-Fourier torus implication with minimal nonvanishing still
 explicit as its unproved premise.
+
+The core infinity regression is now checked in `AsymptoticExampleNewton`:
+`infinityExample_regression` uses the main Laurent representation and proves
+Newton interiority together with an ordinary regular value that belongs to
+its asymptotic critical set. It has no open premises. This guards against
+removing the asymptotic set from the transport argument. The exact metric
+formula, hull vertex enumeration, and complete critical-point/value list in
+the manuscript remark have not been separately checked.
