@@ -298,3 +298,20 @@ example {d : ℕ} (g : Fin d → DuistermaatVanDerKallen.AmbientPolynomial d) :
         DuistermaatVanDerKallen.radiusFamilyPoint q ∈
           DuistermaatVanDerKallen.smallGradientSphere g (q (.inl 0)) (q (.inl 1))} :=
   DuistermaatVanDerKallen.isSemialgebraic_smallGradientTotalFamily g
+
+#print DuistermaatVanDerKallen.SphereC1ChainObligation
+#check DuistermaatVanDerKallen.curve_derivative_mem_torusTangentSpace
+#check DuistermaatVanDerKallen.smallGradient_curve_image_integral_bound
+#check DuistermaatVanDerKallen.C1ArcChain.smallGradient_image_dist_le
+#check DuistermaatVanDerKallen.radiusApproximationSet_unbounded_of_asymptotic
+#check DuistermaatVanDerKallen.normalize_mem_smallGradientSphere
+
+-- Actual Laurent evaluation, proper ambient radius, and restricted differential.
+-- The two geometric premises are still unproved; this checks conditional coverage.
+example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
+    (hpaths : DuistermaatVanDerKallen.SphereC1ChainObligation)
+    {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) :
+    (DuistermaatVanDerKallen.asymptoticCriticalValues
+      (DuistermaatVanDerKallen.laurentOnAffineTorus f) (fun x => ‖x.val‖)
+      (DuistermaatVanDerKallen.laurentDifferentialNorm f)).Finite :=
+  DuistermaatVanDerKallen.laurent_finite_asymptotic_of_projection_and_paths hproj hpaths f

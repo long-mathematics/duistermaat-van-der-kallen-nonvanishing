@@ -80,3 +80,6 @@ import DuistermaatVanDerKallen.AffineSemialgebraic
 import DuistermaatVanDerKallen.PolynomialSignFamilies
 import DuistermaatVanDerKallen.CommonRadiusSemialgebraic
 import DuistermaatVanDerKallen.RadiusProjection
+import DuistermaatVanDerKallen.SpherePathEstimate
+import DuistermaatVanDerKallen.SpherePathChain
+import DuistermaatVanDerKallen.ScalarFinitenessReduction

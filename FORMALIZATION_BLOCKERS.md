@@ -133,6 +133,31 @@ A valid next development can specialize those structural arguments to this
 polynomial family, but must establish uniformity with respect to both parameters
 and must not assume bounded derivatives for the Hardt homeomorphisms.
 
+## Checked diameter estimate and remaining regular path input
+
+`SpherePathEstimate` now proves tangency for derivatives of curves in the
+closed affine torus and the restricted derivative bound on small-gradient
+spheres. The interval fundamental theorem of calculus proves the endpoint
+image distance is at most ε times the integral of the speed.
+`C1ArcChain.smallGradient_image_dist_le` adds these estimates over finite C¹
+pieces with matching endpoints. No differentiability at junctions is needed.
+
+`SphereC1ChainObligation` asks for uniform component labels and such finite
+chains, with the sum of the speed integrals bounded independently of R and ε.
+It remains unproved. It is recorded separately from `SpherePathObligation`:
+the earlier metric-variation bound alone has not been upgraded to the required
+C¹ parametrizations, nor has equality of these notions of length been proved.
+Hardt/triangulation/volume development must supply appropriate regular paths,
+or the diameter estimate must be extended to arbitrary rectifiable paths.
+
+`ScalarFinitenessReduction` assembles the actual common-radius proof. Its
+`laurent_finite_asymptotic_of_projection_and_paths` has only the explicitly
+unproved `SemialgebraicProjectionObligation` and `SphereC1ChainObligation` as
+geometric premises. Asymptotic sequences give the exact unbounded radius
+sets; projection gives their tails; finite intersections select one radius;
+the checked chain estimate and pigeonhole principle give the contradiction.
+This does not prove either geometric premise or unconditional finiteness.
+
 ## Why this is a substantive boundary
 
 The missing inputs form a new real-algebraic-geometric foundation, not a missing

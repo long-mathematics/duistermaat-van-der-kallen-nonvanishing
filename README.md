@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 84 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 87 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -138,7 +138,12 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
 - semialgebraicity of the exact small-gradient family with both radius and
   threshold as free coordinates, and of the proper-radius incidence set.
   Its exact projection is the manuscript radius set. The tail conclusion is
-  proved conditionally on the still-unproved real projection theorem.
+  proved conditionally on the still-unproved real projection theorem;
+- tangent-velocity, restricted-derivative, and integrated path estimates on the
+  small-gradient spheres, summed over finite C¹ pieces. The common-radius
+  proof now yields finiteness of the actual Laurent asymptotic critical-value
+  set conditionally on projection and a uniform finite-C¹-chain input. Both
+  inputs remain unproved.
 
 Semialgebraic projection and uniform path bounds, critical-value finiteness,
 chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is

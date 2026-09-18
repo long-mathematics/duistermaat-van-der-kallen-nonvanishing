@@ -17,7 +17,9 @@ The first unresolved geometric inputs are recorded as **unproved propositions**
 `DuistermaatVanDerKallen/SemialgebraicObligations.lean`. They are not axioms,
 instances, or proved coverage. `RadiusProjection` now reduces the radius-tail
 input to the explicitly unproved `SemialgebraicProjectionObligation`, using a
-proved polynomial incidence description. See [the precise boundary report](FORMALIZATION_BLOCKERS.md).
+proved polynomial incidence description. `SphereC1ChainObligation` separately
+states the finite-C¹-piece path input used in the checked diameter estimate;
+it is not inferred from the weaker rectifiable-path obligation. See [the precise boundary report](FORMALIZATION_BLOCKERS.md).
 
 Status conventions:
 
@@ -44,7 +46,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `lem:projection`: uniform finite-multiplicity integration | None | OPEN | Uniform component count; smooth rank decomposition; dimension bounds; change of variables / area formula. |
 | `rem:uniform-parameters`: retain all family parameters | Scope of the two specialized obligations | OPEN | No uniform geometric theorem has been proved. Constants in `finite_of_common_radius` are explicitly uniform hypotheses. |
 | `cor:bounded-volume`: uniform bounded-family volume | None | OPEN | Projection estimates and real-coordinate wedge bounds. |
-| `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation` | OPEN | Even the restricted sphere-family version, with no semialgebraic requirement on the path, is unproved. Hardt + compact triangulation + uniform arc volume remain dependencies. |
+| `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation`; `SphereC1ChainObligation` | OPEN | Both the earlier rectifiable-path version and the finite-C¹-piece version needed by the checked integration estimate are unproved. No equivalence between these formulations is claimed. Hardt + compact triangulation + uniform arc volume, including the needed regular parametrizations, remain dependencies. |
 | `rem:connecting-paths-background`: Teissier/KOS comparison | None | BACKGROUND ONLY | Not used as a replacement input. |
 | `thm:sublevel`: uniform middle-dimensional sublevel bound | None | OPEN | Full restricted complex density, derivative lemma, uniform coefficient induction. |
 | `lem:derivative`: one-derivative estimate | None | OPEN | Parameter-retaining projection estimate and complex-to-real wedge inequality. |
@@ -54,9 +56,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Restricted differential and `eq:embedding-metric`, `eq:lambda-formula` | `torusTangentMap_norm_sq`, `restricted_fderiv_norm_sq`, `polynomial_restricted_norm` | PROVED component | Exact induced metric and restricted operator norm, via tangent Riesz representative. Polynomial coordinate partials are analytically identified as `P_zᵢ − wᵢ² P_wᵢ`. `LaurentEvaluation` constructs representatives for every `MultiLaurent` and proves agreement with its finite coefficient-sum evaluation. |
 | Explicit lift, `eq:gradient-lift`–`eq:gradient-identities` | `NormalizedGradient`; `polynomialVectorField_derivative`; `polynomialVectorField_embedded_norm` | PROVED component | Actual tangent lift, right inverse, unsquared norm, minimality, surjectivity, real/complex norm agreement. Both identities hold for the original Laurent evaluation through `LaurentGeometry`; no ambient differential norm is substituted. |
 | `lem:scalar-finiteness`: finiteness of `K₀` | `ordinaryCriticalValues` definition | OPEN | Semialgebraic critical-locus decomposition and constancy on smooth connected pieces. |
-| `lem:scalar-finiteness`: finiteness of `K∞` | `CommonRadius`; `RadiusTailObligation`; `SpherePathObligation` | CONDITIONAL | Full abstract common-radius finiteness is proved from uniform image diameters and radius tails. Derivation of those inputs for Laurent polynomials remains open. |
+| `lem:scalar-finiteness`: finiteness of `K∞` | `finite_asymptoticCriticalValues_of_radius_and_paths`; `laurent_finite_asymptotic_of_projection_and_paths` in `ScalarFinitenessReduction` | CONDITIONAL | Finiteness of the actual Laurent asymptotic critical-value set follows from `SemialgebraicProjectionObligation` and `SphereC1ChainObligation`, both explicitly unproved. Asymptotic-sequence approximation, common-radius choice, normalization, path integration, and finite-label contradiction are checked. The weaker earlier `SpherePathObligation` alone is not used to infer the needed C¹ pieces. |
 | Compact semialgebraic family `eq:small-gradient-sphere` | `smallGradientSphere_isCompact`; `ambientDifferentialNorm_continuous`; `isSemialgebraic_smallGradientTotalFamily` | PROVED component | Compactness holds for all real parameters. Semialgebraicity holds for the single total family with radius and threshold as free coordinates on their manuscript range. It uses the full ambient L2 norm and actual restricted differential expression. This proves neither path length nor component bounds. |
-| `eq:small-gradient-diameter` | Explicit hypothesis of `finite_of_common_radius` | OPEN | Rectifiable chain rule and integration of restricted derivative along the controlled paths. |
+| `eq:small-gradient-diameter` | `smallGradient_curve_derivative_norm_le`; `smallGradient_curve_image_integral_bound`; `C1ArcChain.smallGradient_image_dist_le` | PARTIAL | Tangency, the actual restricted derivative bound, and the integrated estimate are proved for C¹ arcs and finite chains, giving image distance at most ε times the summed speed integrals. Uniform existence of such chains remains open. No general rectifiable-chain rule or equality with metric variation has been proved. |
 | `eq:common-radius-set`: existence of a common large radius | `IsSemialgebraic.contains_tail_of_unbounded`; `isSemialgebraic_radiusIncidence`; `radiusApproximationSet_iff_projection`; `radiusTail_of_semialgebraic_projection`; `common_radius_contradiction` | PARTIAL / CONDITIONAL | The exact incidence set is semialgebraic and its coordinate projection equals the actual radius set. The full radius-tail input follows from the explicitly unproved real coordinate-projection obligation. Boolean-polynomial univariate tails and finite intersection of tails are proved; existential elimination remains open. |
 | `prop:generalized-critical`: finite union of ordinary/asymptotic values | None | OPEN | Requires both parts of scalar finiteness. |
 | `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
@@ -507,7 +509,25 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     agree with the original geometric obligation. This follows the manuscript
     squaring/positive-denominator/projection argument; it assumes neither
     elimination nor a uniform component/path bound.
-31. No mathematical manuscript corrections or changes were made. No alternate
+31. `SpherePathEstimate` differentiates the equations `zᵢwᵢ=1` along a
+    real curve within the affine torus, proving its velocity belongs to the
+    already identified tangent subspace. Restricting the actual polynomial
+    differential gives the bound `|(F(Rγ))′| ≤ ε ‖γ′‖`. The interval fundamental
+    theorem of calculus and norm/integral inequalities yield the integrated
+    bound. `SpherePathChain` sums this over finite endpoint-matching C¹ pieces;
+    no derivative at a corner is required. Its length is the sum of the speed
+    integrals. The explicitly unproved `SphereC1ChainObligation` asks for
+    uniform component labels and such chains with a uniform length bound.
+    This is separate from the previous, weaker rectifiable-path obligation;
+    equivalence, regular reparametrization, and equality with metric variation
+    are not assumed. `ScalarFinitenessReduction` proves radius-set unboundedness
+    from actual asymptotic sequences, normalization on the proper sphere, and
+    the complete common-radius pigeonhole contradiction. The resulting
+    `laurent_finite_asymptotic_of_projection_and_paths` applies to the original
+    Laurent evaluation and restricted differential but retains projection and
+    finite-C¹-path inputs as unproved hypotheses. This is conditional coverage
+    of the same manuscript statement, not an unconditional finiteness theorem.
+32. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -523,7 +543,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 84 mathematical module files plus the root umbrella and
+The checkpoint has 87 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
