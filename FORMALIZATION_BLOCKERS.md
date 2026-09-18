@@ -29,9 +29,10 @@ Additional checks:
 - `Analysis/ODE/ExistUnique.lean`, `PicardLindelof.lean`, and `Gronwall.lean`
   provide meaningful local existence/uniqueness/continuous-flow tools. Gronwall
   and local existence for the actual smooth polynomial vector field are used
-  in the checked project. Smooth parameter dependence and the required
-  global continuation have not yet been assembled, so this report does not
-  claim all ODE infrastructure is absent.
+  in the checked project. `ODEContinuation` now proves the needed autonomous
+  compact-domain continuation, and `LaurentTransport` proves complete segment
+  existence and reversal. Smooth parameter dependence and time-dependent
+  complete transport remain open; ODE infrastructure is not claimed absent.
 - Differential forms and singular homology exist, in separate mathlib modules.
   The general semialgebraic-chain integration/Stokes/homology pairing needed
   here was not found. `Analysis/BoxIntegral/DivergenceTheorem.lean` is a box
@@ -149,7 +150,9 @@ estimate using the now-proved restricted differential formula, and instantiate
 `LaurentGeometry` specializes actual field smoothness and local existence to
 `MultiLaurent`, proves exact base motion and the proper-radius Gronwall estimate,
 and proves that the controlled coordinate-space set is compact and lies in the
-regular domain. Continue with global ODE continuation and smooth flow dependence,
+regular domain. `ODEContinuation` and `LaurentTransport` now complete
+autonomous continuation and segment existence, uniqueness, and reversal.
+Continue with smooth flow dependence, fiber diffeomorphisms and cycle sweeps,
 period transport,
 the separate endpoint Hardt sweep, sublevel/logarithmic estimates, and residues.
 
