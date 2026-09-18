@@ -1,0 +1,96 @@
+old to a smooth base is proper
++and restricts to a submersion on every stratum, it is locally topologically
++trivial by homeomorphisms preserving the strata.
++\end{standard}
++
++These are the algebraic Whitney-stratification theorem and Thom's first
++isotopy lemma; see \cite{Kaloshin,Mather}. For a direct treatment of
++nonproper polynomial maps, see \cite{DJ}, especially Theorems 3.1 and
++5.1 of its arXiv version.
++
++\begin{proposition}[Whitney--Thom finite exceptional set]\label{prop:bifurcation-whitney}
++For a nonconstant $f\in R_d$, there is a finite set $B_{\mathrm W}\subset\C$
++such that all fibers over $U_{\mathrm W}=\C\setminus B_{\mathrm W}$ are
++smooth and
++\[
++ f:f^{-1}(U_{\mathrm W})\longrightarrow U_{\mathrm W}
++\]
++is locally topologically trivial.
++\end{proposition}
++\begin{proof}
++Let $\overline\Gamma$ be the closure of the graph of $f$ in
++$(\Pj^1)^d\times\Pj^1$, let $p:\overline\Gamma\to\Pj^1$ be projection,
++and let $D_\infty$ be the complement of the open graph identified with
++$\torus$. The projection $p$ is proper. Choose a finite complex
++algebraic Whitney stratification compatible with $D_\infty$.
++
++For a stratum $W$, the critical locus of $p|_W$ is algebraic in $W$.
++At such a point its complex differential has rank zero, because the
++base has complex dimension one. On the smooth locus of any irreducible
++component of this critical locus, the restriction of $p$ consequently
++has zero differential and is locally constant. It is therefore constant
++on that component. Equivalently, a rational function with zero
++differential on an irreducible complex variety is constant. There are
++only finitely many components and strata, so their critical images form
++a finite subset of $\Pj^1$.
++
++Remove that finite subset and the value $\infty$. On the remaining base,
++$p$ is a proper stratified submersion, so Standard
++input~\ref{std:whitney} gives local trivializations preserving all strata.
++They preserve $D_\infty$ and its complement. Restricting to the latter
++gives the claimed local trivializations of $f$. At a point of this open
++graph, submersivity on its stratum implies submersivity on the ambient
++smooth torus; hence every remaining fiber is smooth. Empty fibers, if
++present, cause no difficulty in this statement. In the application a
++nonempty fiber is supplied by the explicit residue construction.
++\end{proof}
++
++\begin{remark}
++The adjective \emph{complex algebraic} matters in this appendix. Real
++semialgebraic strata can map to curves of real critical values. Such a
++real exceptional set need not leave a connected complement through which
++the required analytic germ can be transported. The projective graph may
++be singular; no resolution theorem is hidden in this argument.
++\end{remark}
++
++\begin{remark}
++Proposition~\ref{prop:bifurcation-whitney} can replace
++Propositions~\ref{prop:generalized-critical}--\ref{prop:bifurcation} in
++the nonvanishing proof.  For the period itself, one then uses the local
++compact-cycle argument from the earlier draft: on a sufficiently small disc
++of regular values, lift the two real coordinate vector fields only near the
++compact cycle support, transport the finite cycle smoothly, and apply the
++triangle-sweep/Morera argument of Lemma~\ref{lem:holomorphy}.  Thus the
++appendix route supplies the same analytic continuation without any appeal to
++the ODE completeness argument of Section~\ref{sec:transport}.
++\end{remark}
++
++
+ \begin{thebibliography}{99}
+ \bibitem{BCR}
+ J.~Bochnak, M.~Coste, and M.-F.~Roy,
+@@ -1108,6 +1359,24 @@
+ \emph{Amer. J. Math.} \textbf{102} (1980), no.~2, 291--302.
+ \href{https://doi.org/10.2307/2374240}{doi:10.2307/2374240}.
+ 
++\bibitem{JK03}
++Z.~Jelonek and K.~Kurdyka,
++On asymptotic critical values of a complex polynomial,
++\emph{J. Reine Angew. Math.} \textbf{565} (2003), 1--11.
++\href{https://doi.org/10.1515/crll.2003.101}{doi:10.1515/crll.2003.101}.
++
++\bibitem{Jelonek04}
++Z.~Jelonek,
++On asymptotic critical values and the Rabier theorem,
++\emph{Banach Center Publ.} \textbf{65} (2004), 125--133.
++\href{https://doi.org/10.4064/bc65-0-9}{doi:10.4064/bc65-0-9}.
++
++\bibitem{JK05}
++Z.~Jelonek and K.~Kurdyka,
++Quantitative generalized Bertini--Sard theorem for smooth affine varieties,
++\emph{Discrete Comput. Geom.} \textbf{34} (2005), no.~4, 659--678.
++\href{https://doi.org/10.1007/s00454-005-1203-1}{doi:10.1007/s00454-005-1203-1}.
++
+ \bibitem{Kaloshin}
+ V.~Kaloshin,
+ A geometric proof of the existence of Whitney stratifications,
