@@ -36,7 +36,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `lem:face`: minimal-face reduction | `face_reduction` in `FaceReduction` | PROVED | Every origin-containing Newton polytope reduces to a polynomial in `r ≤ d` variables with all power constant terms preserved, including `n = 0`. The reduced polynomial is either a nonzero constant in rank zero or has the origin in its full interior in positive rank. Successive supporting cuts replace the one-step minimal-face choice; an integer basis of the saturated lattice supplies coordinates. |
 | `lem:powers`: Newton polytope of powers | `newtonPolytope_pow`; `origin_in_newton_powers` in `NewtonPowers` | PROVED | Full equality `Newt(f^n) = n • Newt(f)` in arbitrary finite rank for every `n ≥ 1`. Support containment proves one inclusion; uniquely exposed support vertices survive with coefficient `a_v^n`, and finite convex-hull recovery proves the other. The result also handles the zero polynomial. |
 | `lem:chart`: unimodular vertex chart | `unimodular_vertex_chart`; `unimodular_vertex_chart_evaluation` | PROVED | In every positive rank, an integral linear automorphism gives `f = y^(-m) u`, every `m_i > 0`, and an ordinary polynomial with nonzero value at zero. Exact algebraic factorization, pointwise evaluation on the open torus, Newton interior, and all power constant terms are preserved. Integer separating weights and shears replace the primitive-vector choice and basis-extension step. |
-| `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
+| `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicSets`; `ComplexSemialgebraic`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
 | `std:stokes`: integration and Stokes | None | OPEN | Chain integration, subdivision, reparametrization, finite measure, Stokes, and homology pairing. |
 | `def:density`: absolute restricted complex-form density | None | OPEN | Definition, independence of stratification, density identities, finite-chain multiplicities. |
 | `lem:projection`: uniform finite-multiplicity integration | None | OPEN | Uniform component count; smooth rank decomposition; dimension bounds; change of variables / area formula. |
@@ -68,7 +68,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Endpoint Hardt application `eq:hardt` and `eq:sweep-boundary` | None | OPEN | Separate normalized Hardt trivialization, semialgebraic cycle representatives, local-system agreement, oriented finite sweep and compact truncations. |
 | `prop:primitive`: quantitative endpoint primitive | None | OPEN | Log-integrability, finite multiplicities, limiting absolute integrals, local compact Stokes and difference-quotient error. |
 | `cor:no-pole`: exclude forced simple pole | None | OPEN | Dyadic primitive estimate and the nonzero `A log 2` integral. |
-| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `ResidueRootLocus`; `ResidueCovering`; `ResidueCoveringDegree`; `ResidueRootBranches`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | The zero-free polydisc, strict derivative estimates, boundary exclusion for large fiber values, compact root locus in the actual Laurent fiber, and the surjective covering projection with exactly `m₁` points in every fiber are proved. The root locus is nonempty. Every root has a locally unique complex-smooth branch in the fiber value and remaining coordinates. The scalar generating series converges and equals the normalized Haar Cauchy integral. Semialgebraicity, oriented cycles, integration comparison, residue sign/normalization, and the locally smooth homology class remain open. |
+| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `ResidueRootLocus`; `ResidueCovering`; `ResidueCoveringDegree`; `ResidueSemialgebraic`; `ResidueRootBranches`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | The zero-free polydisc, strict derivative estimates, boundary exclusion for large fiber values, compact root locus in the actual Laurent fiber, and the surjective covering projection with exactly `m₁` points in every fiber are proved. The root locus is nonempty. Every root has a locally unique complex-smooth branch in the fiber value and remaining coordinates. The scalar generating series converges and equals the normalized Haar Cauchy integral. The coordinate image and total parameter family are semialgebraic, proved by explicit real polynomial descriptions. Oriented cycles, integration comparison, residue sign/normalization, and the locally smooth homology class remain open. |
 | `cor:classification`: Newton classification | `positive_powers_vanish_of_origin_not_mem`, `classification_of_minimal` | PARTIAL / CONDITIONAL | Exclusion implies all positive powers vanish, unconditionally. Converse requires minimal nonvanishing. |
 | `cor:mathieu`: Laurent Mathieu property | `eventual_constantTerm_zero_of_newton`, `mathieu_of_minimal` | CONDITIONAL | Full separated-support conclusion proved for all ranks and all multipliers. Vanishing-moments premise reaches it only assuming minimal nonvanishing. |
 | `cor:torus`: finite Fourier sums on compact tori | `torus_mathieu_of_minimal` in `TorusMathieu` | CONDITIONAL | The normalized product-Haar/constant-term correspondence is proved on `(ℝ/ℤ)^d`, with actual Haar and probability-measure instances. Finite Fourier sums are exactly finite integer-character sums. The complete Mathieu implication now requires only the still-unproved `MinimalNonvanishing`. No dependence on the neighboring repository is imported. |
@@ -81,7 +81,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 
 | Obligation | Status / exact boundary |
 |---|---|
-| Arbitrary-real-coefficient semialgebraic descriptions | OPEN: no general representation/decomposition package developed. |
+| Arbitrary-real-coefficient semialgebraic descriptions | PROVED component: `IsSemialgebraic` defines finite Boolean combinations of polynomial inequalities. Finite Boolean closure and real/complex polynomial preimages are proved. `polynomial_real_parts` supplies explicit real polynomials for complex evaluations; `complexCoordinatesHomeomorph` identifies coordinate spaces. Projection and decomposition remain OPEN. |
 | Coordinate projection / Tarski–Seidenberg | OPEN: even the exact specialized `RadiusTailObligation` is unproved. |
 | Univariate Boolean polynomial tail property | PROVED component: `polynomial_nonneg_eventuallyConstant`, `PolynomialSignFormula.eventuallyConstant`, `PolynomialSignFormula.contains_tail_of_unbounded`; uses polynomial leading-term asymptotics. |
 | Finite union of points/intervals on the whole real line | OPEN: tail property does not prove this stronger global decomposition. |
@@ -452,7 +452,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     the manuscript's compactness/implicit-function argument. This covering
     construction permits empty fibers; the degree, nonemptiness, and
     surjectivity require the separate argument in the next item. No orientation,
-    semialgebraicity, cycle, or homology-class statement follows formally yet.
+    cycle, or homology-class statement follows from this covering construction.
+    Semialgebraicity is supplied separately in item 29.
 28. `ResidueCoveringDegree` replaces the manuscript's Rouché invocation by
     a fully proved special-case deformation count. On the same small polydisc,
     replace `u(y₁,y′)` by `u(t y₁,y′)` for `|t|≤1`. The logarithmic derivative
@@ -469,10 +470,24 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     count as the manuscript, in every positive rank, and discharges surjectivity
     and nonemptiness. `residueRoot_local_branch` supplies local smooth branches
     for this same radius. No general Rouché theorem is assumed or claimed.
-    Semialgebraicity, oriented cycles, residues, and the period identity remain
+    Oriented cycles, residues, and the period identity remain
     separate open obligations. This auxiliary root deformation does not change
     the main common-radius / normalized-gradient transport dependency chain.
-29. No mathematical manuscript corrections or changes were made. No alternate
+29. `SemialgebraicSets` defines the standard finite Boolean combinations of
+    real polynomial weak inequalities and proves finite Boolean closure and
+    polynomial preimages. `PolynomialRealParts` proves real/imaginary polynomial
+    representations by polynomial induction. `ComplexSemialgebraic` identifies
+    the real coordinates by an explicit homeomorphism and proves polynomial
+    zero sets, disc/circle constraints, and complex polynomial preimages
+    semialgebraic. `ResidueSemialgebraic` proves exact equality of the covering
+    coordinate image with the polynomial root locus and hence its
+    semialgebraicity. The total family, including the fiber value as a complex
+    coordinate, has an explicit polynomial description as well.
+    `exists_compact_semialgebraic_residue_covering` assembles compactness,
+    semialgebraicity, surjectivity, and the exact sheet count with no additional
+    regularity hypothesis. No projection, Hardt, orientation, cycle, or
+    integration theorem is assumed by this construction.
+30. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -488,7 +503,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 74 mathematical module files plus the root umbrella and
+The checkpoint has 78 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
