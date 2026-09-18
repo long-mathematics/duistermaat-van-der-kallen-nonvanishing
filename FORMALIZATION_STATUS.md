@@ -15,7 +15,9 @@ compact-Lie-group development. There is no dependency on that development.
 The first unresolved geometric inputs are recorded as **unproved propositions**
 `RadiusTailObligation` and `SpherePathObligation` in
 `DuistermaatVanDerKallen/SemialgebraicObligations.lean`. They are not axioms,
-instances, or proved coverage. See [the precise boundary report](FORMALIZATION_BLOCKERS.md).
+instances, or proved coverage. `RadiusProjection` now reduces the radius-tail
+input to the explicitly unproved `SemialgebraicProjectionObligation`, using a
+proved polynomial incidence description. See [the precise boundary report](FORMALIZATION_BLOCKERS.md).
 
 Status conventions:
 
@@ -53,9 +55,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Explicit lift, `eq:gradient-lift`–`eq:gradient-identities` | `NormalizedGradient`; `polynomialVectorField_derivative`; `polynomialVectorField_embedded_norm` | PROVED component | Actual tangent lift, right inverse, unsquared norm, minimality, surjectivity, real/complex norm agreement. Both identities hold for the original Laurent evaluation through `LaurentGeometry`; no ambient differential norm is substituted. |
 | `lem:scalar-finiteness`: finiteness of `K₀` | `ordinaryCriticalValues` definition | OPEN | Semialgebraic critical-locus decomposition and constancy on smooth connected pieces. |
 | `lem:scalar-finiteness`: finiteness of `K∞` | `CommonRadius`; `RadiusTailObligation`; `SpherePathObligation` | CONDITIONAL | Full abstract common-radius finiteness is proved from uniform image diameters and radius tails. Derivation of those inputs for Laurent polynomials remains open. |
-| Compactness of `eq:small-gradient-sphere` | `smallGradientSphere_isCompact`, `ambientDifferentialNorm_continuous` | PROVED component | Exact family on ambient L2 spheres, all real parameters. This proves neither path length nor component bounds. |
+| Compact semialgebraic family `eq:small-gradient-sphere` | `smallGradientSphere_isCompact`; `ambientDifferentialNorm_continuous`; `isSemialgebraic_smallGradientTotalFamily` | PROVED component | Compactness holds for all real parameters. Semialgebraicity holds for the single total family with radius and threshold as free coordinates on their manuscript range. It uses the full ambient L2 norm and actual restricted differential expression. This proves neither path length nor component bounds. |
 | `eq:small-gradient-diameter` | Explicit hypothesis of `finite_of_common_radius` | OPEN | Rectifiable chain rule and integration of restricted derivative along the controlled paths. |
-| `eq:common-radius-set`: existence of a common large radius | `PolynomialSignFormula.contains_tail_of_unbounded`; `common_radius_contradiction` | PARTIAL | Boolean-polynomial univariate tails and finite intersection of tails proved. Existential radius-set projection remains open. |
+| `eq:common-radius-set`: existence of a common large radius | `IsSemialgebraic.contains_tail_of_unbounded`; `isSemialgebraic_radiusIncidence`; `radiusApproximationSet_iff_projection`; `radiusTail_of_semialgebraic_projection`; `common_radius_contradiction` | PARTIAL / CONDITIONAL | The exact incidence set is semialgebraic and its coordinate projection equals the actual radius set. The full radius-tail input follows from the explicitly unproved real coordinate-projection obligation. Boolean-polynomial univariate tails and finite intersection of tails are proved; existential elimination remains open. |
 | `prop:generalized-critical`: finite union of ordinary/asymptotic values | None | OPEN | Requires both parts of scalar finiteness. |
 | `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
 | ODE standard inputs before `lem:complete-segment` | `ODEContinuation`; `AnalyticTransport`; `DrivenPicard`; `DrivenLocalODE`; `DrivenContinuation`; `DrivenAnalytic`; `DrivenContinuity` | PROVED components | Autonomous transport has complete analytic dependence. For the actual time-dependent scalar family, a Picard branch permits an arbitrary continuous velocity curve as a Banach parameter; anchored integration and time rescaling give two-sided local solutions and uniform existence time on compact time/position sets. Spatial Lipschitz control, uniqueness, gluing, and continuation from compact regular-domain control are proved. Local analytic endpoint maps are identified by uniqueness, and analytic initial-point dependence propagates along every existing complete driven trajectory. The velocity need only be continuous on the closed time interval. Joint driven initial-point/time continuity is also proved using the continuous local endpoint maps and uniqueness. These results cover the scalar field used here; no general smooth-dependence theorem for arbitrary nonautonomous vector fields is claimed. |
@@ -82,8 +84,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Obligation | Status / exact boundary |
 |---|---|
 | Arbitrary-real-coefficient semialgebraic descriptions | PROVED component: `IsSemialgebraic` defines finite Boolean combinations of polynomial inequalities. Finite Boolean closure and real/complex polynomial preimages are proved. `polynomial_real_parts` supplies explicit real polynomials for complex evaluations; `complexCoordinatesHomeomorph` identifies coordinate spaces. Projection and decomposition remain OPEN. |
-| Coordinate projection / Tarski–Seidenberg | OPEN: even the exact specialized `RadiusTailObligation` is unproved. |
-| Univariate Boolean polynomial tail property | PROVED component: `polynomial_nonneg_eventuallyConstant`, `PolynomialSignFormula.eventuallyConstant`, `PolynomialSignFormula.contains_tail_of_unbounded`; uses polynomial leading-term asymptotics. |
+| Coordinate projection / Tarski–Seidenberg | OPEN: `SemialgebraicProjectionObligation` explicitly states this input. `radiusTail_of_semialgebraic_projection` derives the exact specialized `RadiusTailObligation` from it using proved incidence semialgebraicity, exact projection identification, and the univariate tail theorem. Neither obligation is proved. |
+| Univariate Boolean polynomial tail property | PROVED component: `polynomial_nonneg_eventuallyConstant`, `PolynomialSignFormula.eventuallyConstant`, `PolynomialSignFormula.contains_tail_of_unbounded`; `IsSemialgebraic.eventuallyConstant_polynomial_curve`; `IsSemialgebraic.contains_tail_of_unbounded`. Uses polynomial leading-term asymptotics; the set-based definition is now linked directly to them. |
 | Finite union of points/intervals on the whole real line | OPEN: tail property does not prove this stronger global decomposition. |
 | Nash stratification compatible with a finite collection | OPEN. |
 | Uniform connected-component counts | OPEN, including the specific sphere family. |
@@ -487,7 +489,25 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     semialgebraicity, surjectivity, and the exact sheet count with no additional
     regularity hypothesis. No projection, Hardt, orientation, cycle, or
     integration theorem is assumed by this construction.
-30. No mathematical manuscript corrections or changes were made. No alternate
+30. `SemialgebraicRational` clears a finite sum of fractions using the product
+    of their strictly positive polynomial denominators. `AffineSemialgebraic`
+    proves semialgebraicity of the actual closed affine torus, its induced L2
+    spheres, and restricted-differential sublevel sets. `PolynomialSignFamilies`
+    retains arbitrary real polynomial parameters in weighted gradient bounds,
+    norm equalities, and strict target-distance inequalities.
+    `CommonRadiusSemialgebraic` applies these to the exact two-parameter family
+    `smallGradientTotalFamily`, with radius and threshold as free coordinates.
+    `RadiusProjection` proves the exact radius incidence set semialgebraic and
+    identifies its coordinate projection with `radiusApproximationSet`.
+    `SemialgebraicTail` proves sign stabilization along polynomial curves, and
+    hence tails for unbounded one-dimensional semialgebraic sets. These give
+    `radiusTail_of_semialgebraic_projection`, a conditional proof from the
+    explicitly unproved real coordinate-projection proposition. The metric,
+    restricted differential, parameter range, and existential point witnesses
+    agree with the original geometric obligation. This follows the manuscript
+    squaring/positive-denominator/projection argument; it assumes neither
+    elimination nor a uniform component/path bound.
+31. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -503,7 +523,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 78 mathematical module files plus the root umbrella and
+The checkpoint has 84 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
