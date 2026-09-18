@@ -145,7 +145,7 @@ theorem fiberTransportBack_continuous {d : ℕ} {f : MultiLaurent d} {s a : ℂ}
     (continuous_id.prodMk (continuous_const (y := (⟨1, by simp⟩ : Icc (0 : ℝ) 1))))
 
 /-- Segment transport is a homeomorphism of fibers. This statement makes no
-claim of smoothness; smooth dependence is a separate remaining obligation. -/
+claim of smoothness; the analytic manifold refinement is in `FiberDiffeomorph`. -/
 def fiberTransportHomeomorph {d : ℕ} {f : MultiLaurent d} {s a : ℂ}
     (h : GoodSegment f s a) : LaurentFiber f s ≃ₜ LaurentFiber f (s + a) where
   toEquiv := fiberTransportEquiv h

@@ -84,10 +84,13 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   point, with its integral equation yielding actual scaled ODE trajectories;
 - analytic dependence of the chosen complete segment transport on admissible
   velocity, initial-point and time parameters, with analytic ambient extensions
-  of the forward and inverse fiber maps near every point.
+  of the forward and inverse fiber maps near every point;
+- analytic real-manifold structures on regular fibers of dimension `2d - 2`,
+  and the assembled complete-segment lemma with the actual transport
+  diffeomorphism, exact base motion, and compact sweeps.
 
-Semialgebraic projection and uniform path bounds, regular-fiber manifold and
-local-trivialization packages, general piecewise C¹ path transport, chain
+Semialgebraic projection and uniform path bounds, local smooth trivializations,
+general piecewise C¹ path transport, chain
 integration, periods, residues, and minimal nonvanishing remain open. No
 general-rank nonvanishing theorem is being claimed from the conditional
 implications. The general-torus dependency in the

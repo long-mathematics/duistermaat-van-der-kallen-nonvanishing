@@ -171,9 +171,15 @@ velocity/initial-point/time set and obtains analytic ambient germs for forward
 and inverse fiber maps. No regularity of the chosen solution family was
 assumed before propagation.
 
-Continue with regular-fiber manifold instances and a diffeomorphism package,
-then local smooth trivializations (using a convex base neighborhood whose
-segments avoid the critical values). The admissible-parameter set's openness
+`RegularFiberCharts`, `FiberAtlas`, and `FiberDiffeomorph` now construct the
+regular fibers as analytic real manifolds and package the actual complete
+segment transport as an analytic diffeomorphism. The real kernel has dimension
+`2d - 2`; regularity follows from exclusion of ordinary critical values.
+`complete_segment_transport` assembles existence, base motion, the manifold map,
+and compact sweeps of arbitrary compact initial subsets.
+
+Continue with local smooth trivializations using a convex base neighborhood
+whose segments avoid the critical values. The admissible-parameter set's openness
 has not been asserted. General piecewise C¹ paths still need the time-dependent
 ODE package. Period transport, the separate endpoint Hardt sweep,
 sublevel/logarithmic estimates, and residues remain open.
