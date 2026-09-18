@@ -34,3 +34,7 @@ import DuistermaatVanDerKallen.DrivenTransport
 import DuistermaatVanDerKallen.DrivenAnalytic
 import DuistermaatVanDerKallen.C1FiberTransport
 import DuistermaatVanDerKallen.PiecewiseTransport
+import DuistermaatVanDerKallen.DrivenContinuity
+import DuistermaatVanDerKallen.C1Sweeps
+import DuistermaatVanDerKallen.LocalTransportHomotopy
+import DuistermaatVanDerKallen.TransportHomology

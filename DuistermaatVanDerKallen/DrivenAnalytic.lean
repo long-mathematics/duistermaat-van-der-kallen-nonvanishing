@@ -36,14 +36,14 @@ theorem laurent_driven_local_analytic_endpoint {d : ℕ} (f : MultiLaurent d)
     {z : Fin d → ℂ} (hz : z ∈ laurentRegularDomain f) :
     ∃ (F : ℝ × (ℝ × (Fin d → ℂ)) → Fin d → ℂ)
       (U : Set (ℝ × (ℝ × (Fin d → ℂ)))),
-      IsOpen U ∧ (s, (0, z)) ∈ U ∧
+      IsOpen U ∧ (s, (0, z)) ∈ U ∧ ContinuousOn F U ∧
       (∀ t δ, ContDiffOn ℝ ⊤ (fun y => F (t, (δ, y))) {y | (t, (δ, y)) ∈ U}) ∧
       ∀ q ∈ U, ∀ γ : ℝ → Fin d → ℂ, γ 0 = q.2.2 →
         (∀ t ∈ Icc (0 : ℝ) 1, γ t ∈ laurentRegularDomain f ∧
           HasDerivAt γ (laurentVectorField f (q.2.1 • v (q.1 + q.2.1 * t)) (γ t)) t) →
         F q = γ 1 := by
   let τ : CurveTime := ⟨0, by simp⟩
-  obtain ⟨Ψ, U, hU, hbase, _, hΨ, hspec⟩ :=
+  obtain ⟨Ψ, U, hU, hbase, hcont, hΨ, hspec⟩ :=
     laurent_driven_local_family f τ v hv s hz
   let F : ℝ × (ℝ × (Fin d → ℂ)) → Fin d → ℂ := fun q i => Ψ q i ⟨1, by simp⟩
   have hF : ∀ t δ, ContDiffOn ℝ ⊤ (fun y => F (t, (δ, y))) {y | (t, (δ, y)) ∈ U} := by
@@ -52,7 +52,12 @@ theorem laurent_driven_local_analytic_endpoint {d : ℕ} (f : MultiLaurent d)
     intro i
     exact (ContinuousMap.evalCLM ℝ ⟨1, by simp⟩).contDiff.comp_contDiffOn
       ((contDiff_apply ℝ _ i).comp_contDiffOn (hΨ t δ))
-  refine ⟨F, U, hU, hbase, hF, ?_⟩
+  have hcF : ContinuousOn F U := by
+    apply continuousOn_pi.mpr
+    intro i
+    exact (ContinuousMap.evalCLM ℝ ⟨1, by simp⟩).continuous.comp_continuousOn
+      ((continuous_apply i).comp_continuousOn hcont)
+  refine ⟨F, U, hU, hbase, hcF, hF, ?_⟩
   intro q hq γ hγ0 hγ
   obtain ⟨η, hη0, hηcurve, hη⟩ := laurent_driven_picard_equation_solves_ode f τ
     (rescaledVelocity v hv τ (q.1, q.2.1)) q.2.1 q.2.2 (Ψ q)
@@ -121,7 +126,7 @@ theorem laurent_driven_family_analytic {d : ℕ} (f : MultiLaurent d)
   have hlocal : ∀ t ∈ Icc (0 : ℝ) 1, ∀ᶠ s in 𝓝[Icc (0 : ℝ) 1] t,
       (Q t → Q s) ∧ (Q s → Q t) := by
     intro t ht
-    obtain ⟨F, U, hU, hbase, hF, hspec⟩ :=
+    obtain ⟨F, U, hU, hbase, _, hF, hspec⟩ :=
       laurent_driven_local_analytic_endpoint f v hv t (hΓ p₀ hp₀ t ht).1
     have hfwd : ContinuousWithinAt (fun s : ℝ => (t, (s - t, Γ p₀ t)))
         (Icc (0 : ℝ) 1) t := by fun_prop

@@ -93,3 +93,15 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.LaurentC1Path.reverse_curve
 #check DuistermaatVanDerKallen.LaurentC1Path.transportDiffeomorph
 #check DuistermaatVanDerKallen.LaurentC1Chain.transportDiffeomorph
+#check DuistermaatVanDerKallen.laurent_driven_family_joint_continuous_on
+#check DuistermaatVanDerKallen.LaurentC1Path.curves_continuous
+#check DuistermaatVanDerKallen.LaurentC1Path.sweep_isCompact
+#check DuistermaatVanDerKallen.LaurentC1Chain.sweep_isCompact
+#check DuistermaatVanDerKallen.LaurentC1Chain.sweep_subset_regular
+#check DuistermaatVanDerKallen.LaurentC1Path.localCoordinateHomotopy
+#check DuistermaatVanDerKallen.LaurentC1Path.transportHomotopyOfConvex
+#check DuistermaatVanDerKallen.laurentFiberHomology
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyIso
+#check DuistermaatVanDerKallen.LaurentC1Path.homologyMap_eq_of_convex
+#check DuistermaatVanDerKallen.LaurentC1Chain.homologyMap_append
+#check DuistermaatVanDerKallen.LaurentC1Chain.homologyMap_comp_coordinate

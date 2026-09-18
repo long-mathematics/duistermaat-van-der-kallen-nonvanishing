@@ -26,6 +26,11 @@ theorem end_regular (h : LaurentC1Chain f s t) : RegularLaurentValue f t := by
   | single h => exact h.end_regular
   | append _ h => exact h.end_regular
 
+/-- Every point of every piece belongs to the specified base set. -/
+def StaysIn (D : Set ℂ) : {s t : ℂ} → LaurentC1Chain f s t → Prop
+  | _, _, .single h => ∀ r ∈ Set.Icc (0 : ℝ) 1, h.base r ∈ D
+  | _, _, .append h k => h.StaysIn D ∧ ∀ r ∈ Set.Icc (0 : ℝ) 1, k.base r ∈ D
+
 /-- Compose the actual endpoint maps of the individual driven trajectories. -/
 def transport : {s t : ℂ} → LaurentC1Chain f s t → LaurentFiber f s → LaurentFiber f t
   | _, _, .single h => h.transport
