@@ -36,7 +36,8 @@ Additional checks:
   and time, fiber homeomorphisms, and compact sweeps. Analytic parameter
   dependence and smooth local trivializations are now proved as detailed below.
   Complete C¹-path lifting, analytic endpoint diffeomorphisms, and finite
-  composition of endpoint-matching C¹ pieces are also proved.
+  composition of endpoint-matching C¹ pieces are also proved, along with joint
+  continuity, compact sweeps, and convex-local compatibility on singular homology.
 - Differential forms and singular homology exist, in separate mathlib modules.
   The general semialgebraic-chain integration/Stokes/homology pairing needed
   here was not found. `Analysis/BoxIntegral/DivergenceTheorem.lean` is a box
@@ -207,15 +208,32 @@ in initial points, not time. `PiecewiseTransport` composes finite chains of
 endpoint-matching C¹ pieces. It does not construct a globally parametrized
 concatenated curve or assert differentiability at the corners.
 
-The next topological obligation is to package the homology local system from
-the existing smooth local trivializations, then prove that the induced homology
-maps agree under fixed-endpoint path homotopies and with local trivialization
-identifications. Fixed-path endpoint diffeomorphisms alone do not supply those
-coherences. Loops may act nontrivially; monodromy invariance is not a target. The complete
-C¹ swept family also lacks a separate joint initial-point/time continuity
-statement, although fixed-time initial analyticity and each time trajectory's
-continuity are proved; separate continuity alone must not be relabeled joint
-continuity. The existing straight-segment compact-sweep theorems remain usable.
+`DrivenContinuity` now proves joint initial-point/time continuity using the
+continuous local endpoint map and uniqueness. `C1Sweeps` proves that compact
+initial sets have compact sweeps contained in the regular ODE domain, both for
+a C¹ piece and for a finite chain. No global concatenated-curve derivative at a
+corner, semialgebraicity, or integration pairing is asserted.
+
+`LocalTransportHomotopy` projects the jointly continuous curve through the
+product trivialization into a chosen reference fiber. It gives an actual
+homotopy between the initial coordinate map and the terminal coordinate map
+after transport. `TransportHomology` uses mathlib's integral singular homology
+and homotopy invariance to prove that the transported class is constant in
+these coordinates. Complete C¹ paths and finite chains induce homology
+isomorphisms in every degree, and composition agrees with concatenation of
+pieces. These local statements require all pieces to stay inside one convex
+good neighborhood.
+
+The next topological obligations are compatibility of coordinate homology maps
+on overlapping neighborhoods, a global local-system construction, and invariance
+of the induced maps under general fixed-endpoint path homotopies. The current
+convex-local comparison does not yet establish those global coherences. Loops
+may act nontrivially; monodromy invariance is not a target. Relevant pinned
+mathlib inputs are `AlgebraicTopology.singularHomologyFunctor`,
+`TopCat.Homotopy.congr_homologyMap_singularChainComplexFunctor`, and the path
+homotopy quotient in `FundamentalGroupoid.Basic`. The deprecated
+`HomotopyInvarianceTopCat` file is not needed.
+
 Period transport, the separate endpoint Hardt sweep, sublevel/logarithmic
 estimates, and residues remain open. Openness of the whole velocity/initial-point
 admissible-parameter set has not been asserted and was not needed for the local
