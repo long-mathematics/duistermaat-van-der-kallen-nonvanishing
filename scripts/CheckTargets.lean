@@ -484,3 +484,22 @@ example {κ : Type*} [Fintype κ] (γ : ℝ → EuclideanSpace ℝ κ)
   simpa only [interior_Icc] using
     DuistermaatVanDerKallen.continuous_semialgebraic_curve_smooth_outside_finite
       γ (Set.Icc (0 : ℝ) 1) hgraph hc
+
+
+#check DuistermaatVanDerKallen.integral_eq_sub_of_hasDerivAt_off_finite
+#check DuistermaatVanDerKallen.uniform_semialgebraic_scalar_variation_off_finite
+#check DuistermaatVanDerKallen.uniform_continuous_semialgebraic_finite_length
+
+-- Actual uniform metric length from continuity and joint graph data alone.
+-- No derivative, exceptional set, or C¹ regularity is supplied.
+example {ι κ : Type*} [Fintype κ]
+    (γ : (ι → ℝ) → ℝ → EuclideanSpace ℝ κ)
+    (hgraph : ∀ i, DuistermaatVanDerKallen.IsSemialgebraic ((ι ⊕ Unit) ⊕ Unit) {q |
+      q (.inr ()) ∈ Set.Ioo (0 : ℝ) 1 ∧
+      γ (fun j => q (.inl (.inl j))) (q (.inr ())) i = q (.inl (.inr ()))})
+    (hc : ∀ a, ContinuousOn (γ a) (Set.Icc (0 : ℝ) 1))
+    (hb : ∀ a, ∀ t ∈ Set.Ioo (0 : ℝ) 1, ‖γ a t‖ ≤ 1) :
+    ∃ L : ℝ, 1 ≤ L ∧ ∀ a, BoundedVariationOn (γ a) (Set.Icc (0 : ℝ) 1) ∧
+      eVariationOn (γ a) (Set.Icc (0 : ℝ) 1) ≤ ENNReal.ofReal L :=
+  DuistermaatVanDerKallen.uniform_continuous_semialgebraic_rectifiable_curves
+    γ hgraph hc 1 zero_le_one hb

@@ -465,11 +465,21 @@ theorem. The intermediate `continuous_algebraic_smooth_outside_finite` also
 applies to continuous selections of any nonzero bivariate polynomial relation.
 Projection and Hardt are not hypotheses of these theorems.
 
-The regularity boundary is now specifically **uniformity and endpoints**:
-the exceptional set is finite for each curve, but there is no uniform bound
-on its cardinality across a semialgebraic parameter family. Smoothness holds
-on the open pieces; derivatives can diverge at their ends. Thus the theorem
-does not yet construct the endpoint-smooth pieces required by `C1ArcChain`.
-Finite exceptional sets also have not yet been combined with the existing
-variation theorem to remove its global interior-C¹ premise. Hardt,
-triangulation, and both sphere-path obligations remain open.
+The exceptional set is finite for each curve, without a proved uniform
+cardinality bound across the parameter family. The new
+`ContinuousCurveRectifiability` theorem shows that this uniform cardinality
+bound is **not needed for the parametrized-family length estimate**. The
+full semialgebraic graph supplies uniform finite fiber multiplicities, even
+when the integral omits arbitrary finite exceptional sets. FTC across those
+points controls the original continuous curve. The actual derivative is
+integrable on the full closed interval and its integrated speed and metric
+variation have uniform bounds. The old interior-C¹ hypothesis is discharged.
+
+The remaining geometric task is to construct the appropriate jointly
+semialgebraic connecting-curve families through Hardt and triangulation, and
+match them to the actual sphere components. Smoothness on the open pieces
+does not give bounded endpoint velocities, so endpoint-smooth pieces for
+`C1ArcChain` are not constructed here. An alternative is to apply the new
+finite-exception FTC directly to the restricted-differential estimate; that
+connection has not yet been integrated. Hardt, triangulation, and both
+sphere-path obligations remain open.
