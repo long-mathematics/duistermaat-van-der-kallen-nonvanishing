@@ -31,8 +31,10 @@ Additional checks:
   and local existence for the actual smooth polynomial vector field are used
   in the checked project. `ODEContinuation` now proves the needed autonomous
   compact-domain continuation, and `LaurentTransport` proves complete segment
-  existence and reversal. Smooth parameter dependence and time-dependent
-  complete transport remain open; ODE infrastructure is not claimed absent.
+  existence and reversal. `FiberContinuity` proves uniform Lipschitz dependence
+  in initial points at bounded proper radius, joint continuity in initial point
+  and time, fiber homeomorphisms, and compact sweeps. Smooth parameter dependence
+  and time-dependent complete transport remain open.
 - Differential forms and singular homology exist, in separate mathlib modules.
   The general semialgebraic-chain integration/Stokes/homology pairing needed
   here was not found. `Analysis/BoxIntegral/DivergenceTheorem.lean` is a box
@@ -152,9 +154,11 @@ estimate using the now-proved restricted differential formula, and instantiate
 and proves that the controlled coordinate-space set is compact and lies in the
 regular domain. `ODEContinuation` and `LaurentTransport` now complete
 autonomous continuation and segment existence, uniqueness, and reversal.
-Continue with smooth flow dependence, fiber diffeomorphisms and cycle sweeps,
-period transport,
-the separate endpoint Hardt sweep, sublevel/logarithmic estimates, and residues.
+`FiberTransport` and `FiberContinuity` now construct fiber homeomorphisms and
+prove joint continuity in initial point/time and compactness of compact initial
+sweeps. Continue with smooth dependence, including velocity parameters, and
+smooth fiber diffeomorphisms, then period transport, the separate endpoint Hardt
+sweep, sublevel/logarithmic estimates, and residues.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
 classification and Laurent Mathieu implications are ready to consume it; infinite
