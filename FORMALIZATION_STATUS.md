@@ -68,10 +68,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Endpoint Hardt application `eq:hardt` and `eq:sweep-boundary` | None | OPEN | Separate normalized Hardt trivialization, semialgebraic cycle representatives, local-system agreement, oriented finite sweep and compact truncations. |
 | `prop:primitive`: quantitative endpoint primitive | None | OPEN | Log-integrability, finite multiplicities, limiting absolute integrals, local compact Stokes and difference-quotient error. |
 | `cor:no-pole`: exclude forced simple pole | None | OPEN | Dyadic primitive estimate and the nonzero `A log 2` integral. |
-| `lem:residue`: residue-cycle identity | None | OPEN | Zero-free polydisc, Rouché, simple roots, compact covering cycles, orientation, residue sign/normalization, locally smooth class. |
+| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | Zero-free closed polydisc, strict logarithmic-partial bounds, root-coordinate nonvanishing, and nonzero actual one-variable root derivatives are proved. The scalar generating series converges outside an explicit bound and equals the normalized product-Haar Cauchy integral. Rouché/root count, compact covering cycles, oriented-form comparison, residue sign/normalization, and locally smooth cycle class remain open. |
 | `cor:classification`: Newton classification | `positive_powers_vanish_of_origin_not_mem`, `classification_of_minimal` | PARTIAL / CONDITIONAL | Exclusion implies all positive powers vanish, unconditionally. Converse requires minimal nonvanishing. |
 | `cor:mathieu`: Laurent Mathieu property | `eventual_constantTerm_zero_of_newton`, `mathieu_of_minimal` | CONDITIONAL | Full separated-support conclusion proved for all ranks and all multipliers. Vanishing-moments premise reaches it only assuming minimal nonvanishing. |
-| `cor:torus`: finite Fourier sums on compact tori | None | OPEN | Haar/constant-term correspondence and Laurent Mathieu. No dependence on the neighboring repository is imported. |
+| `cor:torus`: finite Fourier sums on compact tori | `torus_mathieu_of_minimal` in `TorusMathieu` | CONDITIONAL | The normalized product-Haar/constant-term correspondence is proved on `(ℝ/ℤ)^d`, with actual Haar and probability-measure instances. Finite Fourier sums are exactly finite integer-character sums. The complete Mathieu implication now requires only the still-unproved `MinimalNonvanishing`. No dependence on the neighboring repository is imported. |
 | Unlabeled compact-torus remark: finite Fourier sums = continuous K-finite functions | None | OPEN | Averaged inner product, simultaneous diagonalization and character lattice identification. |
 | `std:whitney`: complex algebraic Whitney stratification/first isotopy | None | OPTIONAL / EXCLUDED | Appendix only; not a main-route dependency. |
 | `prop:bifurcation-whitney`: alternate finite exceptional set | None | OPTIONAL / EXCLUDED | No projective graph, Whitney or Thom proof introduced. |
@@ -149,7 +149,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Analytic continuation of periods | OPEN: the topological local system and its ODE transport are constructed, but differential forms, integration pairing, and holomorphic period continuation remain unproved. |
 | Endpoint representative/ODE class comparison | OPEN. |
 | Endpoint error term by continuity from above on compact truncations | OPEN. |
-| Residue geometric-series convergence and character coefficient extraction | OPEN. |
+| Residue geometric-series convergence and character coefficient extraction | PROVED scalar components: `summable_constantTerm_series`, `integral_torusCharacter`, `integral_torusLaurent_eq_constantTerm`, and `generatingFunction_eq_torusCauchy`. The measure is normalized product Haar on arbitrary nonzero-radius product circles, parametrized by `(ℝ/ℤ)^d`. The oriented logarithmic-form interpretation remains open. |
 | Analytic continuation of the rational period to the small positive interval | OPEN. |
 | Exponent support estimates, strict separation and eventual multiplier vanishing | PROVED components in `Laurent`; adapted proof provenance below. |
 | Newton-power coefficient and vertex arguments | PROVED: `coeff_pow_unique_min` proves the exact coefficient at `n • v`, `finite_extremePoint_exposed` supplies a strict supporting functional for every extreme point of a finite hull, and `extremePoint_pow_mem` proves vertex survival. `newtonPolytope_mul_subset` and `newtonPolytope_pow_subset` supply the support-based inclusions. |
@@ -162,6 +162,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Real extension of exponent changes | PROVED: `realExponentMap`, `realExponentEquiv`, `newtonPolytope_reindex`, and `origin_interior_reindex` transfer lattice automorphisms to real linear homeomorphisms. `coordinate_minimum_neg` uses full Newton interior to make each support minimum negative. |
 | Ordinary-polynomial factorization and evaluation | PROVED: `polynomialLaurentHom` is the injective ordinary-polynomial inclusion. `factor_at_coordinate_minimum` gives the exact coefficient-preserving factorization; `laurentEval_polynomialLaurentHom` and `laurentEval_polynomial_factor` identify the pointwise formula. |
 | Vertex-chart analytic target | CONDITIONAL: `minimal_of_vertex_minimal` and `minimal_iff_vertex_minimal` reduce the full target to `VertexMinimalNonvanishing`, an unproved proposition retaining full Newton interior as well as positive monomial exponents and nonzero polynomial constant coefficient. |
+| Local polynomial derivative disc | PROVED: `exists_polynomial_derivative_polydisc` gives a zero-free closed polydisc and strict bounds for all logarithmic partials. `residueFiberPolynomial_logderiv`, `residueFiberPolynomial_regular_root`, and `residueFiberPolynomial_deriv_ne_zero` give exact root identities and nonzero actual one-variable derivatives. `exists_residue_regular_polydisc` is uniform in the fiber parameter. |
+| Constant-term generating function | PROVED: `coeff_pow_norm_le` controls every power coefficient by the finite coefficient mass. `summable_constantTerm_series` proves convergence outside that bound. `generatingFunction_eq_inv_of_vanishing` proves exactly `R(s)=1/s` under the explicit universal-vanishing premise. |
+| Haar Cauchy transform | PROVED: `weightedCoefficientMass` bounds Laurent evaluation on every product circle. `hasSum_constantTerm_torusCauchy` uses dominated convergence and exact power coefficient extraction; `generatingFunction_eq_torusCauchy` identifies the scalar integral. This is not an integration pairing with a residue cycle. |
+| Finite Fourier sum representation | PROVED: `isFiniteFourierSum_iff_coefficients` identifies the Laurent representation with a finite sum of standard integer characters. Continuity, product/power coefficient extraction, and the conditional torus Mathieu theorem are checked. Equivalence with all continuous torus-finite functions remains an open separate remark. |
 
 ## Proof substitutions and provenance
 
@@ -404,7 +408,29 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     the full minimal theorem to its chart form while retaining the necessary
     full-interior hypothesis. No residue, period, or positive-rank
     nonvanishing conclusion is inferred without the remaining analytic work.
-26. No mathematical manuscript corrections or changes were made. No alternate
+26. `ResiduePolydisc` proves the first local estimates in `lem:residue`
+    directly from continuity at the nonzero constant coefficient, with a single
+    closed polydisc controlling every coordinate. The formal logarithmic
+    derivative of `s y^m-u` is computed at a root; the strict estimate makes
+    both the coordinate and that partial nonzero. An induction on ordinary
+    polynomials identifies these partials with actual derivatives while the
+    other coordinates are fixed. This does not establish root multiplicities,
+    root count, covering degree, or a cycle integration theorem.
+    `CoefficientSeries` gives a direct convolution bound for all power
+    coefficients, proves convergence, and computes `R(s)=1/s` under universal
+    positive-power vanishing. `TorusCoefficients` models phases by `(ℝ/ℤ)^d`
+    and supplies actual normalized product-Haar instances. Mathlib's Fourier
+    orthogonality and finite-product Fubini give integer-character integration
+    and exact Laurent coefficient extraction. For arbitrary nonzero radii,
+    a finite weighted coefficient sum bounds the integrands.
+    `TorusCauchySeries` uses dominated convergence with a summable geometric
+    majorant to exchange summation and Haar integration; this substitutes for
+    the manuscript's uniform-geometric-series exchange. The resulting scalar
+    Cauchy formula is proved, but its oriented logarithmic-form interpretation
+    and conversion to a residue period remain open. `TorusMathieu` uses the
+    Haar bridge to prove the full finite-Fourier implication conditionally
+    on `MinimalNonvanishing`; the premise has not been discharged.
+27. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -420,7 +446,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 59 mathematical module files plus the root umbrella and
+The checkpoint has 64 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

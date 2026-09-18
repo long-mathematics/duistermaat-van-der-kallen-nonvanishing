@@ -279,5 +279,15 @@ polynomial with nonzero constant coefficient. The pointwise torus formula and
 all power constant-term identities are checked. `minimal_iff_vertex_minimal`
 identifies the full target with the still-open analytic vertex-chart case,
 retaining full Newton interior. The listed semialgebraic, integration, period,
-and residue obligations remain unchanged; the local derivative-disc estimate
-and constant-term generating series in `lem:residue` are available next steps.
+and residue-cycle obligations remain open. `ResiduePolydisc` now proves the
+zero-free closed polydisc, all strict logarithmic-partial estimates, and nonzero
+actual coordinate derivatives at roots, uniformly in the fiber parameter.
+`CoefficientSeries` proves convergence of the generating series and its forced
+value `1/s` under universal vanishing. `TorusCoefficients` proves normalized
+product-Haar coefficient extraction, including products and powers, and
+`TorusCauchySeries` identifies the scalar Cauchy transform by dominated
+convergence. The comparison with oriented logarithmic-form integration is not
+proved. Root count, compact covering cycles, orientation, residues, and the
+period identity remain the next residue dependencies. `TorusMathieu` supplies
+the complete finite-Fourier torus implication with minimal nonvanishing still
+explicit as its unproved premise.
