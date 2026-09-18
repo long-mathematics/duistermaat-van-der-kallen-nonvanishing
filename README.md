@@ -77,12 +77,15 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   the reverse-trajectory identity;
 - fiber transport homeomorphisms, uniform Lipschitz dependence on initial
   points for bounded proper radius, joint continuity in initial point and time,
-  and compact sweeps of compact initial sets.
+  and compact sweeps of compact initial sets;
+- smoothness of the actual field on Banach spaces of continuous curves, a
+  bounded primitive operator, and a regular analytic Picard branch on an open
+  parameter neighborhood of zero time scale, jointly in velocity and initial
+  point, with its integral equation yielding actual scaled ODE trajectories.
 
-Semialgebraic projection and uniform path bounds, smooth dependence on initial
-points and velocity, transport diffeomorphisms, chain integration, periods,
-residues, and minimal
-nonvanishing remain open. No general-rank nonvanishing theorem is being claimed
+Semialgebraic projection and uniform path bounds, smooth dependence of complete
+transport on initial points and velocity, transport diffeomorphisms, chain
+integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is being claimed
 from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
 

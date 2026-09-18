@@ -58,7 +58,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `eq:common-radius-set`: existence of a common large radius | `PolynomialSignFormula.contains_tail_of_unbounded`; `common_radius_contradiction` | PARTIAL | Boolean-polynomial univariate tails and finite intersection of tails proved. Existential radius-set projection remains open. |
 | `prop:generalized-critical`: finite union of ordinary/asymptotic values | None | OPEN | Requires both parts of scalar finiteness. |
 | `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
-| ODE standard inputs before `lem:complete-segment` | `PolynomialGradient`; `ODEContinuation` | PARTIAL | Joint field smoothness, local existence, uniqueness, uniform existence time on compact subsets, extension past finite endpoints, and existence from a priori compact control are proved for autonomous fields. Smooth flow dependence and the time-dependent ODE package remain open. |
+| ODE standard inputs before `lem:complete-segment` | `PolynomialGradient`; `ODEContinuation`; `LaurentPicard` | PARTIAL | Joint field smoothness, local existence, uniqueness, uniform existence time on compact subsets, extension past finite endpoints, and existence from a priori compact control are proved for autonomous fields. A regular Picard branch is analytic on an open parameter neighborhood of zero time scale, jointly in velocity and initial point, and its integral equation produces actual scaled ODE trajectories. Identification with chosen transport, smooth dependence along complete segments, and the time-dependent ODE package remain open. |
 | `lem:complete-segment`: complete segment transport | `laurent_complete_segment`, `laurent_segment_unique`, `laurent_segment_reverse_inverse` in `LaurentTransport` | PARTIAL | Complete existence on an open interval containing `[0,1]`, exact base motion, uniqueness, and reversal identity are proved for every Laurent polynomial and every initial torus point under precisely segment exclusion from the ordinary/asymptotic critical values. Compact control is proved, not assumed. `fiberTransportHomeomorph` gives the fiber homeomorphism; `fiberCurves_continuous` gives joint continuity in initial point and time for fixed velocity; `fiberSweep_isCompact` gives compact sweeps. Smoothness of the fiber maps and dependence on varying velocity remain open. |
 | `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberTransport`; `FiberContinuity` | PARTIAL | Fixed straight segments have actual fiber homeomorphisms. Arbitrary piecewise C¹ paths, smooth dependence including base-velocity parameters, local smooth trivializations, and the fiber homology local system remain open. |
 | `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | None | OPEN | Example retained in the unchanged manuscript; derivative, limits, Newton interior and regular-value computation not formalized. |
@@ -112,6 +112,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Uniform Lipschitz dependence in initial points at bounded proper radius | PROVED: `fiberCurves_lipschitz_initial`, via a common compact regular region and Gronwall. Velocity is fixed. |
 | Joint continuity in initial point and time | PROVED: `fiberCurves_continuous`, on the initial fiber times `[0,1]`. |
 | Compact sweep of a compact initial subset | PROVED: `fiberSweep_isCompact`, `fiberSweep_subset_regular`; the whole image is compact and contained in the regular torus domain. No smooth or semialgebraic parametrization is claimed. |
+| Smooth superposition of the actual vector field on compact curve spaces | PROVED: `curveVectorField_apply`, `laurentCurveVectorField_contDiffAt`; Banach-algebra inversion at nowhere-zero curves, polynomial evaluation, and real-linear conjugation preserve the exact induced-metric formula. This is field smoothness on curve space, not solution smoothness. |
+| Bounded primitive on the fixed unit interval | PROVED: `curvePrimitiveCLM`, `curvePrimitiveCLM_norm_le`, `curvePrimitive_hasDerivAt`; norm at most one and the fundamental theorem of calculus, using a continuous clamped extension. |
+| Implicit Picard branch at zero time scale | PROVED: `picardResidual_partial_zero` gives the identity partial derivative; `exists_smooth_picard_branch` applies the smooth implicit-function theorem without assuming invertibility of a later-time linearization. |
+| Local Laurent Picard branch with velocity and initial-point parameters | PROVED component: `laurent_exists_analytic_picard_neighborhood` gives an open neighborhood of zero time scale with an analytic map into the Banach space of regular curves satisfying the actual integral equation; it includes nearby nonzero time scales. `laurent_picard_equation_solves_ode` constructs scaled ODE trajectories agreeing with these curves on `[0,1]`, including endpoint derivatives. Identification with `fiberCurve` and complete-segment smooth dependence remain open. |
 | Identity transport for a stationary segment | PROVED regression: `fiberTransport_zero`. |
 | Uniform local time on a compact subset of the regular domain | PROVED: `uniform_ode_time_on_compact`, retaining the range bound from the local Picard construction. |
 | Compact-domain continuation | PROVED: `ode_extend_right_of_compact` and `ode_exists_past_of_compact_control`; autonomous Banach-space statements with explicit domain and compact-control hypotheses. |
@@ -172,7 +176,19 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
    obtains a Lipschitz constant there, and applies Gronwall to prove continuous
    dependence and compactness of sweeps. This proves the topological components
    of transport; smooth dependence, especially in velocity, is still open.
-10. No mathematical manuscript corrections or changes were made. No alternate
+10. `CurveField` lifts the same explicit rational normalized-gradient formula to
+    Banach algebras of continuous curves. `CurveIntegral` supplies a bounded
+    primitive on `[0,1]`. `PicardImplicit` implements smooth local dependence
+    through the equation `u - constant(z) - δ K(V_a(u)) = 0`: at `δ = 0` the
+    partial derivative in `u` is the identity. `LaurentPicard` specializes this
+    to the actual Laurent field, keeps the nearby curves in the regular domain,
+    and recovers ODE trajectories from the integral equation. This is an
+    implementation of the manuscript's ODE standard input, not a change of
+    transport route. In this mathlib version `⊤ : WithTop ℕ∞` is the analytic
+    order, so the implicit branch is analytic on one open neighborhood of
+    parameters, including nonzero small time scales. Identification with chosen
+    complete transports and propagation along full segments remain unproved.
+11. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -188,7 +204,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 20 mathematical module files plus the root umbrella and
+The checkpoint has 24 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
