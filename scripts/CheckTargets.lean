@@ -71,3 +71,10 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.regularFiber_val_contMDiff
 #check DuistermaatVanDerKallen.fiberTransportDiffeomorph
 #check DuistermaatVanDerKallen.complete_segment_transport
+#check DuistermaatVanDerKallen.exists_local_gradient_bound
+#check DuistermaatVanDerKallen.criticalValues_union_isClosed
+#check DuistermaatVanDerKallen.convexTransportDiffeomorph
+#check DuistermaatVanDerKallen.convexTransportDiffeomorph_base
+#check DuistermaatVanDerKallen.convexTransport_center
+#check DuistermaatVanDerKallen.convexTransport_compact_sweep
+#check DuistermaatVanDerKallen.laurent_local_trivialization_at

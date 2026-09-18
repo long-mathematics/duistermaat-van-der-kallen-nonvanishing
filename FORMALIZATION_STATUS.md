@@ -60,7 +60,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
 | ODE standard inputs before `lem:complete-segment` | `PolynomialGradient`; `ODEContinuation`; `LaurentPicard`; `AnalyticTransport` | PARTIAL | Joint field smoothness, local existence, uniqueness, uniform existence time on compact subsets, extension past finite endpoints, and existence from a priori compact control are proved for autonomous fields. A regular Picard branch is analytic on an open parameter neighborhood of zero time scale, jointly in velocity and initial point, and its integral equation produces actual scaled ODE trajectories. The local branch is now identified with existing solutions, and `laurent_family_joint_analytic` propagates analytic parameter/time dependence over complete regular segments. The general time-dependent ODE package remains open. |
 | `lem:complete-segment`: complete segment transport | `complete_segment_transport`, `fiberTransportDiffeomorph`; existence on a larger interval in `laurent_complete_segment` | PROVED | Under precisely segment exclusion from ordinary/asymptotic critical values: complete normalized-gradient trajectories, exact base motion, and the actual time-one map as an analytic real-manifold diffeomorphism. Every compact initial subset has compact sweep inside the regular torus, covering the compact-cycle support assertion without assuming a cycle integration package. The regular-fiber manifold instances are constructed from the actual differential, not postulated. |
-| `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberAtlas`; `FiberDiffeomorph`; `SegmentAnalytic` | PARTIAL | Fibers outside ordinary critical values are analytic real manifolds, and straight-segment transports are actual analytic diffeomorphisms with analytic dependence on admissible velocity/initial-point/time parameters. Arbitrary piecewise C¹ paths, local smooth trivializations, and the fiber homology local system remain open. |
+| `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberAtlas`; `FiberDiffeomorph`; `LocalTrivialization` | PARTIAL | Regular fibers, straight-segment diffeomorphisms, and local smooth triviality over the actual complement of ordinary/asymptotic critical values are proved. `laurent_local_trivialization_at` constructs a product diffeomorphism preserving the base coordinate at every good value. Arbitrary piecewise C¹ horizontal ODE transport and the fiber homology local system remain open; critical-value finiteness is still a separate open dependency. |
 | `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | None | OPEN | Example retained in the unchanged manuscript; derivative, limits, Newton interior and regular-value computation not formalized. |
 | `rem:transport-background`: smooth transport distinct from semialgebraic sweep | Module architecture and boundary documentation | DESIGN CONSTRAINT | No assertion that the normalized-gradient flow is semialgebraic. No background alternative is imported. |
 | Relative form preceding `lem:holomorphy` | None | OPEN | Well-defined quotient form, independence, holomorphicity and fiberwise closedness. |
@@ -108,19 +108,21 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Radius Gronwall estimate on an existing trajectory | PROVED component: `trajectory_radius_bound`, specialized to actual Laurent integral curves by `laurent_integral_curve_radius_bound`. |
 | Compact sublevel ∩ compact-base inverse image, positive differential lower bound | PROVED component: `compact_regular_controlled_region`; `laurentControlledRegion_isCompact` and `laurentControlledRegion_regular` transfer this to the actual coordinate ODE domain. |
 | Exact straight-segment base equation | PROVED component: `laurent_integral_curve_base` on every connected open time interval carrying an integral curve. |
-| Reverse-path inverse and smooth local segment trivialization | PARTIAL: `fiberTransportEquiv` and `fiberTransportHomeomorph` construct actual inverse fiber maps. Both maps now have analytic ambient extensions at every point (`fiberTransport_has_analytic_extension`, `fiberTransportBack_has_analytic_extension`). `fiberTransportDiffeomorph` now supplies the manifold diffeomorphism. Local trivializations remain open. |
+| Reverse-path inverse and smooth local segment trivialization | PROVED: `fiberTransportDiffeomorph` gives the fiber map, `convexTransportDiffeomorph` gives the product diffeomorphism over each convex open good base, and `laurent_local_trivialization_at` supplies such neighborhoods at all good values. Both directions use the same normalized-gradient segment curves. |
 | Uniform Lipschitz dependence in initial points at bounded proper radius | PROVED: `fiberCurves_lipschitz_initial`, via a common compact regular region and Gronwall. Velocity is fixed. |
 | Joint continuity in initial point and time | PROVED: `fiberCurves_continuous`, on the initial fiber times `[0,1]`. |
 | Compact sweep of a compact initial subset | PROVED: `fiberSweep_isCompact`, `fiberSweep_subset_regular`; the whole image is compact and contained in the regular torus domain. No smooth or semialgebraic parametrization is claimed. |
 | Smooth superposition of the actual vector field on compact curve spaces | PROVED: `curveVectorField_apply`, `laurentCurveVectorField_contDiffAt`; Banach-algebra inversion at nowhere-zero curves, polynomial evaluation, and real-linear conjugation preserve the exact induced-metric formula. This is field smoothness on curve space, not solution smoothness. |
 | Bounded primitive on the fixed unit interval | PROVED: `curvePrimitiveCLM`, `curvePrimitiveCLM_norm_le`, `curvePrimitive_hasDerivAt`; norm at most one and the fundamental theorem of calculus, using a continuous clamped extension. |
 | Implicit Picard branch at zero time scale | PROVED: `picardResidual_partial_zero` gives the identity partial derivative; `exists_smooth_picard_branch` applies the smooth implicit-function theorem without assuming invertibility of a later-time linearization. |
-| Local Laurent Picard branch with velocity and initial-point parameters | PROVED component: `laurent_exists_analytic_picard_neighborhood` gives an open neighborhood of zero time scale with an analytic map into the Banach space of regular curves satisfying the actual integral equation; it includes nearby nonzero time scales. `laurent_picard_equation_solves_ode` constructs scaled ODE trajectories agreeing with these curves on `[0,1]`, including endpoint derivatives. Identification and propagation are now proved in `AnalyticTransport` and `SegmentAnalytic`; the local-trivialization package remains open. |
+| Local Laurent Picard branch with velocity and initial-point parameters | PROVED component: `laurent_exists_analytic_picard_neighborhood` gives an open neighborhood of zero time scale with an analytic map into the Banach space of regular curves satisfying the actual integral equation; it includes nearby nonzero time scales. `laurent_picard_equation_solves_ode` constructs scaled ODE trajectories agreeing with these curves on `[0,1]`, including endpoint derivatives. Identification and propagation are proved in `AnalyticTransport` and `SegmentAnalytic`; `LocalTrivialization` constructs the smooth product maps from this parameter dependence. |
 | Propagation of analytic dependence along a complete regular trajectory | PROVED: `laurent_local_analytic_endpoint`, `laurent_family_analytic`, `laurent_family_joint_analytic`. Uniqueness identifies local analytic endpoint maps; connected-interval induction propagates dependence, and rescaling adds joint time dependence. No parameter regularity of the chosen solutions is assumed in advance. |
 | Complete chosen transport with varying velocity | PROVED: `laurentSegmentCurve_joint_analytic`, `laurentSegmentCurve_eq_fiberCurve`, `laurentSegmentCurve_has_analytic_extension`. The parameter set is precisely `admissibleSegmentParameters`; results hold within that set and give analytic ambient germs at every admissible triple. Openness of the admissible set is not asserted. |
 | Analyticity of forward and inverse fiber transport | PROVED: `fiberTransport_has_analytic_extension`, `fiberTransportBack_has_analytic_extension`. At every point the existing fiber maps agree locally on the source fiber with a real analytic ambient map. No manifold instance or diffeomorphism object is assumed by these statements. |
 | Regular fibers as analytic real manifolds | PROVED: `laurent_regular_product_chart_fixed`, `laurentRealDifferential_ker_finrank`, `regularFiberIsManifold`. The actual real differential is surjective via the normalized lift; complemented-kernel implicit charts are sliced and their transitions proved analytic. The fixed model has real dimension `2d - 2`, retains the subtype topology, and handles empty fibers. `regularLaurentValue_of_not_critical` derives the explicit regularity property from exclusion of ordinary critical values. A complex-manifold atlas is not claimed. |
 | Manifold smoothness of complete fiber transport | PROVED: `regularFiber_val_contMDiff`, `fiberTransport_contMDiff`, `fiberTransportBack_contMDiff`, `fiberTransportDiffeomorph`; analytic ambient extensions yield analytic maps between the constructed fiber manifolds. The diffeomorphism definition derives both regular-fiber instances from `GoodSegment`; it uses the original fiber equivalence. |
+| Openness of the actual good-value locus | PROVED: `exists_local_gradient_bound`, `gradient_bound_excludes_critical`, `criticalValues_union_isClosed`, specialized by `laurentCriticalValues_isClosed` and `laurentGoodValues`. A local version of the proper-radius compactness contradiction supplies a weighted-gradient bound on an entire base neighborhood. This proves closedness of the union, not finiteness of either set. |
+| Smooth product transport and compact base/cycle sweeps | PROVED: `convexTransport_contMDiff`, `convexTransportBack_contMDiff`, `convexTransportDiffeomorph_base`, `convexTransport_center`, `convexTransport_compact_sweep`. The model uses the previously constructed fiber manifold and the usual open-subset manifold of the coordinate torus. Compact parameter subsets have compact images contained in the regular domain. Empty fibers are covered by the same equivalence. No semialgebraicity, integration, or local-system package is inferred. |
 | Identity transport for a stationary segment | PROVED regression: `fiberTransport_zero`. |
 | Uniform local time on a compact subset of the regular domain | PROVED: `uniform_ode_time_on_compact`, retaining the range bound from the local Picard construction. |
 | Compact-domain continuation | PROVED: `ode_extend_right_of_compact` and `ode_exists_past_of_compact_control`; autonomous Banach-space statements with explicit domain and compact-control hypotheses. |
@@ -181,8 +183,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
    obtains a Lipschitz constant there, and applies Gronwall to prove continuous
    dependence and compactness of sweeps. This proves the topological components
    of transport. The later analytic-dependence modules supply the parameter
-   regularity, and `FiberDiffeomorph` supplies the manifold refinement. Local
-   trivializations remain open.
+   regularity, `FiberDiffeomorph` supplies the manifold refinement, and
+   `LocalTrivialization` constructs the product maps.
 10. `CurveField` lifts the same explicit rational normalized-gradient formula to
     Banach algebras of continuous curves. `CurveIntegral` supplies a bounded
     primitive on `[0,1]`. `PicardImplicit` implements smooth local dependence
@@ -204,8 +206,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     ambient analytic extensions, including for the original forward and inverse
     fiber maps. This implements the manuscript's smooth-dependence input for
     this explicit autonomous family; it neither changes the field nor assumes
-    a separate global smooth flow. Parameter-set openness and local trivializations are not inferred from these
-    statements. The fiber manifold structures are constructed separately below.
+    a separate global smooth flow. Parameter-set openness is not inferred from
+    these statements. Fiber manifolds and local trivializations are constructed
+    separately below.
 12. `RegularFiberCharts` uses the existing complex derivative and scalar lift
     to prove surjectivity of the actual real differential, then applies the
     complemented-kernel implicit-function theorem. Restricting the resulting
@@ -221,7 +224,24 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     `complete_segment_transport` assembles the segment lemma, including compact
     sweeps for arbitrary compact initial subsets. These are real analytic
     manifold constructions; no complex atlas or general path transport is claimed.
-13. No mathematical manuscript corrections or changes were made. No alternate
+13. `LocalTrivialization` follows the manuscript's straight-segment construction:
+    forward transport uses velocity `s - b`, and the inverse uses `b - f(y)`.
+    Uniqueness and reversal give the two inverse identities; ambient parameter
+    dependence gives manifold smoothness of both maps. The result is a bundled
+    smooth (`∞`, not analytic `⊤`) product diffeomorphism with the original
+    Laurent evaluation as its base coordinate. The center map is the identity,
+    and compact parameter families have compact sweeps in the regular domain.
+14. `CriticalNeighborhood` proves openness of the good-value locus directly by
+    the same proper-radius compactness argument used for the uniform gradient
+    lemma: failure of a neighborhood lower bound produces either an ordinary
+    critical limit or an escaping sequence witnessing an asymptotic value.
+    Conversely such a bound excludes both kinds of critical value on that open
+    neighborhood. This supplies the open discs for local triviality without
+    waiting for the separately required finiteness theorem. It does not replace
+    the common-radius finiteness proof or assert semialgebraicity. This extra
+    topological lemma is documented as a dependency refinement, with no change
+    to the manuscript's transport map or local-triviality conclusion.
+15. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -237,7 +257,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 29 mathematical module files plus the root umbrella and
+The checkpoint has 31 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

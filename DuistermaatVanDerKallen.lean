@@ -25,3 +25,5 @@ import DuistermaatVanDerKallen.SegmentAnalytic
 import DuistermaatVanDerKallen.RegularFiberCharts
 import DuistermaatVanDerKallen.FiberAtlas
 import DuistermaatVanDerKallen.FiberDiffeomorph
+import DuistermaatVanDerKallen.CriticalNeighborhood
+import DuistermaatVanDerKallen.LocalTrivialization

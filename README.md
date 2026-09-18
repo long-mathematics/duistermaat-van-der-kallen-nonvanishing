@@ -87,13 +87,16 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   of the forward and inverse fiber maps near every point;
 - analytic real-manifold structures on regular fibers of dimension `2d - 2`,
   and the assembled complete-segment lemma with the actual transport
-  diffeomorphism, exact base motion, and compact sweeps.
+  diffeomorphism, exact base motion, and compact sweeps;
+- smooth local product trivializations over the actual good-value locus, with
+  base-coordinate preservation and compact sweeps of compact parameter sets.
+  Openness of that locus is proved by proper-radius compactness; finiteness of
+  the critical-value sets remains open.
 
-Semialgebraic projection and uniform path bounds, local smooth trivializations,
-general piecewise C¹ path transport, chain
-integration, periods, residues, and minimal nonvanishing remain open. No
-general-rank nonvanishing theorem is being claimed from the conditional
-implications. The general-torus dependency in the
+Semialgebraic projection and uniform path bounds, general piecewise C¹ path
+transport, the homology local system, chain integration, periods, residues, and
+minimal nonvanishing remain open. No general-rank nonvanishing theorem is
+being claimed from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
 
 ```sh
