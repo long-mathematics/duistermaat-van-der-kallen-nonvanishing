@@ -1,0 +1,1135 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdftitle={A resolution-free proof of the Duistermaat--van der Kallen nonvanishing theorem},pdfauthor={Christopher D. Long}}
+\setlength{\emergencystretch}{2em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{standard}[theorem]{Standard input}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\T}{\mathbb T}
+\newcommand{\Pj}{\mathbb P}
+\newcommand{\CT}{\operatorname{CT}}
+\newcommand{\Newt}{\operatorname{Newt}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\Span}{\operatorname{span}_{\R}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\relint}{\operatorname{relint}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\mass}{\operatorname{mass}}
+\newcommand{\Reg}{\operatorname{Reg}}
+\newcommand{\Crit}{\operatorname{Crit}}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\torus}{(\C^\times)^d}
+\newcommand{\OmegaD}{\Omega_d}
+\newcommand{\omegaD}{\omega_d}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\pair}[2]{\langle #1,#2\rangle}
+\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{arXiv:#1}}
+\title{A resolution-free proof of the\newline Duistermaat--van der Kallen\newline nonvanishing theorem}
+\author{Christopher D. Long\thanks{Email: \href{mailto:galizur@gmail.com}{galizur@gmail.com}.}}
+\date{September 17, 2026}
+\begin{document}
+\maketitle
+\begin{center}
+\small\textit{Research draft for adversarial mathematical audit. Not formally verified.}
+\end{center}
+\begin{abstract}
+We present a resolution-free semialgebraic proof of the following theorem of
+Duistermaat and van der Kallen: if the Newton polytope of a nonzero complex
+Laurent polynomial contains the origin, then infinitely many of its positive
+powers have nonzero constant term. The principal estimate is a uniform
+middle-dimensional sublevel bound for the restriction of a holomorphic
+volume form to a semialgebraic family. Polynomial differentiation and a
+finite-multiplicity projection estimate prove this bound; a dyadic
+decomposition then gives absolute integrability of the logarithmic volume
+form on every middle-dimensional semialgebraic chain on which the Laurent
+polynomial is bounded. The local residue construction of Duistermaat and
+van der Kallen identifies the constant-term generating function with a
+fiber period. Our estimate gives a primitive with a power-law endpoint
+bound, contradicting the simple pole forced by vanishing of all positive
+constant terms. Infinite nonvanishing follows by applying this minimal
+nonvanishing statement to powers of the polynomial. The standard
+semialgebraic and stratified-topological inputs are stated explicitly.
+\end{abstract}
+
+\section{Introduction and statements}\label{sec:introduction}
+Let $d\ge0$ and
+\[
+ R_d=\C[x_1^{\pm1},\ldots,x_d^{\pm1}].
+\]
+For $0\ne f=\sum_{\alpha\in\Z^d}a_\alpha x^\alpha\in R_d$, define
+\[
+ A=\supp(f)=\{\alpha:a_\alpha\ne0\},\qquad
+ \Newt(f)=\conv(A),\qquad
+ c_n(f)=\CT(f^n)\quad(n\ge0).
+\]
+In particular $c_0(f)=1$. For $d=0$, the ring is $\C$ and the exponent
+space is the zero-dimensional vector space.
+
+\begin{theorem}[Duistermaat--van der Kallen, nonvanishing]\label{thm:main}
+Let $d\ge0$ and $0\ne f\in R_d$. If $0\in\Newt(f)$, then for every
+integer $M\ge0$ there is an integer $n>M$ such that $c_n(f)\ne0$.
+\end{theorem}
+
+\begin{theorem}[Minimal nonvanishing]\label{thm:minimal}
+Let $d\ge0$ and $0\ne f\in R_d$. If $0\in\Newt(f)$, there exists
+$n\ge1$ such that $c_n(f)\ne0$.
+\end{theorem}
+
+Theorem~\ref{thm:main} follows algebraically from
+Theorem~\ref{thm:minimal}, by applying it to $f^{M+1}$; see
+Section~\ref{sec:corollaries}. Thus only the minimal statement needs an
+analytic proof. Strict separation subsequently gives
+\[
+ \bigl(\CT(f^n)=0\text{ for every }n\ge1\bigr)
+ \ \Longrightarrow\
+ \CT(hf^n)=0\text{ for all sufficiently large }n
+\]
+for every fixed Laurent polynomial $h$. The corresponding assertion for
+finite Fourier sums on a compact torus follows by integrating characters.
+
+The original proof is due to Duistermaat and van der Kallen
+\cite{DvK}. Kiselman's Question~9.1, recording a question of Passare,
+asks for a simpler proof of infinite nonvanishing
+\cite{Kiselman}. The argument here is organized around a direct estimate
+for a restricted complex differential form. Its local residue construction
+and primitive-differentiation identity come from
+\cite[Sections 4--5]{DvK}; the new argument to be examined is the
+sublevel estimate and its use to control chains that may escape to infinity.
+We make no claim of bibliographic priority for individual auxiliary lemmas.
+
+\subsection*{Proof architecture and scope}
+After the elementary face reduction, assume that $d\ge1$ and
+$0\in\Int\Newt(f)$. Put
+\[
+ \OmegaD=\dd z_1\wedge\cdots\wedge\dd z_d,\qquad
+ \omegaD=\frac{\dd x_1}{x_1}\wedge\cdots\wedge\frac{\dd x_d}{x_d}.
+\]
+The argument has the following implications:
+\begin{align*}
+ &\text{uniform finite-multiplicity projection estimate}\\
+ &\quad\Longrightarrow\quad
+ \int_{E\cap\{|P|\le\varepsilon\}}|\OmegaD|
+       \le C\varepsilon^{1/D}\\
+ &\quad\Longrightarrow\quad
+ \int_{S\cap\{|f|\le R\}}|\omegaD|\le C_{S,f}R^{1/D}\\
+ &\quad\Longrightarrow\quad
+ \left|\int_a^{2a}J(s)\,\dd s\right|\longrightarrow0
+       \quad(a\downarrow0).
+\end{align*}
+If all positive constant terms vanish, the residue identity forces
+$J(s)=-(2\pi\ii)^{d-1}/s$. Its integral over $[a,2a]$ is a fixed nonzero
+constant, giving a contradiction.
+
+The term \emph{resolution-free} is literal: no resolution of singularities
+is used. The proof of the finite exceptional-value statement in
+Section~\ref{sec:transport} does use a possibly singular projective graph
+closure, a complex algebraic Whitney stratification, and Thom's first
+isotopy lemma. Semialgebraic triviality and integration are also retained.
+The presentation proves the argument relative to these explicitly stated
+standard inputs; it is not a reconstruction of their foundations.
+The stronger critical-value and exponential-growth statement in
+\cite[Theorem 5]{DvK} is not a theorem of this draft.
+
+\section{Elementary Newton-polytope reductions}\label{sec:newton}
+\begin{lemma}[Minimal-face reduction]\label{lem:face}
+Suppose $0\in\Newt(f)$. There is a Laurent polynomial $\widetilde f$ in
+$r\le d$ variables such that
+\[
+ \CT(\widetilde f^{\,n})=\CT(f^n)\quad(n\ge0),
+\]
+and either $r=0$ and $\widetilde f$ is a nonzero constant, or $r\ge1$ and
+$0\in\Int\Newt(\widetilde f)$ in $\R^r$.
+\end{lemma}
+\begin{proof}
+Let $Q$ be the smallest face of $\Newt(f)$ containing $0$. Then
+$0\in\relint Q$. If $Q$ is proper, choose an exposing linear functional
+$\ell$ with $\ell=0$ on $Q$ and $\ell>0$ on $\Newt(f)\setminus Q$.
+This is possible because the minimum occurs at $0\in Q$. If $Q$ is the
+whole polytope, use $\ell=0$.
+
+Let $f_Q$ consist of the terms of $f$ with exponent in $Q$. A sum of
+$n$ support exponents can equal $0$ only if every summand belongs to $Q$:
+apply $\ell$ and use nonnegativity. Comparing the full coefficient
+expansions, including all coefficients and cancellations, gives
+$\CT(f^n)=\CT(f_Q^n)$.
+
+The affine span $L$ of $Q$ is linear because $0\in Q$. Since $Q$ is a
+lattice polytope, $L$ is rational and $\Lambda=L\cap\Z^d$ is a lattice
+of rank $r=\dim L$. Choose a $\Z$-basis of $\Lambda$ and express $f_Q$
+in the corresponding group algebra $\C[\Lambda]\simeq R_r$. The zero
+exponent and all products are preserved. If $r=0$, its sole coefficient
+is nonzero. Otherwise the image of $Q$ has $0$ in its full-dimensional
+interior.
+\end{proof}
+
+\begin{lemma}[Powers of Newton polytopes]\label{lem:powers}
+For $0\ne f\in R_d$ and $q\ge1$,
+\[
+ \Newt(f^q)=q\Newt(f).
+\]
+\end{lemma}
+\begin{proof}
+Every exponent of $f^q$ is a sum of $q$ exponents of $f$, giving one
+inclusion. Let $v$ be a vertex of $\Newt(f)$, and choose a linear
+functional uniquely maximized at $v$ on the support. If
+$\alpha_1+\cdots+\alpha_q=qv$, equality at this maximum forces
+$\alpha_1=\cdots=\alpha_q=v$. Thus the coefficient at $qv$ is
+$a_v^q\ne0$. All vertices of $q\Newt(f)$ occur in $f^q$, proving the
+opposite inclusion. The singleton case is immediate.
+\end{proof}
+
+\begin{lemma}[A unimodular chart at a vertex]\label{lem:chart}
+Suppose $d\ge1$ and $0\in\Int\Newt(f)$. After a unimodular monomial
+change of variables, which preserves every constant term of every power,
+one can write
+\begin{equation}\label{eq:vertex-chart}
+ f(y)=y_1^{-m_1}\cdots y_d^{-m_d}u(y),
+ \qquad m_i\in\Z_{>0},\quad u\in\C[y_1,\ldots,y_d],\quad u(0)\ne0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Choose a vertex $v$ of $\Newt(f)$ and let $C$ be the open cone of real
+linear functionals whose minimum on the support occurs uniquely at $v$.
+Choose a primitive lattice vector $a_1\in C$, and extend it to a lattice
+basis $a_1,b_2,\ldots,b_d$ of the dual exponent lattice. Such a primitive
+vector exists by rational density in the nonempty open cone, followed by
+division by the gcd of its coordinates.
+
+For sufficiently large integers $N_i$, the vectors
+$a_i=b_i+N_i a_1$ lie in $C$: divide by $N_i$ and use openness. These
+vectors together with $a_1$ still form a lattice basis. In the resulting
+exponent coordinates every support exponent $\alpha$ satisfies
+$\pair{a_i}{\alpha}\ge\pair{a_i}{v}$, with simultaneous equality only
+at $v$. Since $0$ is an interior point, every nonzero linear functional
+takes negative values on the support; hence $\pair{a_i}{v}<0$.
+Set $m_i=-\pair{a_i}{v}$. Factoring out $y^{-m}$ gives
+\eqref{eq:vertex-chart} with constant coefficient $a_v$.
+
+The exponent change is a lattice automorphism, so it preserves zero
+exponents, products, and constant terms. From this point one may regard
+$f$ as the transformed Laurent polynomial and use the standard ordered
+form in the $y$-coordinates; no unrecorded orientation sign is then
+introduced.
+\end{proof}
+
+\section{Semialgebraic integration and uniform projections}\label{sec:sa}
+Semialgebraic means semialgebraic over $\R$, with arbitrary real
+parameters allowed. Complex coordinates are identified with their real
+and imaginary parts. Dimension in this section is real dimension.
+
+\subsection{The standard inputs}
+The following precise forms of standard results will be used.
+
+\begin{standard}[Semialgebraic decomposition and triviality]\label{std:sa}
+A semialgebraic set and a finite collection of semialgebraic subsets admit
+compatible finite decompositions into Nash manifolds. Semialgebraic
+families have uniform bounds on the number of connected components of
+their fibers. For a continuous semialgebraic map $g:X\to Y$, there is a
+finite semialgebraic partition $Y=\coprod_jY_j$ and semialgebraic
+homeomorphisms
+\[
+ g^{-1}(Y_j)\simeq Y_j\times F_j
+\]
+commuting with projection to $Y_j$. Compatible triangulations may be
+chosen for compact semialgebraic sets. Compact singular homology classes
+on semialgebraic manifolds admit finite semialgebraic cycle representatives.
+\end{standard}
+
+These are the decomposition, triangulation, and Hardt triviality results
+in \cite{BCR,Hardt}; the local-triviality statement is
+\cite[Theorem 9.3.2]{BCR}. A noncompact set need not have a finite
+triangulation by \emph{closed} simplices. Only compact cycle representatives
+and compact truncated chains will require that assertion here.
+
+\begin{standard}[Integration and Stokes]\label{std:stokes}
+Integration of a smooth form over a finite semialgebraic chain is
+compatible with finite subdivision and semialgebraic reparametrization.
+A bounded semialgebraic set of dimension $k$ has finite $k$-dimensional
+Hausdorff measure. For a compact semialgebraic chain $C$ and a smooth
+$(k-1)$-form $\eta$ on a neighborhood of its support,
+\[
+ \int_C\dd\eta=\int_{\partial C}\eta.
+\]
+On a smooth semialgebraic manifold, integration of a closed form over
+semialgebraic cycles agrees with the usual homology pairing.
+\end{standard}
+
+The integration convention and change of variables are described in
+\cite[Sections 1--2]{HKT}; Stokes is \cite[Theorem 2.9]{HKT}, extended to
+finite chains by subdivision and cancellation of common faces. Compatible
+$C^1$ triangulations give another foundation \cite{OS}. The finite-volume
+assertion can also be obtained by summing the coordinate-projection
+bounds proved below. We use ordinary change of variables on smooth
+pieces, not a slicing theorem for currents.
+
+\subsection{The absolute density of a complex form}
+\begin{definition}\label{def:density}
+Let $S\subset\R^N$ be semialgebraic of dimension at most $k$, and let
+$\xi$ be a smooth complex-valued $k$-form on a neighborhood of $S$.
+On a smooth $k$-dimensional stratum $M$, let $\tau_M(x)$ be either unit
+simple $k$-vector spanning $T_xM$. Define
+\begin{equation}\label{eq:absolute-density}
+ \int_S|\xi|
+ =\sum_{\dim M=k}\int_M|\xi_x(\tau_M(x))|\,\dd\mathcal H^k(x).
+\end{equation}
+Lower-dimensional strata contribute zero. For $k=0$ this is counting
+measure. For a finite chain $C=\sum_jn_jC_j$, the positive quantity used
+for estimates is $\sum_j|n_j|\int_{C_j}|\xi|$; we write it as
+$\int_{|C|}|\xi|$. The oriented integral is linear in the chain.
+\end{definition}
+
+The definition is independent of the chosen smooth decomposition, by
+common refinement and the change-of-variables formula. It satisfies
+\begin{equation}\label{eq:density-identities}
+ |g\xi|=|g|\,|\xi|,\qquad
+ |\xi+\zeta|\le|\xi|+|\zeta|,\qquad
+ \left|\int_C\xi\right|\le\int_{|C|}|\xi|.
+\end{equation}
+The first identity concerns the modulus of the \emph{full} restricted
+complex form. Expanding into real coordinate wedges is permissible for
+upper bounds, not as an alternative definition.
+
+For example, on $E=\{(z,-z):1\le|z|\le2\}$ one has
+$(\dd z_1\wedge\dd z_2)|_E=0$, although the sum of the absolute values
+of its separate real coordinate terms is nonzero. This cancellation will
+be essential in Section~\ref{sec:sublevel}.
+
+\subsection{The uniform projection estimate}
+\begin{lemma}[Uniform finite-multiplicity integration]\label{lem:projection}
+Let $\Theta$ be semialgebraic and let
+$\mathcal E\subset\Theta\times\R^N$ be a semialgebraic family with
+$\dim E_\theta\le k$. Suppose
+$h_\theta:E_\theta\to\R^k$ is a semialgebraic family of continuous
+maps, differentiable on the smooth pieces after decomposition. There is
+$N_0<\infty$, depending on this entire family, such that
+\begin{equation}\label{eq:projection}
+ \int_{E_\theta}|\dd h_{\theta,1}\wedge\cdots\wedge\dd h_{\theta,k}|
+ \le N_0\vol_k(h_\theta(E_\theta))
+ \quad(\theta\in\Theta).
+\end{equation}
+An unbounded image is allowed; the right side may be infinite.
+\end{lemma}
+\begin{proof}
+Retain the parameter in the map
+\[
+ H:\mathcal E\longrightarrow\Theta\times\R^k,
+ \qquad H(\theta,x)=(\theta,h_\theta(x)).
+\]
+By Standard input~\ref{std:sa}, the numbers of connected components of
+all its fibers are bounded by one integer $N_0$. In particular the
+cardinality of every zero-dimensional fiber is at most $N_0$.
+
+Fix $\theta$. Decompose $E_\theta$ into smooth pieces on which the rank
+of $h_\theta$ is constant. Pieces of dimension less than $k$, and pieces
+on which the rank is less than $k$, have zero pullback $k$-density. On
+rank-$k$ pieces of dimension $k$, the map is locally a diffeomorphism.
+The set of target points whose whole fiber has positive dimension has
+dimension at most $k-1$; its rank-$k$ inverse images also have measure
+zero, by local change of variables. Away from this exceptional set there
+are at most $N_0$ preimages in total. Apply ordinary change of variables
+on injective smooth pieces, or equivalently the area formula with this
+counting multiplicity, and sum to obtain \eqref{eq:projection}.
+This is the parameter-uniform version of \cite[Proposition 2.5]{HKT};
+the parameter-retaining device also appears in the proof of its
+Proposition 2.8.
+\end{proof}
+
+\begin{remark}\label{rem:uniform-parameters}
+In applications, $\theta$ includes all varying set parameters, polynomial
+coefficients, and cutoffs. Parameters need not range in a compact set.
+Uniformity follows from one fixed semialgebraic description, not from
+compactness of parameter space. Adding finitely many prescribed
+semialgebraic inequalities produces another fixed family, to which the
+same lemma applies with a possibly different constant.
+\end{remark}
+
+\begin{corollary}\label{cor:bounded-volume}
+For a semialgebraic family $E_\theta$ of dimension at most $d$ contained
+in a fixed bounded box in $\C^d$,
+\[
+ \sup_\theta\int_{E_\theta}|\OmegaD|<\infty.
+\]
+More generally, the Euclidean $d$-volumes of a bounded semialgebraic family
+of subsets of $\R^N$ of dimension at most $d$ are uniformly bounded.
+\end{corollary}
+\begin{proof}
+Expand $\OmegaD$ into its $2^d$ real coordinate wedge terms and use
+\eqref{eq:density-identities} and Lemma~\ref{lem:projection} for the
+corresponding coordinate projections. Their images lie in fixed boxes.
+For the Euclidean-volume assertion, the coordinate components of a unit
+simple $d$-vector have squares summing to $1$, so their absolute values
+have sum at least $1$. Sum over all coordinate $d$-projections.
+\end{proof}
+
+\section{A middle-dimensional polynomial sublevel estimate}\label{sec:sublevel}
+Fix $d\ge1$, $L\ge1$, a semialgebraic family $E_\theta$ of real dimension
+at most $d$ in the box $[-L,L]^{2d}\subset\C^d$, and $D\ge1$.
+For a polynomial $P$, write
+\[
+ \|P\|_{\mathrm{coef}}=\max_\alpha|[z^\alpha]P|.
+\]
+
+\begin{theorem}[Uniform sublevel estimate]\label{thm:sublevel}
+There is $C=C(\mathcal E,d,D,L)$ such that every holomorphic polynomial
+$P\in\C[z_1,\ldots,z_d]$ with $\deg P\le D$ and
+$\|P\|_{\mathrm{coef}}=1$ satisfies
+\begin{equation}\label{eq:sublevel}
+ \int_{E_\theta\cap\{|P|\le\varepsilon\}}|\OmegaD|
+ \le C\varepsilon^{1/D}
+ \qquad(\theta\in\Theta,\ \varepsilon>0).
+\end{equation}
+The same estimate, with value zero on the left, holds for
+$\varepsilon=0$.
+\end{theorem}
+
+\begin{lemma}[The one-derivative estimate]\label{lem:derivative}
+For each $i\in\{1,\ldots,d\}$, let
+\[
+ \Xi_i(P)=\dd P\wedge\dd z_1\wedge\cdots
+                   \widehat{\dd z_i}\cdots\wedge\dd z_d.
+\]
+There is $C_1$, uniform in $\theta,P,\varepsilon,r$ and $i$, such that
+\begin{equation}\label{eq:one-derivative}
+ \int_{E_\theta\cap\{|P|\le\varepsilon,\ |\partial_iP|\ge r\}}
+        |\Xi_i(P)|\le C_1\varepsilon
+ \qquad(r>0,\ \varepsilon>0).
+\end{equation}
+The assertion also holds when the derivative cutoff is omitted.
+\end{lemma}
+\begin{proof}
+Expand $\Xi_i(P)$ into real wedges. Each term is the pullback of real
+coordinate volume under a map whose first coordinate is $\Re P$ or
+$\Im P$, and whose other coordinates are one real coordinate from each
+$z_j$ with $j\ne i$. The image of the indicated set lies in
+\[
+ [-\varepsilon,\varepsilon]\times[-L,L]^{d-1}.
+\]
+Apply Lemma~\ref{lem:projection} to the family retaining $\theta$, the
+real and imaginary coefficients of $P$, $\varepsilon$, and $r$.
+There are only finitely many choices of $i$ and real wedge term.
+Their image volumes are at most $2\varepsilon(2L)^{d-1}$. Summing proves
+the assertion. The triangle inequality is applied only after evaluating
+each complex form on the tangent vector.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:sublevel}]
+We induct on the degree bound $D$. Corollary~\ref{cor:bounded-volume}
+gives a bound $V_0$ for the integral over all of $E_\theta$. It suffices
+to handle $0<\varepsilon<1/2$; enlarging the final constant handles
+$\varepsilon\ge1/2$.
+
+Let $H=\max\{1,\sqrt2L\}$ and
+\[
+ B_D=\sum_{0<|\alpha|_1\le D}H^{|\alpha|_1},\qquad
+ c=(2B_D)^{-1}.
+\]
+If every nonconstant coefficient of $P$ has modulus less than $c$, its
+constant coefficient has modulus $1$ and the remaining terms have sum
+of moduli at most $1/2$ throughout the box. Thus $|P|\ge1/2$ there, and
+the sublevel set under consideration is empty.
+
+Otherwise choose a nonconstant coefficient $[z^\beta]P$ of modulus at
+least $c$, and an $i$ with $\beta_i>0$. Put $Q=\partial_iP$ and
+$M=\|Q\|_{\mathrm{coef}}$. Distinct monomials remain distinct under
+this partial differentiation whenever they survive; hence
+\begin{equation}\label{eq:derivative-normalization}
+ M\ge\beta_i|[z^\beta]P|\ge c.
+\end{equation}
+Holomorphy gives the exact identity
+\begin{equation}\label{eq:wedge-derivative}
+ \Xi_i(P)=(-1)^{i-1}Q\OmegaD.
+\end{equation}
+By \eqref{eq:density-identities}, on $|Q|\ge r$,
+\[
+ |\OmegaD|\le r^{-1}|\Xi_i(P)|.
+\]
+Consequently Lemma~\ref{lem:derivative} bounds the large-derivative part
+by $C_1\varepsilon/r$.
+
+If $D=1$, then $Q$ is a constant of modulus at least $c$. Applying the
+same argument with $r=c$ gives the bound $C_1\varepsilon/c$.
+This establishes the base case, including polynomials of degree zero
+through the preceding near-constant case.
+
+Suppose $D\ge2$. The induction hypothesis applies to the normalized
+polynomial $Q/M$ of degree at most $D-1$, even when it is constant.
+Discarding the condition $|P|\le\varepsilon$ on the small-derivative part,
+we obtain
+\begin{align}
+ \int_{E_\theta\cap\{|P|\le\varepsilon\}}|\OmegaD|
+ &\le C_1\frac{\varepsilon}{r}
+    +C_{D-1}\left(\frac rM\right)^{1/(D-1)}\notag\\
+ &\le C_1\frac{\varepsilon}{r}
+    +C_{D-1}c^{-1/(D-1)}r^{1/(D-1)}.
+ \label{eq:sublevel-split}
+\end{align}
+Take $r=\varepsilon^{(D-1)/D}$. Both terms are constant multiples of
+$\varepsilon^{1/D}$, proving the induction. All constants depend only
+on the fixed family and degree bounds. Finally, let
+$\varepsilon\downarrow0$ and use monotonicity of the positive integral
+to see that the integral over $P=0$ is zero.
+\end{proof}
+
+\begin{remark}
+This is a sublevel estimate for a restricted complex top form, not for
+Euclidean volume of $E_\theta$. The distinction permits the estimate
+when a whole component of $E_\theta$ lies in $P=0$: on that component
+the relevant complex form must have zero integral density. No regularity
+or transversality of the hypersurface $P=0$ is assumed.
+\end{remark}
+
+\section{Logarithmic integrability on the torus}\label{sec:log-integrability}
+\begin{theorem}[Middle-dimensional logarithmic integrability]\label{thm:log-integrability}
+Let $d\ge1$, let $f\in R_d$ satisfy $0\in\Int\Newt(f)$, and let
+$S\subset\torus$ be semialgebraic of real dimension at most $d$.
+Choose $b\in\Z_{\ge0}^d$ with $b+\supp(f)\subset\Z_{\ge0}^d$ and put
+\[
+ D=\max_{\alpha\in\supp(f)}|b+\alpha|_1.
+\]
+Then $D\ge1$, and there is a constant $C=C(S,f,b)$ such that
+\begin{equation}\label{eq:log-integrability}
+ \int_{S\cap\{|f|\le R\}}|\omegaD|
+ \le CR^{1/D}\qquad(R>0).
+\end{equation}
+The same assertion holds for a finite semialgebraic chain, with absolute
+multiplicities. In particular, the integral of $|\omegaD|$ is finite
+on every such chain on which $f$ is bounded.
+\end{theorem}
+\begin{proof}
+Interiority gives a $\kappa>0$ such that
+$[-\kappa,\kappa]^d\subset\Newt(f)$. With
+$a_* =\min_{\alpha\in\supp(f)}|a_\alpha|>0$, define
+\[
+ \rho_k=\max_{\alpha\in\supp(f)}|a_\alpha|2^{\pair{k}{\alpha}},
+ \qquad k\in\Z^d.
+\]
+The support function of the contained cube gives
+\begin{equation}\label{eq:rho-bound}
+ \rho_k\ge a_*2^{\kappa\|k\|_1}.
+\end{equation}
+
+Partition the torus into the disjoint half-open boxes
+\[
+ B_k=\{x:2^{k_i}\le|x_i|<2^{k_i+1}\ (1\le i\le d)\}.
+\]
+On $B_k$ write $x_i=2^{k_i}z_i$, so $1\le|z_i|<2$.
+Positive diagonal scaling preserves the logarithmic form. The polynomial
+\[
+ P_k(z)=\rho_k^{-1}z^b f(2^{k_1}z_1,\ldots,2^{k_d}z_d)
+\]
+has degree at most $D$ and coefficient norm exactly $1$. There is no
+combination of distinct exponents in this normalization. If $|f|\le R$,
+then
+\begin{equation}\label{eq:scaled-sublevel}
+ |P_k(z)|\le 2^{|b|_1}R/\rho_k.
+\end{equation}
+
+The rescaled sets belong to one semialgebraic family
+\[
+ E_\lambda=\{z:1\le|z_i|<2\text{ for every }i,
+               \ (\lambda_1z_1,\ldots,\lambda_dz_d)\in S\},
+ \qquad \lambda\in(0,\infty)^d.
+\]
+This family lies in a fixed bounded box and has dimension at most $d$.
+It includes every set obtained from $S\cap B_k$. On its fixed annulus,
+\[
+ \omegaD=(z_1\cdots z_d)^{-1}\OmegaD,
+ \qquad |\omegaD|\le|\OmegaD|.
+\]
+Applying Theorem~\ref{thm:sublevel} with this entire family, and then
+\eqref{eq:rho-bound}, gives a constant $C_0$ independent of $k$ and $R$
+with
+\begin{align}
+ \int_{S\cap B_k\cap\{|f|\le R\}}|\omegaD|
+ &\le C_0(2^{|b|_1}R/\rho_k)^{1/D}\notag\\
+ &\le C_1R^{1/D}2^{-\kappa\|k\|_1/D}.
+ \label{eq:dyadic-bound}
+\end{align}
+Here $D=0$ would force the support of $f$ to be a singleton, contradicting
+full-dimensional interiority for $d\ge1$.
+
+Set $q=2^{-\kappa/D}\in(0,1)$. The convergent sum is explicitly
+\[
+ \sum_{k\in\Z^d}q^{\|k\|_1}
+ =\left(1+2\sum_{j\ge1}q^j\right)^d
+ =\left(\frac{1+q}{1-q}\right)^d.
+\]
+Countable additivity of the nonnegative integral on the disjoint boxes
+proves \eqref{eq:log-integrability}. Boundary pieces are assigned to
+exactly one box; they need not have zero measure in $S$. Summing the
+bounds with the finitely many absolute chain multiplicities proves the
+chain version.
+\end{proof}
+
+\section{Finite exceptional values and fiber periods}\label{sec:transport}
+We record the topological input needed to continue a cycle from a large
+parameter to a punctured interval approaching zero. Avoiding only the
+ordinary critical values of a nonproper map would not suffice.
+
+\begin{standard}[Complex algebraic stratification and first isotopy]\label{std:whitney}
+A complex algebraic variety, together with finitely many specified
+algebraic subsets, admits a finite complex algebraic Whitney
+stratification compatible with those subsets. If a map from a closed
+Whitney-stratified subset of a smooth manifold to a smooth base is proper
+and restricts to a submersion on every stratum, it is locally topologically
+trivial by homeomorphisms preserving the strata.
+\end{standard}
+
+These are the algebraic Whitney-stratification theorem and Thom's first
+isotopy lemma; see \cite{Kaloshin,Mather}. For a direct treatment of
+nonproper polynomial maps, see \cite{DJ}, especially Theorems 3.1 and
+5.1 of its arXiv version. The following deduction specifies their use here.
+
+\begin{proposition}[Finite exceptional set]\label{prop:bifurcation}
+For a nonconstant $f\in R_d$, there is a finite set $B\subset\C$ such
+that all fibers over $U=\C\setminus B$ are smooth and
+\[
+ f:f^{-1}(U)\longrightarrow U
+\]
+is locally topologically trivial. Its fiber homology groups therefore
+form a local system on $U$.
+\end{proposition}
+\begin{proof}
+Let $\overline\Gamma$ be the closure of the graph of $f$ in
+$(\Pj^1)^d\times\Pj^1$, let $p:\overline\Gamma\to\Pj^1$ be projection,
+and let $D_\infty$ be the complement of the open graph identified with
+$\torus$. The projection $p$ is proper. Choose a finite complex
+algebraic Whitney stratification compatible with $D_\infty$.
+
+For a stratum $W$, the critical locus of $p|_W$ is algebraic in $W$.
+At such a point its complex differential has rank zero, because the
+base has complex dimension one. On the smooth locus of any irreducible
+component of this critical locus, the restriction of $p$ consequently
+has zero differential and is locally constant. It is therefore constant
+on that component. Equivalently, a rational function with zero
+differential on an irreducible complex variety is constant. There are
+only finitely many components and strata, so their critical images form
+a finite subset of $\Pj^1$.
+
+Remove that finite subset and the value $\infty$. On the remaining base,
+$p$ is a proper stratified submersion, so Standard
+input~\ref{std:whitney} gives local trivializations preserving all strata.
+They preserve $D_\infty$ and its complement. Restricting to the latter
+gives the claimed local trivializations of $f$. At a point of this open
+graph, submersivity on its stratum implies submersivity on the ambient
+smooth torus; hence every remaining fiber is smooth. Empty fibers, if
+present, cause no difficulty in this statement. In the application a
+nonempty fiber is supplied by the explicit residue construction.
+\end{proof}
+
+\begin{remark}\label{rem:complex-strata}
+The adjective \emph{complex algebraic} matters in this proof. Real
+semialgebraic strata can map to curves of real critical values. Such a
+real exceptional set need not leave a connected complement through which
+the required analytic germ can be transported. The projective graph
+above may be singular; no resolution is being hidden in this argument.
+\end{remark}
+
+\subsection{Relative forms and holomorphic periods}
+At a regular value $s$, put $X_s=f^{-1}(s)$. There is a canonical
+holomorphic $(d-1)$-form $\eta_s$ on $X_s$, denoted $\omegaD/\dd f$:
+locally choose a $(d-1)$-form $\eta$ with
+$\dd f\wedge\eta=\omegaD$ and restrict it to the fiber. Differences
+between two such choices restrict to zero. In local holomorphic
+coordinates $(f,z_2',\ldots,z_d')$, this is the ordinary relative
+holomorphic top form. In particular $\dd\eta_s=0$ on the fiber.
+
+\begin{lemma}[Holomorphy of the transported period]\label{lem:holomorphy}
+Let $[\gamma_s]\in H_{d-1}(X_s;\Z)$ be a locally constant homology
+class over a simply connected open subset of $U$ from
+Proposition~\ref{prop:bifurcation}. Then
+\[
+ J(s)=\int_{\gamma_s}\eta_s
+\]
+is well defined and holomorphic. Consequently its germ can be continued
+along any path in $U$.
+\end{lemma}
+\begin{proof}
+Closedness of $\eta_s$ and the ordinary de Rham pairing show that the
+integral depends only on the homology class. At a fixed regular fiber,
+choose a compact smooth singular cycle representing the class. Smooth
+representatives may be used for this local argument; later they will be
+replaced by homologous semialgebraic representatives.
+
+Near this compact support, the submersion $f$ admits smooth lifts of the
+two real coordinate vector fields on the base. On a sufficiently small
+disc their flows transport the whole finite cycle smoothly and remain
+in a compact neighborhood. These cycles represent the locally constant
+class, since in a topological local trivialization they give a continuous
+homotopy starting at that class. Integration on this finite smooth family
+first gives continuity of $J$.
+
+For a small oriented triangle $\Delta$ in the disc, sweep the cycle over
+$\Delta$ using the smooth local transport. This is a $(d+1)$-chain
+$\Gamma_\Delta$. The boundary of its cycle factor is zero; with the
+base orientation first, its boundary is the sweep over $\partial\Delta$.
+On the sweep over each edge,
+$\omegaD=\dd f\wedge\eta$ and $f$ is the base coordinate, whence
+ordinary parametrized integration gives
+\[
+ \int_{\partial\Delta}J(s)\,\dd s
+ =\int_{\partial\Gamma_\Delta}\omegaD
+ =\int_{\Gamma_\Delta}\dd\omegaD=0.
+\]
+The last equality uses that the holomorphic top form $\omegaD$ is
+closed. Morera's theorem proves holomorphy. The argument is local at
+every point of $U$, yielding continuation along paths. It does not
+require global monodromy invariance of the transported homology class.
+\end{proof}
+
+\section{Semialgebraic sweeps and the endpoint primitive}\label{sec:primitive}
+Continue to assume $0\in\Int\Newt(f)$ and $d\ge1$. Choose $b>0$
+sufficiently small that $(0,b]\subset U$. Applying Hardt triviality to
+the restriction of $f$ over the real interval, and decreasing $b$ once
+more if necessary, gives a semialgebraic homeomorphism
+\begin{equation}\label{eq:hardt}
+ \Psi:(0,b]\times X_b\longrightarrow f^{-1}((0,b]),
+ \qquad f(\Psi(s,z))=s,\qquad\Psi(b,z)=z.
+\end{equation}
+The last normalization is obtained by composing the fiber coordinate
+with the inverse of its value at $b$.
+
+Fix a compact semialgebraic cycle $\gamma_b$ representing the prescribed
+transported class at $b$, and put $\gamma_s=\Psi(s,\gamma_b)$. These
+classes coincide with those used for analytic continuation. Indeed,
+both are locally constant in the same fiber-homology local system and
+agree at $b$ on the connected interval. Thus their periods are the
+function $J$ of Lemma~\ref{lem:holomorphy}.
+
+Triangulate the finite cycle $\gamma_b$ and sweep its simplices using
+\eqref{eq:hardt}. Denote the resulting finite semialgebraic $d$-chain
+by $S$, and its restriction over $[a,c]\subset(0,b]$ by $S_{[a,c]}$.
+Orient the base first, so
+\begin{equation}\label{eq:sweep-boundary}
+ \partial S_{[a,c]}=\gamma_c-\gamma_a.
+\end{equation}
+Shared simplex faces cancel with their cycle multiplicities. Each
+truncated sweep is compact: it is the continuous image of a finite
+compact cycle times $[a,c]$. Its support lies in the regular locus of
+$f$. The full sweep need not have compact closure in the torus.
+
+\begin{proposition}[Quantitative endpoint primitive]\label{prop:primitive}
+There are $C>0$, $\delta>0$, and a function
+$I:(0,b]\to\C$, continuous on $(0,b]$ and $C^1$ on $(0,b)$, such that
+\begin{equation}\label{eq:primitive-derivative}
+ I'(s)=J(s),
+\end{equation}
+and $I$ extends continuously to $0$ with
+\begin{equation}\label{eq:primitive-endpoint}
+ |I(t)-I(0)|\le Ct^\delta\quad(0<t\le b).
+\end{equation}
+In particular, for $0<a<c\le b$,
+\begin{equation}\label{eq:sweep-integral}
+ \int_a^cJ(s)\,\dd s=\int_{S_{[a,c]}}\omegaD,
+\end{equation}
+and, after an enlargement of $C$ if needed,
+\begin{equation}\label{eq:dyadic-primitive}
+ \left|\int_a^{2a}J(s)\,\dd s\right|\le C(2a)^\delta
+ \quad(0<2a\le b).
+\end{equation}
+\end{proposition}
+\begin{proof}
+By Theorem~\ref{thm:log-integrability}, with $\delta=1/D$ as there,
+\begin{equation}\label{eq:sweep-tail}
+ \int_{|S|\cap\{|f|\le r\}}|\omegaD|\le Cr^\delta
+ \qquad(r>0).
+\end{equation}
+This applies separately to the finitely many swept simplices and then
+with their absolute multiplicities. In particular the integral over the
+whole sweep is absolutely convergent, since $|f|\le b$ there. Define
+\[
+ I(t)=-\int_{S_{[t,b]}}\omegaD,\qquad
+ I(0)=-\int_S\omegaD.
+\]
+The possible endpoint slices have dimension at most $d-1$ and contribute
+zero to these $d$-integrals. Since $f=s$ on the sweep,
+\eqref{eq:sweep-tail} proves \eqref{eq:primitive-endpoint}. It remains
+to prove \eqref{eq:primitive-derivative}; the fundamental theorem of
+calculus will then give \eqref{eq:sweep-integral}.
+
+On the regular locus of $f$, define the smooth complex vector field
+and smooth $(d-1)$-form
+\begin{equation}\label{eq:explicit-lift}
+ V=\frac{\sum_{j=1}^d\overline{\partial_j f}\,\partial/\partial x_j}
+          {\sum_{j=1}^d|\partial_j f|^2},
+ \qquad \eta=\iota_V\omegaD.
+\end{equation}
+Then $\dd f(V)=1$ and $\dd f\wedge\eta=\omegaD$; the latter follows
+by contracting the identically zero $(d+1)$-form $\dd f\wedge\omegaD$.
+The restriction of $\eta$ to $X_s$ is $\eta_s$.
+
+For $0<u<v\le b$, the identity
+\[
+ \omegaD=\dd((f-u)\eta)-(f-u)\dd\eta
+\]
+and Stokes on the compact semialgebraic sweep give
+\begin{equation}\label{eq:stokes-primitive}
+ I(v)-I(u)=(v-u)J(v)-\int_{S_{[u,v]}}(f-u)\dd\eta.
+\end{equation}
+The lower boundary term is zero, and the upper one is
+$(v-u)\int_{\gamma_v}\eta_v$. This is the local differentiation
+identity in \cite[Lemma 9]{DvK}.
+
+Fix $s_0\in(0,b)$. All sweeps over a sufficiently small closed
+neighborhood of $s_0$ lie in one compact subset of the regular locus.
+There $\dd\eta$ has bounded norm. Since $f$ takes values in $[u,v]$
+on $S_{[u,v]}$, the error in the difference quotient is bounded by
+\begin{equation}\label{eq:quotient-error}
+ \left|\frac{I(v)-I(u)}{v-u}-J(v)\right|
+ \le C_{s_0}\mass_d(S_{[u,v]}).
+\end{equation}
+Here mass means the sum of the Euclidean $d$-volumes of the fixed
+swept pieces with their absolute multiplicities. It is finite on each
+fixed compact truncation by Corollary~\ref{cor:bounded-volume}.
+As $v\downarrow u=s_0$, the sets decrease to a $(d-1)$-dimensional
+slice, so this mass tends to zero by continuity from above of a finite
+measure. The same argument applies from the other side. Continuity of
+$J$, proved independently in Lemma~\ref{lem:holomorphy}, yields
+$I'(s_0)=J(s_0)$. Thus $I$ is $C^1$ on $(0,b)$. The same
+compact-truncation argument at the upper endpoint gives
+$I(t)\to I(b)=0$ as $t\uparrow b$.
+
+Finally, \eqref{eq:sweep-integral} and \eqref{eq:sweep-tail}, applied
+to $S_{[a,2a]}\subset\{|f|\le2a\}$, prove
+\eqref{eq:dyadic-primitive}. No limiting Stokes theorem at $s=0$ has
+been used: Stokes was applied only on compact truncations away from zero.
+\end{proof}
+
+\begin{corollary}[Exclusion of the forced simple pole]\label{cor:no-pole}
+The period in Proposition~\ref{prop:primitive} cannot satisfy
+$J(s)=A/s$ on $(0,b]$ for any constant $A\ne0$.
+\end{corollary}
+\begin{proof}
+For $0<2a\le b$,
+\[
+ \int_a^{2a}\frac{A}{s}\,\dd s=A\log2.
+\]
+Its modulus is the positive constant $|A|\log2$, whereas
+\eqref{eq:dyadic-primitive} tends to zero as $a\downarrow0$.
+\end{proof}
+
+\section{The local residue identity and minimal nonvanishing}\label{sec:residue}
+By Lemmas~\ref{lem:face} and \ref{lem:chart}, the only case still
+requiring proof is $d\ge1$, $0\in\Int\Newt(f)$, and
+\[
+ f(y)=y^{-m}u(y),\qquad m_i\ge1,\qquad u(0)\ne0.
+\]
+All constant terms are computed in these transformed variables, where
+they equal the original constant terms. Set
+\[
+ \omega=\frac{\dd y_1}{y_1}\wedge\cdots\wedge\frac{\dd y_d}{y_d}.
+\]
+
+\begin{lemma}[Residue cycles near a vertex]\label{lem:residue}
+For all sufficiently large $|s|$, there is a compact semialgebraic
+$(d-1)$-cycle $\gamma_s\subset f^{-1}(s)$, varying locally smoothly,
+such that
+\begin{equation}\label{eq:residue-identity}
+ R(s):=\sum_{n\ge0}\frac{\CT(f^n)}{s^{n+1}}
+       =-(2\pi\ii)^{1-d}\int_{\gamma_s}\frac{\omega}{\dd f}.
+\end{equation}
+The series converges for all sufficiently large $|s|$.
+\end{lemma}
+\begin{proof}
+Choose $\varepsilon>0$ so small that $u$ has no zero on the closed
+polydisc $|y_i|\le\varepsilon$ and
+\begin{equation}\label{eq:derivative-disc}
+ |y_1\partial_1u|<m_1|u|
+ \quad\text{on that polydisc}.
+\end{equation}
+Let $K_\varepsilon=\{|y_i|=\varepsilon\ (1\le i\le d)\}$ with its
+ordered product-circle orientation. If
+$|s|>\max_{K_\varepsilon}|f|$, the geometric series is uniformly
+convergent on $K_\varepsilon$ and coefficient extraction gives
+\begin{equation}\label{eq:cauchy-transform}
+ R(s)=\frac1{(2\pi\ii)^d}
+       \int_{K_\varepsilon}\frac{\omega}{s-f}.
+\end{equation}
+Indeed the integral of each Laurent monomial is zero unless its exponent
+is zero, in which case it equals $(2\pi\ii)^d$.
+
+For $y'=(y_2,\ldots,y_d)$ on the product circle
+$K'=\{|y_j|=\varepsilon\ (j>1)\}$, solve
+\begin{equation}\label{eq:roots}
+ s y_1^{m_1}\prod_{j>1}y_j^{m_j}-u(y_1,y')=0.
+\end{equation}
+For $|s|$ uniformly large, Rouch\'e's theorem on $|y_1|=\varepsilon$
+shows that there are exactly $m_1$ roots in the disc, counted with
+multiplicity. None is zero because $u(0,y')\ne0$. At a root, the
+$y_1$-derivative of the left side of \eqref{eq:roots} is
+$(m_1u-y_1\partial_1u)/y_1$, which is nonzero by
+\eqref{eq:derivative-disc}. Thus all roots are simple.
+
+Let $\gamma_s$ be the union of these roots over $K'$. It is a compact
+unbranched $m_1$-sheeted cover of $K'$, oriented by the local projections
+onto the ordered base circles. Compactness follows uniformly from the
+absence of roots on either $y_1=0$ or $|y_1|=\varepsilon$ and compactness
+of $K'$. The defining equations and inequalities are semialgebraic.
+The cover has no boundary and so defines a cycle. For $d=1$, interpret
+$K'$ as a point and $\gamma_s$ as the positively weighted finite set of
+roots.
+
+As a one-variable form in $y_1$,
+\[
+ \frac{\dd y_1}{y_1(s-f)}
+ =\frac{y_1^{m_1-1}\bigl(\prod_{j>1}y_j^{m_j}\bigr)\,\dd y_1}
+ {s y_1^{m_1}\prod_{j>1}y_j^{m_j}-u(y)}.
+\]
+It is holomorphic at $y_1=0$. At a root $\zeta$ its residue is
+$-1/(\zeta\partial_1f(\zeta,y'))$.
+On this part of the fiber,
+\[
+ \frac{\omega}{\dd f}
+ =\frac{1}{y_1\partial_1f}
+   \frac{\dd y_2}{y_2}\wedge\cdots\wedge\frac{\dd y_d}{y_d}.
+\]
+Integrating first in $y_1$ and then over $K'$ gives
+\[
+ \int_{K_\varepsilon}\frac{\omega}{s-f}
+ =-2\pi\ii\int_{\gamma_s}\frac{\omega}{\dd f}.
+\]
+Together with \eqref{eq:cauchy-transform}, this proves
+\eqref{eq:residue-identity}, including its sign and normalization.
+The implicit function theorem at the simple roots gives local smooth
+variation of the cycle and the associated locally constant homology class.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:minimal}]
+If the minimal-face reduction has rank zero, $f_Q$ is a nonzero constant
+and its first constant term is nonzero. Otherwise apply the reduction
+and unimodular change just described. Suppose for contradiction that
+$\CT(f^n)=0$ for every $n\ge1$. Lemma~\ref{lem:residue} then gives
+\[
+ R(s)=\frac1s,\qquad
+ J(s):=\int_{\gamma_s}\frac{\omega}{\dd f}
+      =-\frac{(2\pi\ii)^{d-1}}s
+\]
+for all sufficiently large $|s|$.
+
+Let $B$ be the finite set in Proposition~\ref{prop:bifurcation}.
+Choose a large base point outside $B\cup\{0\}$ and continue the
+homology class of the residue cycle along a path in
+$\C\setminus(B\cup\{0\})$ to a sufficiently small positive $b$.
+Such a path exists because the complement of finitely many points in
+$\C$ is path connected. Lemma~\ref{lem:holomorphy} continues the scalar
+period. Since the rational function $-(2\pi\ii)^{d-1}/s$ is holomorphic
+along the same path, uniqueness of analytic continuation gives
+\[
+ J(s)=-\frac{(2\pi\ii)^{d-1}}s\quad(0<s\le b).
+\]
+Here $J$ denotes the period of the continued homology class, not the
+integral over the original fixed product torus after leaving its initial
+convergence region. The cycle may have monodromy; the displayed scalar
+identity is what is continued.
+
+Proposition~\ref{prop:primitive} applies to this class and its
+semialgebraic representatives on $(0,b]$. Corollary~\ref{cor:no-pole}
+contradicts the displayed identity, since $(2\pi\ii)^{d-1}\ne0$.
+The assumed universal vanishing is therefore impossible.
+\end{proof}
+
+\section{Infinite nonvanishing and the torus Mathieu property}\label{sec:corollaries}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $M\ge0$ and set $q=M+1$. By Lemma~\ref{lem:powers},
+$0\in\Newt(f^q)$. Theorem~\ref{thm:minimal} gives $k\ge1$ with
+\[
+ 0\ne\CT((f^q)^k)=\CT(f^{qk}).
+\]
+Since $qk\ge q>M$, this proves the assertion. In particular, no separate
+argument concerning higher-order poles is required.
+\end{proof}
+
+\begin{corollary}[Newton-polytope classification]\label{cor:classification}
+For $0\ne f\in R_d$,
+\[
+ \CT(f^n)=0\text{ for every }n\ge1
+ \quad\Longleftrightarrow\quad
+ 0\notin\Newt(f).
+\]
+\end{corollary}
+\begin{proof}
+One direction is the contrapositive of Theorem~\ref{thm:minimal}.
+For the other, strict separation of a point and a compact convex set
+gives a linear functional $\ell$ and $\delta>0$ with
+$\ell(\alpha)\ge\delta$ for every $\alpha\in\supp(f)$. Every exponent
+in $f^n$ is a sum of $n$ such exponents, and has $\ell$-value at least
+$n\delta>0$. The zero exponent cannot occur.
+\end{proof}
+
+\begin{corollary}[Laurent-polynomial Mathieu property]\label{cor:mathieu}
+Let $f,h\in R_d$. If $\CT(f^n)=0$ for every $n\ge1$, then
+$\CT(hf^n)=0$ for all sufficiently large $n$.
+\end{corollary}
+\begin{proof}
+The assertion is immediate if $f=0$ or $h=0$. Otherwise use
+Corollary~\ref{cor:classification} and choose $\ell,\delta$ as in its
+proof. Put $A_h=\min_{\beta\in\supp(h)}\ell(\beta)$. Any exponent in
+$hf^n$ has $\ell$-value at least $A_h+n\delta$, which is positive for
+all sufficiently large $n$. Thus its constant coefficient is zero.
+\end{proof}
+
+\begin{corollary}[Compact tori]\label{cor:torus}
+Let $K=\T^d$ with normalized Haar measure. For finite Fourier sums
+$F,H$ on $K$, if $\int_K F^n=0$ for every $n\ge1$, then
+$\int_K HF^n=0$ for all sufficiently large $n$.
+\end{corollary}
+\begin{proof}
+Identify a character with$x^\alpha=e^{\ii\pair{\alpha}{\theta}}$, $\alpha\in\Z^d$.
+Direct integration in each circle coordinate gives
+\[
+ \frac1{(2\pi)^d}\int_{[0,2\pi]^d}
+ e^{\ii\pair{\alpha}{\theta}}\,\dd\theta
+ =\begin{cases}1,&\alpha=0,\\0,&\alpha\ne0.\end{cases}
+\]
+Hence the Haar integral of any Laurent polynomial restricted to $K$
+is its constant coefficient. Apply Corollary~\ref{cor:mathieu}.
+\end{proof}
+
+\begin{remark}
+Finite Fourier sums are exactly the continuous $K$-finite functions on
+a torus. One direction follows because each character spans a
+one-dimensional translation module. Conversely, on a finite-dimensional
+translation-invariant space, average an inner product over $K$ and
+simultaneously diagonalize the commuting unitary translations. An
+eigenfunction is a scalar multiple of the corresponding character,
+by evaluation at the identity. The continuous characters of $\T^d$
+are precisely those indexed by $\Z^d$. This is the usual torus
+interpretation of \cite{DvK}; no assertion about nonabelian groups is
+needed in this paper.
+\end{remark}
+
+\section{Provenance and mathematical scope}\label{sec:scope}
+The theorem proved is the arbitrary-rank nonvanishing theorem of
+Duistermaat and van der Kallen. The residue construction in
+Lemma~\ref{lem:residue} is their local construction, and the calculation
+\eqref{eq:stokes-primitive} is their primitive-differentiation identity.
+The contribution proposed for independent examination is the uniform
+middle-dimensional sublevel estimate and its dyadic use in
+Theorem~\ref{thm:log-integrability}. This replaces the argument making
+the Haar form regular over finite fibers of a smooth compactification.
+
+The semialgebraic integration estimates in \cite{HKT} are antecedents,
+not conclusions attributed to the present paper. The coefficient-derivative
+induction in Section~\ref{sec:sublevel} is also naturally compared with
+geometric sublevel-set estimates; see, for example, \cite{Gressman} and
+the references there. The specific estimate here concerns the modulus
+of a restricted holomorphic top form and is uniform in a fixed
+semialgebraic family. These precise hypotheses, rather than merely
+similar terminology, must be used in any priority comparison.
+
+Question~9.1 of \cite{Kiselman} motivates the search for a simpler
+nonvanishing proof. The present route retains substantial, explicitly
+identified semialgebraic and stratified-topological results. It is
+therefore described as resolution-free rather than as elementary in
+every respect. The stronger singularity and growth conclusions of
+\cite[Theorem 5]{DvK} are outside the claims made here. A proof and
+generalization using Newton--Puiseux methods in one variable is discussed
+in \cite{ES}; the present theorem has no rank restriction.
+
+The intended future formalization has one core endpoint,
+Theorem~\ref{thm:minimal}. Lemma~\ref{lem:powers} and the separation
+argument then give Theorem~\ref{thm:main} and
+Corollary~\ref{cor:mathieu}. Standard inputs in
+Section~\ref{sec:sa} and Section~\ref{sec:transport} remain genuine
+mathematical dependencies: a formal proof must establish them or invoke
+proved library theorems, not add them as unproved project axioms.
+
+\subsection*{Acknowledgment of computational assistance}
+ChatGPT assisted with the development and drafting of this manuscript.
+Comments attributed to Claude informed revisions. These tools and their
+informal checks do not constitute independent mathematical verification
+or a Lean formalization.
+
+\begin{thebibliography}{99}
+\bibitem{BCR}
+J.~Bochnak, M.~Coste, and M.-F.~Roy,
+\emph{Real Algebraic Geometry}, Ergebnisse der Mathematik und ihrer
+Grenzgebiete (3), vol.~36, Springer, Berlin, 1998.
+
+\bibitem{DJ}
+S.~T.~Dinh and Z.~Jelonek,
+Thom isotopy theorem for nonproper maps and computation of sets of
+stratified generalized critical values,
+\emph{Discrete Comput. Geom.} \textbf{65} (2021), 279--304.
+\href{https://doi.org/10.1007/s00454-019-00087-w}{doi:10.1007/s00454-019-00087-w}.
+See also \arxiv{1805.02681}, version~2 (2018), Theorems~3.1 and~5.1.
+
+\bibitem{DvK}
+J.~J.~Duistermaat and W.~van der Kallen,
+Constant terms in powers of a Laurent polynomial,
+\emph{Indag. Math. (N.S.)} \textbf{9} (1998), no.~2, 221--231.
+\href{https://doi.org/10.1016/S0019-3577(98)80020-7}{doi:10.1016/S0019-3577(98)80020-7}.
+
+\bibitem{ES}
+A.~van den Essen and J.~Schoone,
+Kernels of linear maps: a generalization of Duistermaat and van der
+Kallen's theorem, \arxiv{2305.10062} (2023).
+
+\bibitem{Gressman}
+P.~T.~Gressman,
+Uniform geometric estimates for sublevel sets,
+\arxiv{0909.0875} (2009).
+
+\bibitem{HKT}
+M.~Hanamura, K.~Kimura, and T.~Terasoma,
+Integrals of logarithmic forms on semi-algebraic sets and a generalized
+Cauchy formula, Part I: convergence theorems,
+\arxiv{1509.06950}, version~1 (2015).
+In particular, Sections~1--2, Propositions~2.5 and~2.8,
+and Theorem~2.9.
+
+\bibitem{Hardt}
+R.~M.~Hardt,
+Semi-algebraic local-triviality in semi-algebraic mappings,
+\emph{Amer. J. Math.} \textbf{102} (1980), no.~2, 291--302.
+\href{https://doi.org/10.2307/2374240}{doi:10.2307/2374240}.
+
+\bibitem{Kaloshin}
+V.~Kaloshin,
+A geometric proof of the existence of Whitney stratifications,
+\arxiv{math/0010144} (2000), Theorem~1.
+
+\bibitem{Kiselman}
+C.~O.~Kiselman,
+Questions inspired by Mikael Passare's mathematics,
+\emph{Afr. Mat.} \textbf{25} (2014), 271--288;
+published online October~24, 2012.
+\href{https://doi.org/10.1007/s13370-012-0107-5}{doi:10.1007/s13370-012-0107-5}.
+Section~9, Question~9.1.
+
+\bibitem{Mather}
+J.~Mather,
+Notes on topological stability,
+\emph{Bull. Amer. Math. Soc. (N.S.)} \textbf{49} (2012), no.~4, 475--506.
+
+\bibitem{OS}
+T.~Ohmoto and M.~Shiota,
+$C^1$-triangulations of semialgebraic sets,
+\emph{J. Topol.} \textbf{10} (2017), no.~3, 765--775.
+\href{https://doi.org/10.1112/topo.12024}{doi:10.1112/topo.12024}.
+See also \arxiv{1505.03970}, version~2 (2017), especially Section~4.
+\end{thebibliography}
+\end{document}
