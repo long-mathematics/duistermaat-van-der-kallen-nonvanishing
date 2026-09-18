@@ -398,3 +398,24 @@ specific: construct the pieces on strata, prove that infinite-fiber targets
 form a negligible set in the required setting, and compare the chart Jacobian
 integrals with the manuscript's restricted complex-form densities. These facts
 are not inferred from the compiled Euclidean estimate.
+
+
+`RegularJacobian` and `SemialgebraicJacobian` now close the piece-construction
+and negligible-exceptional-target steps for locally C¹ maps between
+**equal-dimensional Euclidean spaces**. Nonsingular points have injective open
+neighborhoods; second countability and disjointification give measurable
+injective pieces. The actual critical image is null by mathlib's Jacobian
+critical-image theorem, so regular whole fibers are countable. The interval
+cover shows countable real semialgebraic sets are finite; coordinate projection
+extends this to finite-dimensional fibers. Thus the flat C¹ family estimate
+needs only the open projection premise in addition to its actual graph and
+smoothness hypotheses. No countable partition or exceptional-target estimate
+is assumed in this new theorem. The theorem permits noncompact parameter sets
+and images of infinite measure.
+
+The remaining integration gap is passage from charts on the manuscript's
+semialgebraic strata in arbitrary ambient dimension to this Euclidean theorem,
+including lower-dimensional strata and the exact restricted complex-form
+density. The equal-dimensional critical-image measure theorem here concerns
+real integration only. It neither proves asymptotic critical-value finiteness
+nor changes the required common-radius route.

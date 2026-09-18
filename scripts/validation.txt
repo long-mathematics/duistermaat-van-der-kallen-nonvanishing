@@ -1,18 +1,18 @@
-Finite multiplicity and Jacobian integration checkpoint validation (2026-09-18 America/New_York)
+Regular-fiber Euclidean integration checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 3763 jobs (includes dependencies; not 3763 project proofs)
-Project mathematical module files: 98
+lake build: SUCCESS, 3771 jobs (includes dependencies; not 3771 project proofs)
+Project mathematical module files: 102
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 643 (comments excluded)
-Environment-level project declarations: 1688
-Environment-level theorem declarations, including generated: 1280
+Explicitly written theorem declarations: 655 (comments excluded)
+Environment-level project declarations: 1703
+Environment-level theorem declarations, including generated: 1294
 
-Source audit: PASS, 101 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 105 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.

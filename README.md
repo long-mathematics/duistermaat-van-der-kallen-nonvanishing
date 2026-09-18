@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 98 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 102 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -70,9 +70,11 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   cardinal bounds for real one-dimensional semialgebraic fibers, with all
   parameters retained and no boundedness assumption;
 - measurable real/complex semialgebraic sets; uniform finite-fiber counts in
-  arbitrary dimension conditional on projection; and countable-piece Jacobian
-  estimates using actual derivatives. The family estimate retains explicit
-  projection, injective-piece, and almost-everywhere finite-fiber premises;
+  arbitrary dimension conditional on projection; and a uniform Euclidean C¹
+  family Jacobian estimate using actual derivatives. Projection remains an
+  explicit open premise; measurable injective pieces and almost-everywhere
+  finite fibers are now derived. Manifold-stratum and form-density integration
+  remain open;
 - the proper L2 affine-torus radius, compact sublevels, weighted scalar lift
   identities, an abstract uniform-gradient bound, and Gronwall/regular-domain control;
 - compactness of the actual small-gradient sphere family and precise unproved
