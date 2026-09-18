@@ -46,3 +46,7 @@ import DuistermaatVanDerKallen.TimeHomology
 import DuistermaatVanDerKallen.HomologyLift
 import DuistermaatVanDerKallen.ChainHomologyHomotopy
 import DuistermaatVanDerKallen.NewtonPowers
+import DuistermaatVanDerKallen.FaceRestriction
+import DuistermaatVanDerKallen.RelativeFaceReduction
+import DuistermaatVanDerKallen.LatticeCoordinates
+import DuistermaatVanDerKallen.FaceReduction

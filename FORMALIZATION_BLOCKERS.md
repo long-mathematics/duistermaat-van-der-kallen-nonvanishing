@@ -262,3 +262,15 @@ nonvanishing theorem; the classification and Laurent Mathieu implications are
 also ready to consume that theorem, which remains the principal unproved target.
 The neighboring
 compact-Lie-group project's general-torus DvK dependency must remain deferred.
+
+
+`face_reduction` in `FaceReduction`
+now proves the complete minimal-face reduction. Finite supporting cuts preserve
+all power constant terms and terminate with zero interior in the real span;
+an integer lattice basis then gives full interior in at most the original number
+of variables. The rank-zero alternative is a nonzero constant. The proof
+substitution and scalar-extension details are recorded in the coverage ledger.
+`minimal_iff_interior_minimal` isolates the still-unproved positive-rank
+full-interior analytic theorem. The next elementary dependency is the
+unimodular vertex chart (`lem:chart`); the listed semialgebraic, integration,
+period, and residue obligations remain unchanged.
