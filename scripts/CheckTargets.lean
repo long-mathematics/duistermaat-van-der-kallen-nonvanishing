@@ -15,3 +15,12 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.trajectory_radius_bound
 #check DuistermaatVanDerKallen.constantTerm_pow_reindex
 #check DuistermaatVanDerKallen.minimal_nonvanishing_rank_zero
+#check DuistermaatVanDerKallen.restricted_fderiv_norm_sq
+#check DuistermaatVanDerKallen.normalizedTangentLift_minimal
+#check DuistermaatVanDerKallen.polynomial_restricted_norm
+#check DuistermaatVanDerKallen.polynomialVectorField_contDiffAt
+#check DuistermaatVanDerKallen.polynomialVectorField_derivative
+#check DuistermaatVanDerKallen.polynomialVectorField_embedded_norm
+#check DuistermaatVanDerKallen.polynomialVectorField_local_solution
+#check DuistermaatVanDerKallen.torusPartial_constraint_eval
+#check DuistermaatVanDerKallen.restrictedDifferential_unit_rank_one

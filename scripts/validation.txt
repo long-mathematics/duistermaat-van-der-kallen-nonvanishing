@@ -1,18 +1,18 @@
-Foundation checkpoint local validation (2026-09-17 America/New_York)
+Restricted differential and local ODE checkpoint validation (2026-09-17 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 2535 jobs (includes dependencies; not 2535 project proofs)
-Project mathematical module files: 10
+lake build: SUCCESS, 2814 jobs (includes dependencies; not 2814 project proofs)
+Project mathematical module files: 14
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 40
-Environment-level project declarations: 120
-Environment-level theorem declarations, including generated: 70
+Explicitly written theorem declarations: 85 (comments excluded)
+Environment-level project declarations: 244
+Environment-level theorem declarations, including generated: 180
 
-Source audit: PASS, 13 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 17 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.
