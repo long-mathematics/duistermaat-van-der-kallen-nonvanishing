@@ -22,3 +22,6 @@ import DuistermaatVanDerKallen.PicardImplicit
 import DuistermaatVanDerKallen.LaurentPicard
 import DuistermaatVanDerKallen.AnalyticTransport
 import DuistermaatVanDerKallen.SegmentAnalytic
+import DuistermaatVanDerKallen.RegularFiberCharts
+import DuistermaatVanDerKallen.FiberAtlas
+import DuistermaatVanDerKallen.FiberDiffeomorph

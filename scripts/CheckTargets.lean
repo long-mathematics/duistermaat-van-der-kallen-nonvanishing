@@ -63,3 +63,11 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.fiberTransport_has_analytic_extension
 #check DuistermaatVanDerKallen.fiberTransportBack_has_analytic_extension
 #check DuistermaatVanDerKallen.laurentSegmentCurve_has_analytic_extension
+#check DuistermaatVanDerKallen.laurentRealDifferential_surjective
+#check DuistermaatVanDerKallen.laurent_regular_product_chart_fixed
+#check DuistermaatVanDerKallen.laurentRealDifferential_ker_finrank
+#check DuistermaatVanDerKallen.regularLaurentValue_of_not_critical
+#check DuistermaatVanDerKallen.regularFiberIsManifold
+#check DuistermaatVanDerKallen.regularFiber_val_contMDiff
+#check DuistermaatVanDerKallen.fiberTransportDiffeomorph
+#check DuistermaatVanDerKallen.complete_segment_transport
