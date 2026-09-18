@@ -158,6 +158,23 @@ sets; projection gives their tails; finite intersections select one radius;
 the checked chain estimate and pigeonhole principle give the contradiction.
 This does not prove either geometric premise or unconditional finiteness.
 
+## Ordinary critical values use the same geometric inputs
+
+`ordinaryCriticalValues_subset_dummy_asymptotic` proves an unconditional
+inclusion from the ordinary critical values of a rank-d polynomial into the
+asymptotic critical values of its extension by one unused torus coordinate.
+The point sequence has new coordinate n+1 and inverse 1/(n+1), so it stays in
+the rank-(d+1) closed torus and escapes in the full induced radius. Exact
+partial-derivative identities show that the restricted norm remains zero.
+
+This fully checked substitution removes the need for a separate finite
+critical-locus decomposition premise in the ordinary finiteness proof. Both
+parts of scalar finiteness, their union, and finiteness of the complement of
+the actual good-value locus now depend on the same unproved projection and
+uniform finite-C¹-chain inputs. The proof does not establish those inputs or
+unconditional finiteness. General stratification needed elsewhere in the
+manuscript remains open. The canonical manuscript has not been changed.
+
 ## Why this is a substantive boundary
 
 The missing inputs form a new real-algebraic-geometric foundation, not a missing
