@@ -315,3 +315,29 @@ example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
       (DuistermaatVanDerKallen.laurentOnAffineTorus f) (fun x => ‖x.val‖)
       (DuistermaatVanDerKallen.laurentDifferentialNorm f)).Finite :=
   DuistermaatVanDerKallen.laurent_finite_asymptotic_of_projection_and_paths hproj hpaths f
+
+#check DuistermaatVanDerKallen.ambientDifferentialNorm_eq_zero_iff
+#check DuistermaatVanDerKallen.isComplexSemialgebraic_criticalTorusLocus
+#check DuistermaatVanDerKallen.C1ArcChain.critical_image_eq
+#check DuistermaatVanDerKallen.dummyExtension_eval
+#check DuistermaatVanDerKallen.dummyExtension_critical
+#check DuistermaatVanDerKallen.ordinaryCriticalValues_subset_dummy_asymptotic
+
+-- Both critical-value sets use the original Laurent evaluation and proper
+-- induced radius, and only the same two still-unproved geometric premises.
+example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
+    (hpaths : DuistermaatVanDerKallen.SphereC1ChainObligation)
+    {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) :
+    (DuistermaatVanDerKallen.ordinaryCriticalValues
+        (DuistermaatVanDerKallen.laurentOnAffineTorus f)
+        (DuistermaatVanDerKallen.laurentDifferentialNorm f) ∪
+      DuistermaatVanDerKallen.asymptoticCriticalValues
+        (DuistermaatVanDerKallen.laurentOnAffineTorus f) (fun x => ‖x.val‖)
+        (DuistermaatVanDerKallen.laurentDifferentialNorm f)).Finite :=
+  DuistermaatVanDerKallen.laurent_finite_critical_union_of_projection_and_paths hproj hpaths f
+
+example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
+    (hpaths : DuistermaatVanDerKallen.SphereC1ChainObligation)
+    {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) :
+    ((DuistermaatVanDerKallen.laurentGoodValues f : Set ℂ)ᶜ).Finite :=
+  DuistermaatVanDerKallen.laurentGoodValues_finite_compl_of_projection_and_paths hproj hpaths f

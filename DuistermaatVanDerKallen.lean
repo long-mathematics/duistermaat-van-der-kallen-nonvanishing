@@ -83,3 +83,6 @@ import DuistermaatVanDerKallen.RadiusProjection
 import DuistermaatVanDerKallen.SpherePathEstimate
 import DuistermaatVanDerKallen.SpherePathChain
 import DuistermaatVanDerKallen.ScalarFinitenessReduction
+import DuistermaatVanDerKallen.CriticalLocus
+import DuistermaatVanDerKallen.DummyCoordinate
+import DuistermaatVanDerKallen.CriticalFiniteness
