@@ -130,3 +130,9 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.LaurentC1Chain.monodromy_homologyMap
 #check DuistermaatVanDerKallen.LaurentC1Chain.homologyMap_eq_of_homotopic
 #check DuistermaatVanDerKallen.LaurentC1Chain.homologyMap_eq_id_of_nullhomotopic
+#check DuistermaatVanDerKallen.coeff_pow_unique_min
+#check DuistermaatVanDerKallen.finite_extremePoint_exposed
+#check DuistermaatVanDerKallen.extremePoint_pow_mem
+#check DuistermaatVanDerKallen.newtonPolytope_pow
+#check DuistermaatVanDerKallen.origin_in_newton_powers
+#check DuistermaatVanDerKallen.infinite_of_minimal

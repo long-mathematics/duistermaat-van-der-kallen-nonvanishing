@@ -53,10 +53,12 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 49 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 50 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
-  explicitly conditional downstream implications;
+  the full arbitrary-rank Newton-polytope power identity. Infinite nonvanishing
+  now follows conditionally from the minimal theorem alone; classification and
+  the Laurent Mathieu property also remain conditional on that theorem;
 - the common-radius pigeonhole argument under explicit geometric hypotheses;
 - the tail property for univariate Boolean polynomial inequalities;
 - the proper L2 affine-torus radius, compact sublevels, weighted scalar lift
