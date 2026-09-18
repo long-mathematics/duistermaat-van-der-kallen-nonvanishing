@@ -157,3 +157,28 @@ example {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d)
       ((r = 0 ∧ ∃ c : ℂ, c ≠ 0 ∧ g = AddMonoidAlgebra.single 0 c) ∨
         (1 ≤ r ∧ (0 : Fin r → ℝ) ∈ interior (DuistermaatVanDerKallen.newtonPolytope g))) :=
   DuistermaatVanDerKallen.face_reduction f hf
+
+#check DuistermaatVanDerKallen.exists_integer_weight_injOn
+#check DuistermaatVanDerKallen.exists_all_coordinate_minimum
+#check DuistermaatVanDerKallen.realExponentEquiv
+#check DuistermaatVanDerKallen.origin_interior_reindex
+#check DuistermaatVanDerKallen.coordinate_minimum_neg
+#check DuistermaatVanDerKallen.factor_at_coordinate_minimum
+#check DuistermaatVanDerKallen.unimodular_vertex_chart
+#check DuistermaatVanDerKallen.laurentEval_polynomialLaurentHom
+#check DuistermaatVanDerKallen.unimodular_vertex_chart_evaluation
+#print DuistermaatVanDerKallen.VertexMinimalNonvanishing
+#check DuistermaatVanDerKallen.minimal_of_vertex_minimal
+#check DuistermaatVanDerKallen.minimal_iff_vertex_minimal
+
+-- Exact algebraic vertex-chart statement in every positive rank.
+example {d : ℕ} (hd : 1 ≤ d) (f : DuistermaatVanDerKallen.MultiLaurent d)
+    (hf : (0 : Fin d → ℝ) ∈ interior (DuistermaatVanDerKallen.newtonPolytope f)) :
+    ∃ E : (Fin d → ℤ) ≃ₗ[ℤ] (Fin d → ℤ), ∃ m : Fin d → ℤ,
+      (∀ i, 0 < m i) ∧ ∃ u : MvPolynomial (Fin d) ℂ, u.coeff 0 ≠ 0 ∧
+        AddMonoidAlgebra.mapDomainRingEquiv ℂ E.toAddEquiv f =
+          AddMonoidAlgebra.single (-m) 1 * DuistermaatVanDerKallen.polynomialLaurentHom u ∧
+        (∀ n : ℕ, DuistermaatVanDerKallen.constantTerm
+          ((AddMonoidAlgebra.mapDomainRingEquiv ℂ E.toAddEquiv f) ^ n) =
+            DuistermaatVanDerKallen.constantTerm (f ^ n)) :=
+  DuistermaatVanDerKallen.unimodular_vertex_chart hd f hf
