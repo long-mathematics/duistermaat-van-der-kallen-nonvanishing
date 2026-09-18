@@ -1,18 +1,18 @@
-Asymptotic critical-value regression checkpoint validation (2026-09-18 America/New_York)
+Uniform real-line semialgebraic families checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 3757 jobs (includes dependencies; not 3757 project proofs)
-Project mathematical module files: 93
+lake build: SUCCESS, 3760 jobs (includes dependencies; not 3760 project proofs)
+Project mathematical module files: 95
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 607 (comments excluded)
-Environment-level project declarations: 1633
-Environment-level theorem declarations, including generated: 1229
+Explicitly written theorem declarations: 631 (comments excluded)
+Environment-level project declarations: 1672
+Environment-level theorem declarations, including generated: 1264
 
-Source audit: PASS, 96 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 98 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.
