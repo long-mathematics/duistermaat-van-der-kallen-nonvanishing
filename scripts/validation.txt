@@ -1,18 +1,18 @@
-Common-radius semialgebraic families checkpoint validation (2026-09-18 America/New_York)
+Path integration and scalar finiteness reduction checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 3748 jobs (includes dependencies; not 3748 project proofs)
-Project mathematical module files: 84
+lake build: SUCCESS, 3751 jobs (includes dependencies; not 3751 project proofs)
+Project mathematical module files: 87
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 557 (comments excluded)
-Environment-level project declarations: 1517
-Environment-level theorem declarations, including generated: 1138
+Explicitly written theorem declarations: 569 (comments excluded)
+Environment-level project declarations: 1559
+Environment-level theorem declarations, including generated: 1162
 
-Source audit: PASS, 87 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 90 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.
