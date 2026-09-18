@@ -1,18 +1,18 @@
-Residue foundations and Haar Cauchy checkpoint validation (2026-09-18 America/New_York)
+Compact residue covering and smooth root branches checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 3655 jobs (includes dependencies; not 3655 project proofs)
-Project mathematical module files: 64
+lake build: SUCCESS, 3660 jobs (includes dependencies; not 3660 project proofs)
+Project mathematical module files: 69
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 451 (comments excluded)
-Environment-level project declarations: 1245
-Environment-level theorem declarations, including generated: 928
+Explicitly written theorem declarations: 477 (comments excluded)
+Environment-level project declarations: 1315
+Environment-level theorem declarations, including generated: 988
 
-Source audit: PASS, 67 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 72 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.

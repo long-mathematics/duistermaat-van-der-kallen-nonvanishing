@@ -207,3 +207,28 @@ example {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) (r : Fin d → �
         (fun x => 1 / (s - DuistermaatVanDerKallen.laurentEval f
           (DuistermaatVanDerKallen.torusPoint r x))) :=
   DuistermaatVanDerKallen.generatingFunction_eq_torusCauchy f r hr hs
+
+#check DuistermaatVanDerKallen.unimodular_vertex_chart_nat
+#check DuistermaatVanDerKallen.residueFiberPolynomial_zero_iff
+#check DuistermaatVanDerKallen.exists_residue_boundary_bound
+#check DuistermaatVanDerKallen.exists_residue_interior_regular_roots
+#check DuistermaatVanDerKallen.isCompact_residue_root_locus
+#check DuistermaatVanDerKallen.isCoveringMap_compactRootProjection
+#check DuistermaatVanDerKallen.exists_residue_covering
+#check DuistermaatVanDerKallen.finite_residueRootProjection_fiber
+#check DuistermaatVanDerKallen.residueRootSpace_laurent_fiber
+#check DuistermaatVanDerKallen.residueRootPoint_injective
+#check DuistermaatVanDerKallen.isCompact_range_residueRootPoint
+#check DuistermaatVanDerKallen.exists_residue_covering_with_branches
+
+-- This is the full compact-covering component, with no unproved regularity
+-- premise. Finite fibers do not assert the still-open positive sheet count.
+example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
+    (u : MvPolynomial (Fin (d + 1)) ℂ) (hu : u.coeff 0 ≠ 0) :
+    ∃ ε : ℝ, 0 < ε ∧ ∃ B : ℝ, ∀ s : ℂ, B < ‖s‖ →
+      IsCoveringMap (DuistermaatVanDerKallen.residueRootProjection m u ε s) ∧
+      ∀ b : DuistermaatVanDerKallen.residueCircleBase d ε,
+        (DuistermaatVanDerKallen.residueRootProjection m u ε s ⁻¹' {b}).Finite := by
+  obtain ⟨ε, hε, B, hB⟩ := DuistermaatVanDerKallen.exists_residue_covering m hm u hu
+  exact ⟨ε, hε, B, fun s hs => ⟨(hB s hs).1, fun b =>
+    DuistermaatVanDerKallen.finite_residueRootProjection_fiber m u ε s (hB s hs).1 b⟩⟩
