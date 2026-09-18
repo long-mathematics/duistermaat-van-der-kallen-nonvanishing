@@ -163,10 +163,20 @@ initial point, with regular curves solving the actual integral equation and
 producing scaled ODE trajectories. This includes nearby nonzero time scales;
 `⊤ : WithTop ℕ∞` is mathlib's analytic differentiability order.
 The zero-time partial derivative is proved to be the identity; no invertibility
-hypothesis has been introduced. Continue by identifying this branch with chosen
-solutions by uniqueness and propagating smooth dependence along complete
-segments, then smooth fiber diffeomorphisms, period transport, the separate endpoint Hardt sweep, sublevel/logarithmic estimates,
-and residues.
+hypothesis has been introduced. `AnalyticTransport` now identifies the local
+analytic endpoint maps by uniqueness and propagates analytic dependence along
+complete trajectories using connected-interval induction. `SegmentAnalytic`
+proves joint analytic dependence of the chosen transport within the admissible
+velocity/initial-point/time set and obtains analytic ambient germs for forward
+and inverse fiber maps. No regularity of the chosen solution family was
+assumed before propagation.
+
+Continue with regular-fiber manifold instances and a diffeomorphism package,
+then local smooth trivializations (using a convex base neighborhood whose
+segments avoid the critical values). The admissible-parameter set's openness
+has not been asserted. General piecewise C¹ paths still need the time-dependent
+ODE package. Period transport, the separate endpoint Hardt sweep,
+sublevel/logarithmic estimates, and residues remain open.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
 classification and Laurent Mathieu implications are ready to consume it; infinite
