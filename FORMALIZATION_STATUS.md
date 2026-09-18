@@ -32,10 +32,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Manuscript obligation | Lean correspondence | Status | Proof / unresolved dependencies |
 |---|---|---|---|
 | `thm:main`: arbitrary-rank infinite nonvanishing | `InfiniteNonvanishing` in `Targets`; `infinite_of_minimal` in `NewtonPowers` | CONDITIONAL | The manuscript power argument now requires only `MinimalNonvanishing`, which remains unproved. The Newton-power premise is discharged by `origin_in_newton_powers`. The older two-premise implication remains available. |
-| `thm:minimal`: arbitrary-rank minimal nonvanishing | `MinimalNonvanishing`; `minimal_nonvanishing_rank_zero` | PARTIAL | Rank zero is unconditional. `minimal_iff_interior_minimal` now proves that the full target is equivalent to its positive-rank full-interior case; that analytic assertion remains open. |
+| `thm:minimal`: arbitrary-rank minimal nonvanishing | `MinimalNonvanishing`; `minimal_nonvanishing_rank_zero` | PARTIAL | Rank zero is unconditional. `minimal_iff_interior_minimal` and `minimal_iff_vertex_minimal` identify the full target with its positive-rank full-interior and vertex-chart forms. The analytic theorem in either form remains open. |
 | `lem:face`: minimal-face reduction | `face_reduction` in `FaceReduction` | PROVED | Every origin-containing Newton polytope reduces to a polynomial in `r ≤ d` variables with all power constant terms preserved, including `n = 0`. The reduced polynomial is either a nonzero constant in rank zero or has the origin in its full interior in positive rank. Successive supporting cuts replace the one-step minimal-face choice; an integer basis of the saturated lattice supplies coordinates. |
 | `lem:powers`: Newton polytope of powers | `newtonPolytope_pow`; `origin_in_newton_powers` in `NewtonPowers` | PROVED | Full equality `Newt(f^n) = n • Newt(f)` in arbitrary finite rank for every `n ≥ 1`. Support containment proves one inclusion; uniquely exposed support vertices survive with coefficient `a_v^n`, and finite convex-hull recovery proves the other. The result also handles the zero polynomial. |
-| `lem:chart`: unimodular vertex chart | `constantTerm_pow_reindex` | PARTIAL | Arbitrary lattice automorphisms preserve all power constant terms. Existence of the cone basis, negative vertex coordinates, and polynomial factorization remain open. |
+| `lem:chart`: unimodular vertex chart | `unimodular_vertex_chart`; `unimodular_vertex_chart_evaluation` | PROVED | In every positive rank, an integral linear automorphism gives `f = y^(-m) u`, every `m_i > 0`, and an ordinary polynomial with nonzero value at zero. Exact algebraic factorization, pointwise evaluation on the open torus, Newton interior, and all power constant terms are preserved. Integer separating weights and shears replace the primitive-vector choice and basis-extension step. |
 | `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
 | `std:stokes`: integration and Stokes | None | OPEN | Chain integration, subdivision, reparametrization, finite measure, Stokes, and homology pairing. |
 | `def:density`: absolute restricted complex-form density | None | OPEN | Definition, independence of stratification, density identities, finite-chain multiplicities. |
@@ -154,11 +154,14 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Exponent support estimates, strict separation and eventual multiplier vanishing | PROVED components in `Laurent`; adapted proof provenance below. |
 | Newton-power coefficient and vertex arguments | PROVED: `coeff_pow_unique_min` proves the exact coefficient at `n • v`, `finite_extremePoint_exposed` supplies a strict supporting functional for every extreme point of a finite hull, and `extremePoint_pow_mem` proves vertex survival. `newtonPolytope_mul_subset` and `newtonPolytope_pow_subset` supply the support-based inclusions. |
 | Finite vertex hull and Newton-power homogeneity | PROVED: `newtonPolytope_pow` recovers the finite vertex hull using mathlib's Krein–Milman theorem plus compactness, then proves the full set equality. `origin_in_newton_powers` inhabits the exact previously isolated target proposition. |
-
 | Supporting-face restriction | PROVED: `facePart_mul`, `facePart_pow`, and `constantTerm_facePart_pow` compare full convolution coefficients under nonnegative supporting weights. `newtonPolytope_facePart` gives the exact intersection with the supporting hyperplane. |
 | Termination of supporting cuts | PROVED: `exists_proper_supporting_cut` works in the actual real-span topology. `facePart_support_card_lt` and support-cardinality induction give `exists_span_interior_restriction`, with surviving coefficients and every power constant term preserved. |
 | Integral coordinates and full interior | PROVED: `integralLattice`, `latticeEmbedding`, and `latticeRealMap` use an integer basis of the lattice in the real span. `latticeRealMap_injective` uses faithful scalar extension of integer vectors, `lattice_rank_le` proves `r ≤ d`, and `exists_interior_lattice_coordinates` transfers relative interior through a real linear homeomorphism. |
 | Boundary-to-interior minimal theorem reduction | CONDITIONAL: `minimal_of_interior_minimal` and `minimal_iff_interior_minimal` remove boundary and rank-zero cases. `InteriorMinimalNonvanishing` is an unproved proposition for all positive ranks, not a theorem or an axiom. |
+| Integral support coordinates | PROVED: `exists_integer_weight_injOn` uses a non-root of finitely many nonzero integer polynomials to separate support with weights `(1,N,...,N^(d-1))`. `exists_first_coordinate_minimum` and `exists_all_coordinate_minimum` construct actual integer linear automorphisms by transvections. |
+| Real extension of exponent changes | PROVED: `realExponentMap`, `realExponentEquiv`, `newtonPolytope_reindex`, and `origin_interior_reindex` transfer lattice automorphisms to real linear homeomorphisms. `coordinate_minimum_neg` uses full Newton interior to make each support minimum negative. |
+| Ordinary-polynomial factorization and evaluation | PROVED: `polynomialLaurentHom` is the injective ordinary-polynomial inclusion. `factor_at_coordinate_minimum` gives the exact coefficient-preserving factorization; `laurentEval_polynomialLaurentHom` and `laurentEval_polynomial_factor` identify the pointwise formula. |
+| Vertex-chart analytic target | CONDITIONAL: `minimal_of_vertex_minimal` and `minimal_iff_vertex_minimal` reduce the full target to `VertexMinimalNonvanishing`, an unproved proposition retaining full Newton interior as well as positive monomial exponents and nonzero polynomial constant coefficient. |
 
 ## Proof substitutions and provenance
 
@@ -380,7 +383,28 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     proves that the outstanding principal theorem is equivalent to its
     positive-rank full-interior form. No positive-rank nonvanishing follows
     without that remaining analytic premise.
-25. No mathematical manuscript corrections or changes were made. No alternate
+25. `IntegerSupportShear` replaces the manuscript's rational-density and
+    primitive-vector basis-extension construction in `lem:chart`. Encode an
+    exponent vector as an integer polynomial. Distinct support vectors give
+    distinct polynomials; avoid the finitely many roots of their differences
+    to obtain an integer weight `(1,N,...,N^(d-1))` injective on support. Its
+    first coefficient is one, so an explicit transvection extends it to an
+    integer coordinate automorphism. A second integer transvection makes its
+    unique minimizing support point the strict minimum in all coordinates.
+    `RealExponentChange` extends integral maps to real linear maps and proves
+    that coordinate automorphisms preserve Newton interior. Interior excludes
+    a nonnegative coordinate minimum. `PolynomialFactorization` shifts the
+    minimum exponent to zero, proves nonnegative support, and pulls back along
+    the injective ordinary-polynomial exponent map. Its constant coefficient
+    is exactly the original minimum coefficient, including its complex value.
+    `VertexChart` assembles the full manuscript statement, and
+    `VertexChartEvaluation` proves the pointwise formula with `u(0) ≠ 0`.
+    This is a proof substitution for the coordinate choice, not a change of
+    mathematical statement. Downstream, `minimal_iff_vertex_minimal` reduces
+    the full minimal theorem to its chart form while retaining the necessary
+    full-interior hypothesis. No residue, period, or positive-rank
+    nonvanishing conclusion is inferred without the remaining analytic work.
+26. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -396,7 +420,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 54 mathematical module files plus the root umbrella and
+The checkpoint has 59 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

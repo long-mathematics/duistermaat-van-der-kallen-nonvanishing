@@ -53,13 +53,15 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 54 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 59 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
   minimal-face reduction with lattice coordinates and all power constant terms
-  preserved. Minimal nonvanishing reduces to the positive-rank full-interior
-  case, which remains unproved. Infinite nonvanishing
+  preserved. The full unimodular vertex chart gives an ordinary polynomial
+  factor with nonzero constant coefficient and its exact torus evaluation.
+  Minimal nonvanishing reduces to the positive-rank full-interior chart case,
+  which remains unproved. Infinite nonvanishing
   now follows conditionally from the minimal theorem alone; classification and
   the Laurent Mathieu property also remain conditional on that theorem;
 - the common-radius pigeonhole argument under explicit geometric hypotheses;

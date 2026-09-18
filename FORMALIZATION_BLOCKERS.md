@@ -271,6 +271,13 @@ an integer lattice basis then gives full interior in at most the original number
 of variables. The rank-zero alternative is a nonzero constant. The proof
 substitution and scalar-extension details are recorded in the coverage ledger.
 `minimal_iff_interior_minimal` isolates the still-unproved positive-rank
-full-interior analytic theorem. The next elementary dependency is the
-unimodular vertex chart (`lem:chart`); the listed semialgebraic, integration,
-period, and residue obligations remain unchanged.
+full-interior analytic theorem. The unimodular vertex chart (`lem:chart`) is now also proved by
+`unimodular_vertex_chart` and `unimodular_vertex_chart_evaluation`: explicit
+integer weights and transvections give a lattice automorphism, real extension
+preserves Newton interior, and shifting the minimum exponent gives an ordinary
+polynomial with nonzero constant coefficient. The pointwise torus formula and
+all power constant-term identities are checked. `minimal_iff_vertex_minimal`
+identifies the full target with the still-open analytic vertex-chart case,
+retaining full Newton interior. The listed semialgebraic, integration, period,
+and residue obligations remain unchanged; the local derivative-disc estimate
+and constant-term generating series in `lem:residue` are available next steps.
