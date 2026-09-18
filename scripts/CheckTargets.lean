@@ -85,3 +85,11 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.laurent_driven_exists_past_of_compact_control
 #check DuistermaatVanDerKallen.laurent_driven_curve_radius_bound
 #check DuistermaatVanDerKallen.laurent_complete_C1_path
+#check DuistermaatVanDerKallen.laurent_driven_local_analytic_endpoint
+#check DuistermaatVanDerKallen.laurent_driven_family_analytic_on
+#check DuistermaatVanDerKallen.laurent_driven_unit_unique
+#check DuistermaatVanDerKallen.LaurentC1Path.ofInterval
+#check DuistermaatVanDerKallen.LaurentC1Path.curve_spec
+#check DuistermaatVanDerKallen.LaurentC1Path.reverse_curve
+#check DuistermaatVanDerKallen.LaurentC1Path.transportDiffeomorph
+#check DuistermaatVanDerKallen.LaurentC1Chain.transportDiffeomorph

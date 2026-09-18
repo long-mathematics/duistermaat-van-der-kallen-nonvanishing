@@ -35,8 +35,8 @@ Additional checks:
   in initial points at bounded proper radius, joint continuity in initial point
   and time, fiber homeomorphisms, and compact sweeps. Analytic parameter
   dependence and smooth local trivializations are now proved as detailed below.
-  Complete C¹-path lifting is also proved; its endpoint diffeomorphism and finite
-  piecewise composition remain open.
+  Complete C¹-path lifting, analytic endpoint diffeomorphisms, and finite
+  composition of endpoint-matching C¹ pieces are also proved.
 - Differential forms and singular homology exist, in separate mathlib modules.
   The general semialgebraic-chain integration/Stokes/homology pairing needed
   here was not found. `Analysis/BoxIntegral/DivergenceTheorem.lean` is a box
@@ -199,12 +199,25 @@ proper-radius Gronwall estimate. `laurent_complete_C1_path` gives complete lifts
 with exact base motion under one-sided base derivatives and velocity continuity
 on the closed unit interval; no global extension premise is required.
 
-Continue by identifying the local driven Picard endpoints with the complete
-chosen lifts via uniqueness, then propagate analytic dependence on initial
-points as in `AnalyticTransport`. Assemble reversal and the fiber endpoint
-diffeomorphism, then finite piecewise C¹ composition. The homology local system,
-period transport, separate endpoint Hardt sweep, sublevel/logarithmic estimates,
-and residues remain open. Openness of the whole velocity/initial-point
+`DrivenAnalytic` now identifies local driven Picard endpoints by uniqueness
+and propagates analytic initial-point dependence along complete trajectories.
+`C1FiberTransport` constructs actual endpoint diffeomorphisms, with their inverse
+from reversed paths, and rescales arbitrary compact time pieces. Analyticity is
+in initial points, not time. `PiecewiseTransport` composes finite chains of
+endpoint-matching C¹ pieces. It does not construct a globally parametrized
+concatenated curve or assert differentiability at the corners.
+
+The next topological obligation is to package the homology local system from
+the existing smooth local trivializations, then prove that the induced homology
+maps agree under fixed-endpoint path homotopies and with local trivialization
+identifications. Fixed-path endpoint diffeomorphisms alone do not supply those
+coherences. Loops may act nontrivially; monodromy invariance is not a target. The complete
+C¹ swept family also lacks a separate joint initial-point/time continuity
+statement, although fixed-time initial analyticity and each time trajectory's
+continuity are proved; separate continuity alone must not be relabeled joint
+continuity. The existing straight-segment compact-sweep theorems remain usable.
+Period transport, the separate endpoint Hardt sweep, sublevel/logarithmic
+estimates, and residues remain open. Openness of the whole velocity/initial-point
 admissible-parameter set has not been asserted and was not needed for the local
 product maps.
 

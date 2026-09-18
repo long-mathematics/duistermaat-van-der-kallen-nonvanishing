@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the twenty modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 38 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   explicitly conditional downstream implications;
@@ -94,10 +94,13 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   the critical-value sets remains open;
 - complete horizontal lifts of C¹ base paths, with exact base motion, using
   continuous driving velocities, two-sided local existence, uniqueness, and
-  proper-radius compact control before continuation.
+  proper-radius compact control before continuation;
+- real analytic endpoint diffeomorphisms along C¹ paths, inverted by time
+  reversal, and their finite composition for endpoint-matching C¹ pieces.
+  Analytic dependence is in the initial point; the driving velocity remains
+  merely continuous in time.
 
-Semialgebraic projection and uniform path bounds, the C¹-path endpoint
-diffeomorphism and finite piecewise composition, the homology local system,
+Semialgebraic projection and uniform path bounds, the homology local system,
 chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is
 being claimed from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
