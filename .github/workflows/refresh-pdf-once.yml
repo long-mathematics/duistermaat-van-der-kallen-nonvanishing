@@ -1,0 +1,37 @@
+name: One-time PDF refresh
+
+on:
+  push:
+    branches:
+      - paper/ode-transport-revision
+
+permissions:
+  contents: write
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: paper/ode-transport-revision
+      - name: Install LaTeX and PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra lmodern poppler-utils
+      - name: Compile and audit
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error duistermaat_van_der_kallen_nonvanishing.tex
+          test -s duistermaat_van_der_kallen_nonvanishing.pdf
+          if grep -E "LaTeX Warning: (Reference|Citation).*undefined|There were undefined references|There were undefined citations" duistermaat_van_der_kallen_nonvanishing.log; then exit 1; fi
+          pdfinfo duistermaat_van_der_kallen_nonvanishing.pdf | tee /tmp/pdfinfo.txt
+          grep -F "Author:" /tmp/pdfinfo.txt | grep -F "Christopher D. Long"
+          grep -F "Pages:" /tmp/pdfinfo.txt
+      - name: Commit PDF and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/refresh-pdf-once.yml
+          git add -f duistermaat_van_der_kallen_nonvanishing.pdf
+          git commit -m "Refresh compiled PDF after appendix correction"
+          git push origin HEAD:paper/ode-transport-revision
