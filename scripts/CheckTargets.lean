@@ -402,3 +402,28 @@ example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
       ({x : κ → ℝ | Sum.elim a x ∈ S}).Finite →
       ({x : κ → ℝ | Sum.elim a x ∈ S}).ncard ≤ N :=
   hS.uniform_finite_fibers_of_projection hproj
+
+#check DuistermaatVanDerKallen.IsSemialgebraic.finite_fiber_of_countable_of_projection
+#check DuistermaatVanDerKallen.exists_measurable_injective_partition
+#check DuistermaatVanDerKallen.ae_countable_fibers_of_contDiffAt
+#check DuistermaatVanDerKallen.lintegral_abs_det_le_mul_image_of_contDiffAt
+#check DuistermaatVanDerKallen.ae_finite_semialgebraic_fibers_of_contDiffAt
+
+-- Actual Fréchet derivatives; no given pieces or finite-fiber premise.
+-- The only open geometric input is the explicitly stated projection theorem.
+open scoped ENNReal in
+example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
+    {ι κ : Type} [Finite ι] [Fintype κ]
+    (μ : MeasureTheory.Measure (κ → ℝ)) [MeasureTheory.Measure.IsAddHaarMeasure μ]
+    (E : (ι → ℝ) → Set (κ → ℝ))
+    (f : (ι → ℝ) → (κ → ℝ) → (κ → ℝ))
+    (hgraph : DuistermaatVanDerKallen.IsSemialgebraic ((ι ⊕ κ) ⊕ κ) {q |
+      (fun j => q (.inr j)) ∈ E (fun j => q (.inl (.inl j))) ∧
+      f (fun j => q (.inl (.inl j))) (fun j => q (.inr j)) =
+        (fun j => q (.inl (.inr j)))})
+    (hf : ∀ a, ∀ x ∈ E a, ContDiffAt ℝ 1 (f a) x) :
+    ∃ N : ℕ, ∀ a, (∫⁻ x in E a, ENNReal.ofReal |(fderiv ℝ (f a) x).det| ∂μ) ≤
+      (N : ℝ≥0∞) * μ (f a '' E a) :=
+  DuistermaatVanDerKallen.uniform_semialgebraic_jacobian_bound_of_contDiffAt
+    hproj μ E f (fun a => fderiv ℝ (f a)) hgraph hf
+    (fun a x hx => (hf a x hx).differentiableAt_one.hasFDerivAt)
