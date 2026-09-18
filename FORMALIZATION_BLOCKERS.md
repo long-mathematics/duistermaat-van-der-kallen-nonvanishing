@@ -453,3 +453,23 @@ Hardt maps, and establish the needed finite regular parametrizations of image
 arcs so the checked curve-variation bound applies. A bounded length in the
 model does not by itself bound the lengths of its images, and no such inference
 is made. Both actual sphere-path obligations remain open.
+
+
+Individual-curve regularity is now proved in `SemialgebraicCurveRegularity`:
+a continuous scalar function with semialgebraic graph is smooth at every
+interior-domain point outside a finite set. The Euclidean version assumes
+semialgebraic coordinate graphs and combines their finite exceptional sets.
+This uses a proved nonzero polynomial relation, fraction-field squarefree
+reduction, denominator clearing, a resultant, and the real implicit-function
+theorem. The intermediate `continuous_algebraic_smooth_outside_finite` also
+applies to continuous selections of any nonzero bivariate polynomial relation.
+Projection and Hardt are not hypotheses of these theorems.
+
+The regularity boundary is now specifically **uniformity and endpoints**:
+the exceptional set is finite for each curve, but there is no uniform bound
+on its cardinality across a semialgebraic parameter family. Smoothness holds
+on the open pieces; derivatives can diverge at their ends. Thus the theorem
+does not yet construct the endpoint-smooth pieces required by `C1ArcChain`.
+Finite exceptional sets also have not yet been combined with the existing
+variation theorem to remove its global interior-C¹ premise. Hardt,
+triangulation, and both sphere-path obligations remain open.

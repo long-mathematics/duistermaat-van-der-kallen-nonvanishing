@@ -464,3 +464,23 @@ example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
         ∃ γ : DuistermaatVanDerKallen.C1ArcChain K.space x y,
           γ.pieces ≤ N ∧ γ.length ≤ L :=
   DuistermaatVanDerKallen.finite_simplicial_complex_uniform_C1_chains K hK
+
+
+#check DuistermaatVanDerKallen.IsSemialgebraic.frontier_polynomial
+#check DuistermaatVanDerKallen.semialgebraic_scalar_graph_polynomial
+#check DuistermaatVanDerKallen.polynomial_specialization_nonzero_outside_finite
+#check DuistermaatVanDerKallen.polynomial_simple_relation_outside_finite
+#check DuistermaatVanDerKallen.continuous_algebraic_smooth_outside_finite
+
+-- No polynomial relation, finite exceptional set, projection theorem, or
+-- differentiability is assumed: regularity follows from the actual graph.
+-- Interior points alone are covered; endpoint C¹ regularity is not claimed.
+example {κ : Type*} [Fintype κ] (γ : ℝ → EuclideanSpace ℝ κ)
+    (hgraph : ∀ i, DuistermaatVanDerKallen.IsSemialgebraic (Unit ⊕ Unit) {q |
+      q (.inl ()) ∈ Set.Icc (0 : ℝ) 1 ∧ γ (q (.inl ())) i = q (.inr ())})
+    (hc : ContinuousOn γ (Set.Icc (0 : ℝ) 1)) :
+    ∃ E : Set ℝ, E.Finite ∧ ∀ x ∈ Set.Ioo (0 : ℝ) 1,
+      x ∉ E → ContDiffAt ℝ ⊤ γ x := by
+  simpa only [interior_Icc] using
+    DuistermaatVanDerKallen.continuous_semialgebraic_curve_smooth_outside_finite
+      γ (Set.Icc (0 : ℝ) 1) hgraph hc
