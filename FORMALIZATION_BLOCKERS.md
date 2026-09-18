@@ -33,8 +33,9 @@ Additional checks:
   compact-domain continuation, and `LaurentTransport` proves complete segment
   existence and reversal. `FiberContinuity` proves uniform Lipschitz dependence
   in initial points at bounded proper radius, joint continuity in initial point
-  and time, fiber homeomorphisms, and compact sweeps. Smooth parameter dependence
-  and time-dependent complete transport remain open.
+  and time, fiber homeomorphisms, and compact sweeps. Analytic parameter
+  dependence and smooth local trivializations are now proved as detailed below. Time-dependent complete
+  transport remains open.
 - Differential forms and singular homology exist, in separate mathlib modules.
   The general semialgebraic-chain integration/Stokes/homology pairing needed
   here was not found. `Analysis/BoxIntegral/DivergenceTheorem.lean` is a box
@@ -178,11 +179,20 @@ segment transport as an analytic diffeomorphism. The real kernel has dimension
 `complete_segment_transport` assembles existence, base motion, the manifold map,
 and compact sweeps of arbitrary compact initial subsets.
 
-Continue with local smooth trivializations using a convex base neighborhood
-whose segments avoid the critical values. The admissible-parameter set's openness
-has not been asserted. General piecewise C¹ paths still need the time-dependent
-ODE package. Period transport, the separate endpoint Hardt sweep,
-sublevel/logarithmic estimates, and residues remain open.
+`LocalTrivialization` now constructs the product diffeomorphism over every
+convex open good base, with the actual Laurent evaluation as base coordinate,
+identity at the reference fiber, and compact sweeps of compact parameter sets.
+`CriticalNeighborhood` proves the union of ordinary/asymptotic critical values
+closed by a local proper-radius gradient-bound argument. Thus
+`laurent_local_trivialization_at` applies at every value outside that union;
+it does not assume openness or finiteness. This is a local-triviality result,
+not a proof of either critical-value finiteness theorem.
+
+Continue with general piecewise C¹ horizontal transport, which still needs the
+time-dependent ODE package, and the homology local system / period transport.
+The separate endpoint Hardt sweep, sublevel/logarithmic estimates, and residues
+remain open. Openness of the whole velocity/initial-point admissible-parameter
+set has not been asserted and was not needed for the local product maps.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
 classification and Laurent Mathieu implications are ready to consume it; infinite
