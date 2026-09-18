@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 90 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 93 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -147,7 +147,12 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
 - ordinary critical values embed into the asymptotic critical values of a
   polynomial with one unused torus coordinate. Thus both critical-value sets
   and their union are finite under the same two geometric inputs; no separate
-  critical-locus decomposition premise is needed.
+  critical-locus decomposition premise is needed;
+- the manuscript's example `c+x+(y-1)²/(xy)`: for every c, the same Laurent
+  polynomial has Newton interiority, c is an asymptotic critical value in the
+  proper induced metric, and c is an ordinary regular value. The proof also
+  verifies invariance of the restricted differential under a change of ambient
+  polynomial representative.
 
 Semialgebraic projection and uniform path bounds, critical-value finiteness,
 chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is

@@ -65,7 +65,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | ODE standard inputs before `lem:complete-segment` | `ODEContinuation`; `AnalyticTransport`; `DrivenPicard`; `DrivenLocalODE`; `DrivenContinuation`; `DrivenAnalytic`; `DrivenContinuity` | PROVED components | Autonomous transport has complete analytic dependence. For the actual time-dependent scalar family, a Picard branch permits an arbitrary continuous velocity curve as a Banach parameter; anchored integration and time rescaling give two-sided local solutions and uniform existence time on compact time/position sets. Spatial Lipschitz control, uniqueness, gluing, and continuation from compact regular-domain control are proved. Local analytic endpoint maps are identified by uniqueness, and analytic initial-point dependence propagates along every existing complete driven trajectory. The velocity need only be continuous on the closed time interval. Joint driven initial-point/time continuity is also proved using the continuous local endpoint maps and uniqueness. These results cover the scalar field used here; no general smooth-dependence theorem for arbitrary nonautonomous vector fields is claimed. |
 | `lem:complete-segment`: complete segment transport | `complete_segment_transport`, `fiberTransportDiffeomorph`; existence on a larger interval in `laurent_complete_segment` | PROVED | Under precisely segment exclusion from ordinary/asymptotic critical values: complete normalized-gradient trajectories, exact base motion, and the actual time-one map as an analytic real-manifold diffeomorphism. Every compact initial subset has compact sweep inside the regular torus, covering the compact-cycle support assertion without assuming a cycle integration package. The regular-fiber manifold instances are constructed from the actual differential, not postulated. |
 | `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberDiffeomorph`; `LocalTrivialization`; `DrivenTransport`; `C1FiberTransport`; `PiecewiseTransport`; `C1Sweeps`; `LocalTransportHomotopy`; `TransportHomology`; `HomologyTransitions`; `HomologySheaf`; `HomologyLift`; `ChainHomologyHomotopy` | PARTIAL | Regular fibers, straight-segment diffeomorphisms, and local smooth triviality are proved. `laurent_complete_C1_path` now proves complete horizontal lifts with exact base motion for any C¹ path on `[0,1]`, requiring only continuous velocity there and one-sided base derivatives at the endpoints. Compact control is derived, not assumed. `LaurentC1Path.transportDiffeomorph` supplies the actual complete endpoint map and reversed-path inverse as an analytic real-manifold diffeomorphism. `LaurentC1Path.ofInterval` rescales compact time pieces, and `LaurentC1Chain.transportDiffeomorph` composes finite endpoint-matching chains. A chain is an explicit presentation by C¹ pieces; no global derivative at its corners is asserted. Joint continuous sweeps of compact initial sets are compact in the regular domain, also for finite chains. Actual integral singular-homology isomorphisms and their composition are proved in every degree, with constancy in any local product coordinate when the pieces stay in one convex good neighborhood. The homology coordinates have constant transitions on convex overlaps and glue to an actual sheaf of integral modules over the entire good-value locus. Its module stalks are linearly identified with actual fiber homology, germ maps on every convex patch are linear isomorphisms, and its underlying étalé space is a covering. The actual ODE homology class is a continuous lift in the module-stalk covering along every C¹ path; its endpoints are the original class and the actual ODE image. Finite C¹ chains agree with covering monodromy along their concatenated base paths, and arbitrary continuous fixed-endpoint homotopies in the good locus preserve their homology maps. This closes the global transport/local-system compatibility component. Critical-value finiteness, and hence the finite-exceptional-set dependency of the full proposition, is now conditional on the unproved projection and uniform finite-C¹-chain inputs. |
-| `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | None | OPEN | Example retained in the unchanged manuscript; derivative, limits, Newton interior and regular-value computation not formalized. |
+| `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | `AsymptoticExample`; `AsymptoticExampleNewton`; `RepresentativeInvariance` | PARTIAL (core regression PROVED) | `infinityExample_regression` proves, for the same `MultiLaurent 2`, full Newton interiority, membership of `c` in the actual proper-radius asymptotic critical set, and exclusion from the ordinary critical set. Evaluation and both true torus partials along `(t,1)` are checked. The explicit sequence `(1/(n+1),1)` has radius between `n+1` and `2(n+1)` and restricted norm at most `(n+1)⁻²`. An open box lies in the convex hull of the three nonzero vertex coefficients. A direct identity proves regularity without classifying all critical points. The exact displayed metric formulas, exact vertex list, and explicit critical-point/value enumeration are not claimed as separately checked coverage. |
 | `rem:transport-background`: smooth transport distinct from semialgebraic sweep | Module architecture and boundary documentation | DESIGN CONSTRAINT | No assertion that the normalized-gradient flow is semialgebraic. No background alternative is imported. |
 | Relative form preceding `lem:holomorphy` | None | OPEN | Well-defined quotient form, independence, holomorphicity and fiberwise closedness. |
 | `lem:holomorphy`: holomorphic transported periods | None | OPEN | Compact-cycle triangle sweep, Stokes, homology pairing, continuity, Morera, analytic continuation. |
@@ -547,7 +547,23 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     those same two explicitly unproved inputs. No additional critical-cover
     proposition or decomposition premise is introduced. This changes the Lean
     proof dependency only; the manuscript statement and source are unchanged.
-33. No mathematical manuscript corrections or changes were made. No alternate
+33. `AsymptoticExample` verifies the essential claim of
+    `rem:asymptotic-example` by an explicit sequence and quantitative bounds,
+    using the actual proper radius and restricted differential. The identity
+    `∂₀f + x⁻¹(f-c) = 2` on the torus excludes ordinary critical points in the
+    fiber over c, replacing the need to enumerate them for this conclusion.
+    `AsymptoticExampleNewton` defines the corresponding finite Laurent sum,
+    proves its evaluation agrees, and places the open box
+    `|u₀|<1/4, |u₁|<1/4` in its Newton hull using explicit positive barycentric
+    weights. `RepresentativeInvariance` proves that any two polynomial
+    extensions agreeing on the torus have equal true torus partials and equal
+    restricted differential norms, by uniqueness of derivatives on the open
+    coordinate torus. Thus the combined regression concerns exactly the same
+    Laurent representation and critical-value definitions as the main targets.
+    It uses no projection, uniform-path, or finiteness premise. The additional
+    explicit critical-point list and exact hull/metric formulas remain outside
+    the checked coverage of this remark.
+34. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -563,7 +579,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 90 mathematical module files plus the root umbrella and
+The checkpoint has 93 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

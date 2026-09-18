@@ -86,3 +86,6 @@ import DuistermaatVanDerKallen.ScalarFinitenessReduction
 import DuistermaatVanDerKallen.CriticalLocus
 import DuistermaatVanDerKallen.DummyCoordinate
 import DuistermaatVanDerKallen.CriticalFiniteness
+import DuistermaatVanDerKallen.RepresentativeInvariance
+import DuistermaatVanDerKallen.AsymptoticExample
+import DuistermaatVanDerKallen.AsymptoticExampleNewton
