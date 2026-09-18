@@ -2,7 +2,7 @@
 
 ## Abstract
 
-We present a resolution-free semialgebraic proof of the following theorem of Duistermaat and van der Kallen: if the Newton polytope of a nonzero complex Laurent polynomial contains the origin, then infinitely many of its positive powers have nonzero constant term. The principal estimate is a uniform middle-dimensional sublevel bound for the restriction of a holomorphic volume form to a semialgebraic family. Polynomial differentiation and a finite-multiplicity projection estimate prove this bound; a dyadic decomposition then gives absolute integrability of the logarithmic volume form on every middle-dimensional semialgebraic chain on which the Laurent polynomial is bounded. Global cycle transport uses the closed embedding (z\mapsto(z,z^{-1})), a direct scalar asymptotic-critical-value finiteness argument, and an explicit normalized-gradient ODE. The local residue construction of Duistermaat and van der Kallen identifies the constant-term generating function with a fiber period. A semialgebraic endpoint sweep gives a primitive with a power-law bound, contradicting the simple pole forced by universal positive-power vanishing. The independent Whitney--Thom transport proof is retained in an appendix.
+We present a resolution-free semialgebraic proof of the following theorem of Duistermaat and van der Kallen: if the Newton polytope of a nonzero complex Laurent polynomial contains the origin, then infinitely many of its positive powers have nonzero constant term. The principal estimate is a uniform middle-dimensional sublevel bound for the restriction of a holomorphic volume form to a semialgebraic family. Polynomial differentiation and a finite-multiplicity projection estimate prove this bound; a dyadic decomposition then gives absolute integrability of the logarithmic volume form on every middle-dimensional semialgebraic chain on which the Laurent polynomial is bounded. Global cycle transport uses the closed embedding $z\mapsto(z,z^{-1})$, a direct scalar asymptotic-critical-value finiteness argument, and an explicit normalized-gradient ODE. The local residue construction of Duistermaat and van der Kallen identifies the constant-term generating function with a fiber period. A semialgebraic endpoint sweep gives a primitive with a power-law bound, contradicting the simple pole forced by universal positive-power vanishing. The independent Whitney--Thom transport proof is retained in an appendix.
 
 ## Preprint and source
 
@@ -13,18 +13,20 @@ This repository is the canonical development location for the research draft and
 
 ## Proof architecture
 
-The main global transport argument identifies ((\mathbb C^\times)^d) with the closed smooth affine variety
-`{(z,w) : z_j w_j = 1}` in (\mathbb C^{2d}). The induced Euclidean radius is proper, so both (|z_j|\to\infty) and (|z_j|\to0) count as escape.
+The main global transport argument identifies $(\mathbb C^\times)^d$ with the closed smooth affine variety
+`{(z,w) : z_j w_j = 1}` in $\mathbb C^{2d}$. The induced Euclidean radius is proper, so both $|z_j|\to\infty$ and $|z_j|\to0$ count as escape.
 
 A compact-family **uniform connecting-path lemma** is proved from Hardt triviality, compact semialgebraic triangulation, and the manuscript's existing uniform one-dimensional volume bound. Applied to the small-gradient sets on a common large sphere, it gives a direct pigeonhole proof that the scalar asymptotic critical-value set is finite. This avoids importing a separate generalized Bertini--Sard theorem or an asymptotic power-rate theorem.
 
 Away from the finite ordinary/asymptotic bad-value set, the scalar holomorphic target gives an explicit minimal-norm lift
-[
+
+$$
 V_a(z)_i=
 \frac{a\,\overline{\partial_i f(z)}}
 {(1+|z_i|^{-4})\lambda(\Phi(z))^2}.
-]
-The uniform lower bound on ((1+r)\lambda) gives at-most-linear growth. Gronwall bounds the proper radius, while the same lower bound keeps the trajectory uniformly inside the regular ODE domain. This yields complete path transport, smooth local trivializations, and holomorphic continuation of the fiber period.
+$$
+
+The uniform lower bound on $(1+r)\lambda$ gives at-most-linear growth. Gronwall bounds the proper radius, while the same lower bound keeps the trajectory uniformly inside the regular ODE domain. This yields complete path transport, smooth local trivializations, and holomorphic continuation of the fiber period.
 
 Hardt triviality is used separately again near zero to choose semialgebraic representatives and construct the endpoint sweep. The smooth ODE flow transports the homology class; it is not asserted to be semialgebraic.
 
@@ -51,9 +53,9 @@ Formalization has not yet started. No Lean theorem is currently claimed proved i
 
 A fresh formalization should target the manuscript's **direct scalar common-radius / normalized-gradient route**. In particular:
 
-- use the proper affine-torus metric induced by (z\mapsto(z,z^{-1}));
+- use the proper affine-torus metric induced by $z\mapsto(z,z^{-1})$;
 - prove the uniform compact-family connecting-path lemma from the semialgebraic framework already needed elsewhere;
-- prove finiteness of (K_\infty) by the common-radius component-count argument;
+- prove finiteness of $K_\infty$ by the common-radius component-count argument;
 - use the explicit scalar lift and ODE continuation/Gronwall argument;
 - keep the endpoint Hardt sweep distinct from smooth class transport.
 
