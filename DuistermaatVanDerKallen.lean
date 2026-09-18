@@ -7,3 +7,6 @@ import DuistermaatVanDerKallen.Targets
 import DuistermaatVanDerKallen.TransportControl
 import DuistermaatVanDerKallen.SemialgebraicObligations
 import DuistermaatVanDerKallen.SphereFamily
+import DuistermaatVanDerKallen.NormalizedGradient
+import DuistermaatVanDerKallen.PolynomialCalculus
+import DuistermaatVanDerKallen.PolynomialGradient

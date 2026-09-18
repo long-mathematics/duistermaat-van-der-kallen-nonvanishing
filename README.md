@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the ten modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the fourteen modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   explicitly conditional downstream implications;
@@ -62,11 +62,15 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
 - the proper L2 affine-torus radius, compact sublevels, weighted scalar lift
   identities, an abstract uniform-gradient bound, and Gronwall/regular-domain control;
 - compactness of the actual small-gradient sphere family and precise unproved
-  semialgebraic obligations.
+  semialgebraic obligations;
+- the smooth torus chart, its tangent subspace and induced metric, the actual
+  restricted differential norm, and the minimal scalar lift;
+- analytic polynomial partials, joint smoothness of the normalized-gradient
+  vector field, and local ODE existence inside its regular domain.
 
-The restricted differential identification, semialgebraic projection and uniform
-path bounds, actual complete smooth ODE transport, chain integration, periods,
-residues, and minimal nonvanishing remain open. No general-rank theorem is being
+The bridge from the algebraic Laurent representation to ambient polynomials,
+semialgebraic projection and uniform path bounds, complete smooth ODE transport,
+chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank theorem is being
 claimed from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
 

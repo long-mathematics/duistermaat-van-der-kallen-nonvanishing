@@ -28,7 +28,8 @@ Additional checks:
   These were successfully used for the univariate tail special case below.
 - `Analysis/ODE/ExistUnique.lean`, `PicardLindelof.lean`, and `Gronwall.lean`
   provide meaningful local existence/uniqueness/continuous-flow tools. Gronwall
-  is used in the checked project. Smooth parameter dependence and the required
+  and local existence for the actual smooth polynomial vector field are used
+  in the checked project. Smooth parameter dependence and the required
   global continuation have not yet been assembled, so this report does not
   claim all ODE infrastructure is absent.
 - Differential forms and singular homology exist, in separate mathlib modules.
@@ -71,6 +72,10 @@ What has been tried and checked:
    proof: the complete abstract argument is kernel checked.
 5. Polynomial evaluation, the displayed λ_G expression, and every fixed
    small-gradient sphere are continuous/compact as required: proved.
+6. The actual induced tangent metric and restricted analytic differential norm
+   are identified with this expression for true polynomial torus partials
+   `P_zᵢ − wᵢ² P_wᵢ`: proved. The algebraic `MultiLaurent` representation bridge
+   remains open; arbitrary ambient polynomial restrictions are covered.
 
 The exact remaining implication is an **existential projection**. E has one
 free radius variable but also `4d` real existential coordinates. Calling it a
@@ -135,12 +140,13 @@ lake env lean scripts/AxiomAudit.lean
 lake env lean scripts/CheckTargets.lean
 ```
 
-After supplying radius tails and uniform paths, prove the restricted differential
-formula and the image-diameter estimate, and instantiate
+After supplying radius tails and uniform paths, prove the image-diameter
+estimate using the now-proved restricted differential formula, and instantiate
 `finite_of_common_radius` for the actual asymptotic-critical-value set.
 `affineTorus_uniform_gradient`, `compact_regular_controlled_region`, and
 `trajectory_radius_bound` already provide checked downstream control lemmas.
-Continue with actual ODE continuation and parameter dependence, period transport,
+`PolynomialGradient` now proves actual field smoothness and local ODE existence.
+Continue with global ODE continuation and smooth flow dependence, period transport,
 the separate endpoint Hardt sweep, sublevel/logarithmic estimates, and residues.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
