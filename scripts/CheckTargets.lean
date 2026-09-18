@@ -47,3 +47,10 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.fiberSweep_isCompact
 #check DuistermaatVanDerKallen.fiberSweep_subset_regular
 #check DuistermaatVanDerKallen.fiberTransport_zero
+#check DuistermaatVanDerKallen.curveVectorField_apply
+#check DuistermaatVanDerKallen.laurentCurveVectorField_contDiffAt
+#check DuistermaatVanDerKallen.curvePrimitiveCLM_norm_le
+#check DuistermaatVanDerKallen.picardResidual_partial_zero
+#check DuistermaatVanDerKallen.exists_smooth_picard_branch
+#check DuistermaatVanDerKallen.laurent_exists_smooth_picard_branch
+#check DuistermaatVanDerKallen.laurent_picard_equation_solves_ode

@@ -16,3 +16,7 @@ import DuistermaatVanDerKallen.ODEContinuation
 import DuistermaatVanDerKallen.LaurentTransport
 import DuistermaatVanDerKallen.FiberTransport
 import DuistermaatVanDerKallen.FiberContinuity
+import DuistermaatVanDerKallen.CurveField
+import DuistermaatVanDerKallen.CurveIntegral
+import DuistermaatVanDerKallen.PicardImplicit
+import DuistermaatVanDerKallen.LaurentPicard

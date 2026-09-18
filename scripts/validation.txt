@@ -1,18 +1,18 @@
-Fiber homeomorphism and compact sweep checkpoint validation (2026-09-18 America/New_York)
+Smooth Laurent Picard branch checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 2820 jobs (includes dependencies; not 2820 project proofs)
-Project mathematical module files: 20
+lake build: SUCCESS, 2832 jobs (includes dependencies; not 2832 project proofs)
+Project mathematical module files: 24
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 146 (comments excluded)
-Environment-level project declarations: 347
-Environment-level theorem declarations, including generated: 264
+Explicitly written theorem declarations: 176 (comments excluded)
+Environment-level project declarations: 429
+Environment-level theorem declarations, including generated: 330
 
-Source audit: PASS, 23 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 27 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.

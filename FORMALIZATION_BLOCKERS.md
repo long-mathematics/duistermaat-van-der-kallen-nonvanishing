@@ -156,9 +156,17 @@ regular domain. `ODEContinuation` and `LaurentTransport` now complete
 autonomous continuation and segment existence, uniqueness, and reversal.
 `FiberTransport` and `FiberContinuity` now construct fiber homeomorphisms and
 prove joint continuity in initial point/time and compactness of compact initial
-sweeps. Continue with smooth dependence, including velocity parameters, and
-smooth fiber diffeomorphisms, then period transport, the separate endpoint Hardt
-sweep, sublevel/logarithmic estimates, and residues.
+sweeps. `CurveField`, `CurveIntegral`, `PicardImplicit`, and `LaurentPicard`
+now supply the next local analytic input: a Banach-space Picard branch smooth
+at zero time scale, jointly in velocity and initial point, with nearby regular
+curves solving the actual integral equation and producing scaled ODE trajectories.
+The zero-time partial derivative is proved to be the identity; no invertibility
+hypothesis has been introduced. Continue by identifying this branch with chosen
+solutions by uniqueness and proving smoothness along complete segments (the
+current `ContDiffAt` at zero alone does not assert smoothness on a fixed
+neighborhood of nonzero times), then smooth fiber diffeomorphisms, period
+transport, the separate endpoint Hardt sweep, sublevel/logarithmic estimates,
+and residues.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
 classification and Laurent Mathieu implications are ready to consume it; infinite
