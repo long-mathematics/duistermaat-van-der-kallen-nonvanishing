@@ -65,4 +65,3 @@ theorem IsSemialgebraic.finite_fiber_of_countable_of_projection
 
 end
 end DuistermaatVanDerKallen
-

@@ -106,4 +106,3 @@ theorem lintegral_abs_det_le_mul_image_of_contDiffAt
 
 end
 end DuistermaatVanDerKallen
-
