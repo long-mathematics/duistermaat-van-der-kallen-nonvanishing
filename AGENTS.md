@@ -29,11 +29,28 @@ The primary target is the full arbitrary-rank resolution-free Duistermaat--van d
 
 Do not replace the resolution-free proof by Hironaka/resolution-of-singularities machinery unless explicitly instructed.
 
-The **main transport route** in the manuscript is now the generalized-critical-value / complete ODE route on the closed affine embedding
-`(ℂˣ)^d ≃ {(z,w) ∈ ℂ^{2d} : z_j w_j = 1}`.
-Formalize this route first. Use the induced proper metric (or an explicitly proved equivalent one), so both `|x_j| → ∞` and `|x_j| → 0` count as escape.
+### Main transport route
 
-The main transport dependencies are semialgebraic generalized-critical-value control at infinity, Hardt triviality, a radial path-length estimate, the Rabier/minimal-singular-value function, a minimal-norm right inverse, and an ODE continuation/Gronwall argument. Do not turn unavailable standard theorems into project axioms: search mathlib, prove the required special case where feasible, or isolate the exact missing theorem.
+Formalize the manuscript's **direct scalar common-radius / normalized-gradient route** first.
+
+The torus is modeled by the closed affine embedding
+
+`z ↦ (z,z⁻¹) ∈ ℂ^{2d}`,
+
+with the induced Hermitian metric. This proper geometry must count both `|z_j| → ∞` and `|z_j| → 0` as escape.
+
+The main transport dependency chain is:
+
+1. Hardt triviality + compact semialgebraic triangulation + the existing uniform one-dimensional volume bound;
+2. the manuscript's uniform compact-family connecting-path lemma;
+3. the common-radius component-count proof that the scalar asymptotic critical-value set `K∞` is finite;
+4. the uniform lower bound on `(1+r) λ` away from `K₀ ∪ K∞`;
+5. the explicit scalar normalized-gradient lift;
+6. ODE existence, dependence, Gronwall growth control, and continuation on a compact subset of the regular ODE domain;
+7. smooth local trivialization and holomorphic period transport;
+8. a separate Hardt application for the semialgebraic endpoint sweep.
+
+Do **not** replace the common-radius proof by a generalized Bertini--Sard theorem, an asymptotic power-rate theorem, or the older radial/Puiseux proof merely because such a theorem is available. Those are background alternatives, not dependencies of the finalized main proof.
 
 The projective-graph / complex Whitney-stratification / Thom-first-isotopy proof is retained only in the manuscript appendix as an alternate proof. It is **not** a required dependency of the main formalization. Do not silently revert the main formalization to Whitney--Thom merely because that appendix exists.
 

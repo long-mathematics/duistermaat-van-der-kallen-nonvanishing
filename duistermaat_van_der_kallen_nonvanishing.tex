@@ -56,24 +56,23 @@
 \small\textit{Research draft for adversarial mathematical audit. Not formally verified.}
 \end{center}
 \begin{abstract}
-We present a resolution-free semialgebraic proof of the following theorem of
-Duistermaat and van der Kallen: if the Newton polytope of a nonzero complex
-Laurent polynomial contains the origin, then infinitely many of its positive
-powers have nonzero constant term. The principal estimate is a uniform
-middle-dimensional sublevel bound for the restriction of a holomorphic
-volume form to a semialgebraic family. Polynomial differentiation and a
-finite-multiplicity projection estimate prove this bound; a dyadic
-decomposition then gives absolute integrability of the logarithmic volume
-form on every middle-dimensional semialgebraic chain on which the Laurent
-polynomial is bounded. The local residue construction of Duistermaat and
-van der Kallen identifies the constant-term generating function with a
-fiber period. Our estimate gives a primitive with a power-law endpoint
-bound, contradicting the simple pole forced by vanishing of all positive
-constant terms. Infinite nonvanishing follows by applying this minimal
-nonvanishing statement to powers of the polynomial. The standard semialgebraic inputs are stated explicitly.  Global cycle
-transport is obtained by an explicit generalized-critical-value ODE rather
-than Whitney--Thom theory; the latter is retained as an alternative in an
-appendix.
+We give a resolution-free semialgebraic proof of the Duistermaat--van der
+Kallen theorem: if the Newton polytope of a nonzero complex Laurent
+polynomial contains the origin, infinitely many positive powers have
+nonzero constant term. A uniform middle-dimensional sublevel estimate
+for a restricted holomorphic volume form yields logarithmic-form
+integrability by dyadic decomposition. For global transport, we use the
+closed embedding $z\mapsto(z,z^{-1})$ and its induced Hermitian metric.
+Uniform semialgebraic connecting-path bounds imply finiteness of scalar
+asymptotic critical values; an explicit normalized-gradient lift then
+has complete transport by a linear-growth estimate. The local residue
+construction of Duistermaat and van der Kallen identifies the constant-term
+generating function with a fiber period. A separate semialgebraic endpoint
+sweep gives a primitive with a power-law bound, contradicting the simple
+pole forced by vanishing of all positive constant terms. Infinite
+nonvanishing follows by applying minimal nonvanishing to powers.
+The standard semialgebraic, integration, and ODE inputs are identified;
+an independent Whitney--Thom transport proof is retained in an appendix.
 \end{abstract}
 
 \section{Introduction and statements}\label{sec:introduction}
@@ -145,20 +144,35 @@ If all positive constant terms vanish, the residue identity forces
 $J(s)=-(2\pi\ii)^{d-1}/s$. Its integral over $[a,2a]$ is a fixed nonzero
 constant, giving a contradiction.
 
+Global transport is established separately by the implications
+\begin{align*}
+ &\text{Hardt triviality, compact triangulation, and uniform arc lengths}\\
+ &\quad\Longrightarrow\quad
+       \text{finitely many scalar asymptotic critical values}\\
+ &\quad\Longrightarrow\quad
+       \text{a normalized-gradient lift with controlled growth}\\
+ &\quad\Longrightarrow\quad
+       \text{complete fiber transport outside a finite set}.
+\end{align*}
+The radius and differential norm here come from the closed embedding
+$z\mapsto(z,z^{-1})$, so approaching a deleted coordinate hyperplane counts
+as escape to infinity. The resulting smooth flow transports homology
+classes; it is not asserted to be semialgebraic. Hardt triviality is used
+both in the connecting-path lemma and, later, to choose the semialgebraic
+sweep on the final real interval.
+
 The term \emph{resolution-free} is literal: no resolution of singularities
-is used.  The global transport step in Section~\ref{sec:transport} works
-directly on the closed affine embedding
-$\torus\simeq\{(z,w):z_jw_j=1\}\subset\C^{2d}$.  Generalized critical
-values give a finite exceptional set, and a minimal-norm right inverse of
-$\dd f$ gives an explicit horizontal ODE.  Its linear growth in the proper
-affine radius yields complete path lifting by Gronwall.  Hardt triviality is
-retained for semialgebraic control, in particular for the final real sweep
-near zero.  Appendix~\ref{app:whitney-thom} records the older
-projective-graph/Whitney--Thom transport as an independent alternative; it is
-not a dependency of the main proof.  The presentation remains relative to
-the explicitly stated standard semialgebraic inputs rather than reconstructing
-their foundations.  The stronger critical-value and exponential-growth
-statement in \cite[Theorem 5]{DvK} is not a theorem of this draft.
+is used. The main proof retains semialgebraic decomposition, Hardt
+triviality, compact triangulation, integration and Stokes, together with
+ordinary finite-dimensional ODE existence, dependence, and continuation.
+It does not invoke Whitney stratification, Thom isotopy, or a generalized
+Bertini--Sard theorem. Appendix~\ref{app:whitney-thom} gives an independent
+Whitney--Thom proof of the finite-exceptional-set and topological
+transport conclusion needed for the period argument. The presentation
+works relative to the explicitly stated standard inputs; it is not a
+reconstruction of their foundations. The stronger critical-value and
+exponential-growth statement in \cite[Theorem 5]{DvK} is not a theorem
+of this draft.
 
 \section{Elementary Newton-polytope reductions}\label{sec:newton}
 \begin{lemma}[Minimal-face reduction]\label{lem:face}
@@ -251,6 +265,9 @@ and imaginary parts. Dimension in this section is real dimension.
 The following precise forms of standard results will be used.
 
 \begin{standard}[Semialgebraic decomposition and triviality]\label{std:sa}
+Coordinate projections of semialgebraic sets are semialgebraic. A
+semialgebraic subset of the real line is a finite union of points and
+intervals; in particular, if it is unbounded above it contains a tail.
 A semialgebraic set and a finite collection of semialgebraic subsets admit
 compatible finite decompositions into Nash manifolds. Semialgebraic
 families have uniform bounds on the number of connected components of
@@ -268,7 +285,7 @@ on semialgebraic manifolds admit finite semialgebraic cycle representatives.
 These are the decomposition, triangulation, and Hardt triviality results
 in \cite{BCR,Hardt}; the local-triviality statement is
 \cite[Theorem 9.3.2]{BCR}. A noncompact set need not have a finite
-triangulation by \emph{closed} simplices. Only compact cycle representatives
+triangulation by \emph{closed} simplices. Only compact model fibers, compact cycle representatives,
 and compact truncated chains will require that assertion here.
 
 \begin{standard}[Integration and Stokes]\label{std:stokes}
@@ -390,6 +407,64 @@ For the Euclidean-volume assertion, the coordinate components of a unit
 simple $d$-vector have squares summing to $1$, so their absolute values
 have sum at least $1$. Sum over all coordinate $d$-projections.
 \end{proof}
+
+
+\subsection{Uniform lengths of connecting paths}
+\begin{lemma}[Uniform connecting paths]\label{lem:connecting-paths}
+Let $\mathcal A\subset\Theta\times\R^m$ be a fixed semialgebraic family
+whose fibers $A_\theta$ are compact and contained in the closed unit ball.
+There are integers $N\ge1$ and a constant $L\ge1$, depending only on the
+family, such that each fiber has at most $N$ connected components and any
+two points in the same component can be joined in that component by a
+rectifiable semialgebraic path of length at most $L$.
+\end{lemma}
+\begin{proof}
+The component bound is part of Standard input~\ref{std:sa}. Apply Hardt
+triviality to the parameter projection. After a finite partition of
+$\Theta$, each nonempty family has a semialgebraic trivialization with
+one fixed compact model fiber. Triangulate that model by a finite
+simplicial complex $K$, and compose its triangulation with the
+trivialization to obtain semialgebraic homeomorphisms
+$H_\theta:|K|\to A_\theta$, jointly semialgebraic in $\theta$ and the
+model point.
+
+For every simplex $\sigma$ of $K$, fix a vertex $v_\sigma$. Given two
+points $p,q$ of the same component of $|K|$, choose simplices containing
+them. Join $p$ to the chosen vertex of its simplex by a straight segment,
+join the two chosen vertices through the one-skeleton of their connected
+component, and join the second vertex to $q$. A connected finite complex
+has a connected one-skeleton on its vertices. There are finitely many
+pairs of vertices, so these edge paths may be fixed in advance with a
+uniform bound on the number of segments. The two endpoint segments add
+at most two more.
+
+Under $H_\theta$, each segment is constant or an injectively parametrized
+semialgebraic arc in the unit ball. As $\theta$ and the endpoint in a
+fixed simplex vary, its image belongs to one semialgebraic family of
+sets of dimension at most one. Indeed it is the image of
+$\{(\theta,p,t):p\in\sigma,\ 0\le t\le1\}$ under
+$(\theta,p,t)\mapsto(\theta,p,H_\theta((1-t)p+tv_\sigma))$.
+The fixed edge types give finitely many more such families.
+Corollary~\ref{cor:bounded-volume}, in real dimension one, bounds the
+one-dimensional Hausdorff measure of all these images uniformly.
+The length of an injective arc is the measure of its image. Summing
+these bounds over the bounded number of segments, and then taking the
+maximum over the finitely many Hardt pieces, gives $L$.
+
+The transported parametrizations need not have bounded derivatives.
+Rectifiability is what the argument establishes and uses: each arc can
+be parametrized by arclength, and decomposed into smooth pieces for the
+ordinary chain rule. No Lipschitz bound for the Hardt homeomorphisms is
+assumed.
+\end{proof}
+
+\begin{remark}\label{rem:connecting-paths-background}
+A more general bounded-family path-length theorem is stated as
+\cite[Theorem 3.3]{KOS}, attributed there to Teissier. The proof above
+supplies the compact-fiber case needed here directly from the
+semialgebraic tools and projection bound already used in this paper.
+It does not invoke a resolution-based proof of that theorem.
+\end{remark}
 
 \section{A middle-dimensional polynomial sublevel estimate}\label{sec:sublevel}
 Fix $d\ge1$, $L\ge1$, a semialgebraic family $E_\theta$ of real dimension
@@ -591,99 +666,152 @@ bounds with the finitely many absolute chain multiplicities proves the
 chain version.
 \end{proof}
 
-\section{Generalized critical values and ODE transport}\label{sec:transport}
-We now supply the global transport needed to continue the residue cycle from a
-large parameter to a punctured interval approaching zero.  The point is to do
-this directly on the affine torus, without compactification, Whitney
-stratifications, or Thom isotopy.
+\section{Finite exceptional values and fiber periods}\label{sec:transport}
+We prove the finite-exceptional-set statement by a direct scalar-gradient
+argument. No Newton-polytope hypothesis is needed in this section.
+Throughout, $d\ge1$ and $f\in R_d$ is nonconstant. The two points to
+keep distinct are the proper geometry used for complete transport and
+the later semialgebraic representatives used for integration.
 
-\subsection{A proper metric on the affine torus}
-Write
+\subsection{Closed embedding and the restricted differential}
+Put $T=(\C^\times)^d$ and define
+\begin{equation}\label{eq:closed-embedding}
+ \Phi:T\longrightarrow\C^{2d},\qquad
+ \Phi(z)=(z_1,\ldots,z_d,z_1^{-1},\ldots,z_d^{-1}).
+\end{equation}
+Its image is the closed smooth affine variety
 \[
- \mathcal T_d=\{(z,w)\in\C^{2d}:z_jw_j=1\ (1\le j\le d)\}.
+ X=\{(z,w):z_iw_i=1\ (1\le i\le d)\}.
 \]
-The map
-\[
- \iota:\torus\longrightarrow\mathcal T_d,\qquad
- x\longmapsto(x_1,\ldots,x_d,x_1^{-1},\ldots,x_d^{-1})
-\]
-is an algebraic isomorphism onto the closed smooth affine variety
-$\mathcal T_d$.  Replace every negative power $x_j^{-m}$ in $f$ by $w_j^m$;
-this gives a polynomial $F$ on $\C^{2d}$ whose restriction to
-$\mathcal T_d$ corresponds to $f$.
+The defining differentials are independent, since their nonzero
+coordinate pairs are disjoint. Replacing negative powers by powers of
+$w_i$ represents $f$ by the restriction of a polynomial to $X$; write
+$F:X\to\C$ for this restriction, so $F\circ\Phi=f$.
 
-Equip $\mathcal T_d$ with the metric induced by the Euclidean Hermitian
-metric of $\C^{2d}$, and put
+Use the Euclidean norm on $X\subset\C^{2d}$ and its induced Hermitian
+metric. In torus coordinates set
 \begin{equation}\label{eq:proper-radius}
- \rho(p)=\|p\|,\qquad p\in\mathcal T_d.
+ r(z)=\|\Phi(z)\|
+     =\left(\sum_{i=1}^d(|z_i|^2+|z_i|^{-2})\right)^{1/2}.
 \end{equation}
-Since $\mathcal T_d$ is closed, $\rho$ is proper.  In the original torus
-coordinates,
-\[
- \rho(x)^2=\sum_{j=1}^d\bigl(|x_j|^2+|x_j|^{-2}\bigr).
-\]
-Thus approaching a coordinate hyperplane $x_j=0$ is correctly counted as
-escape to infinity.
+For every $R$, the set $\{z:r(z)\le R\}$ is compact in $T$.
+Indeed it is identified with a closed bounded subset of $X$; equivalently
+all $|z_i|$ are bounded above and bounded away from zero. Thus an
+escaping sequence in $T$ has $r(z_n)\to\infty$ precisely when it leaves
+every compact subset. The ordinary radius $\|z\|_{\C^d}$ would not have
+this property.
 
-For $p\in\mathcal T_d$, let
-\begin{equation}\label{eq:rabier-function}
- \lambda(p)=\inf_{|u|=1}\|\dd F_p^*u\|,
+For $x\in X$ define the \emph{restricted} differential norm
+\begin{equation}\label{eq:restricted-lambda}
+ \lambda(x)=\|dF_x:T_xX\longrightarrow\C\|.
 \end{equation}
-where $\dd F_p:T_p\mathcal T_d\to\C$ is regarded as a real linear map and
-$\dd F_p^*$ is its metric adjoint.  Because $F|_{\mathcal T_d}$ is
-holomorphic and the metric is Hermitian, its two real singular values agree;
-consequently
-\begin{equation}\label{eq:scalar-rabier}
- \lambda(p)=\|\dd F_p\|.
-\end{equation}
-In particular $\lambda(p)=0$ exactly at the critical points of $F$.
-
-Define the ordinary and asymptotic critical-value sets by
+This is not the norm of the differential of a chosen polynomial extension
+on all of $\C^{2d}$. Write $f_i=\partial f/\partial z_i$ and
+$h_i(z)=1+|z_i|^{-4}$. Direct differentiation of \eqref{eq:closed-embedding}
+and the weighted Cauchy--Schwarz inequality give
 \begin{align}
- K_0(F)&=F\bigl(\Crit(F)\bigr),\label{eq:K0}\\
- K_\infty(F)&=\left\{c\in\C:\begin{array}{l}
- \text{there are }p_\nu\in\mathcal T_d\text{ with }\rho(p_\nu)\to\infty,\\
- F(p_\nu)\to c,\quad \rho(p_\nu)\lambda(p_\nu)\to0
- \end{array}\right\}.\label{eq:Kinf}
+ \|D\Phi_z(v)\|^2&=\sum_i h_i(z)|v_i|^2,
+       \label{eq:embedding-metric}\\
+ \lambda(\Phi(z))^2&=\sum_i\frac{|f_i(z)|^2}{h_i(z)}.
+       \label{eq:lambda-formula}
 \end{align}
-We henceforth use these definitions through the fixed algebraic
-identification with $\torus$; the chosen radius is proper on that torus.
-
-\begin{standard}[Semialgebraic control at infinity]\label{std:asymptotic}
-For a fixed polynomial function on a closed smooth affine semialgebraic
-submanifold equipped with an induced semialgebraic metric, the following
-hold.
-\begin{enumerate}[label=(\roman*)]
-\item There is an integer $N\ge1$ such that an asymptotic critical value can
-be detected along a sequence satisfying
-\[
- \lambda(p)\le \rho(p)^{-(1+1/N)}.
-\]
-Equivalently, if
-\[
- \widetilde\Sigma_R=
- \{p:\rho(p)\ge R,\ \lambda(p)\le\rho(p)^{-(1+1/N)}\},
-\]
-then
-\begin{equation}\label{eq:Kinf-tail}
- K_\infty(F)=\bigcap_{R>0}\overline{F(\widetilde\Sigma_R)}.
+In particular, $\lambda$ is continuous and semialgebraic.
+Because $dF$ has one complex-linear output, it is either zero or
+surjective as a real map to $\R^2$. Moreover its operator norm controls
+both variation and the optimal right-inverse norm. Explicitly, whenever
+$\lambda(\Phi(z))>0$, for every $a\in\C$ the vector
+\begin{equation}\label{eq:gradient-lift}
+ V_a(z)_i=\frac{a\,\overline{f_i(z)}}
+                  {h_i(z)\lambda(\Phi(z))^2}
 \end{equation}
-\item For a fixed semialgebraic family of subsets of Euclidean spheres,
-there is $M<\infty$ such that any two points in one connected component of
-a radius-$r$ member can be joined inside that component by a piecewise
-$C^1$ curve of length at most $Mr$, for all sufficiently large $r$.
-\end{enumerate}
-\end{standard}
+satisfies
+\begin{equation}\label{eq:gradient-identities}
+ df_z(V_a(z))=a,\qquad
+ \|D\Phi_z(V_a(z))\|=\frac{|a|}{\lambda(\Phi(z))}.
+\end{equation}
+These identities follow by substitution in \eqref{eq:lambda-formula};
+Cauchy--Schwarz also shows that no lift of $a$ has smaller norm.
+For a general map with several outputs this equality between operator
+norm and least-surjectivity norm would fail. The scalar formula avoids
+any need for a matrix pseudoinverse.
 
-The first statement is the usual semialgebraic \L{}ojasiewicz inequality at
-infinity for generalized critical values.  The second is the
-Teissier--Yomdin radial path-length estimate.  In the polynomial case these
-are used together in the direct proof of finiteness of asymptotic critical
-values in \cite[Proposition~4.2]{JK03}.  The Rabier-function formulation for
-polynomial maps on smooth affine varieties is developed in \cite{Jelonek04};
-see also the quantitative generalized Bertini--Sard theorem
-\cite{JK05}.  We use only the two explicit consequences stated above.
+\subsection{Finitely many bad values}
+Define
+\begin{align}
+ K_0&=F(\{x\in X:\lambda(x)=0\}),\label{eq:ordinary-bad}\\
+ K_\infty&=\left\{c\in\C:
+ \begin{array}{l}
+  \exists x_n\in X,\quad \|x_n\|\to\infty,\quad F(x_n)\to c,\\
+  \hfill \|x_n\|\lambda(x_n)\to0
+ \end{array}\right\}.\label{eq:asymptotic-bad}
+\end{align}
+Here $K_0$ is the set of ordinary critical values. Every occurrence of
+escape and of the differential norm in \eqref{eq:asymptotic-bad} uses
+\eqref{eq:closed-embedding}--\eqref{eq:restricted-lambda}.
 
+\begin{lemma}[Direct scalar finiteness]\label{lem:scalar-finiteness}
+Both $K_0$ and $K_\infty$ are finite.
+\end{lemma}
+\begin{proof}
+The critical locus is semialgebraic. By Standard input~\ref{std:sa},
+it has a finite decomposition into connected smooth pieces, after
+splitting the Nash pieces into their finitely many connected components.
+The restriction of $F$ has zero differential on each such piece and is
+therefore constant there, by integration along piecewise smooth paths.
+Thus its image $K_0$ is finite.
+
+For $R>1$ and $\varepsilon>0$, consider the compact semialgebraic family
+\begin{equation}\label{eq:small-gradient-sphere}
+ A_{R,\varepsilon}=
+ \{u\in\mathbb S^{4d-1}:Ru\in X,\ R\lambda(Ru)\le\varepsilon\}.
+\end{equation}
+The family is compact fiberwise because $X$ is closed and $\lambda$
+is continuous. It is one fixed semialgebraic family by
+\eqref{eq:lambda-formula}. Lemma~\ref{lem:connecting-paths} supplies
+$N\ge1$ and $L\ge1$ independent of both $R$ and $\varepsilon$.
+If $C$ is a connected component and $u,v\in C$, choose a connecting
+path of length at most $L$. On its arclength-parametrized arcs the
+scaled path $R\gamma$ lies in $X$, so its derivative is tangent to $X$
+almost everywhere and
+\[
+ |(F(R\gamma))'|
+ \le R\lambda(R\gamma)\,\|\gamma'\|
+ \le\varepsilon\|\gamma'\|.
+\]
+Ordinary integration on the rectifiable arcs yields
+\begin{equation}\label{eq:small-gradient-diameter}
+ \operatorname{diam}F(RC)\le L\varepsilon.
+\end{equation}
+
+Suppose that $K_\infty$ contains distinct $c_0,\ldots,c_N$. Put
+$\eta=\min_{i\ne j}|c_i-c_j|>0$ and choose
+$\varepsilon>0$ with $L\varepsilon<\eta/4$. For each $j$ let
+\begin{equation}\label{eq:common-radius-set}
+ E_j=\left\{R>1:
+ \begin{array}{l}
+ \exists x\in X,\quad\|x\|=R,\quad R\lambda(x)\le\varepsilon,\\
+ \hfill |F(x)-c_j|<\eta/8
+ \end{array}\right\}.
+\end{equation}
+It is semialgebraic, by projection, and unbounded by the definition
+of $K_\infty$. Hence $E_j$ contains a whole tail $(R_j,\infty)$.
+At a single radius $R>\max_jR_j$, choose the $N+1$ corresponding
+points $x_j$. The normalized points $x_j/R$ lie in
+$A_{R,\varepsilon}$, while
+\[
+ |F(x_i)-F(x_j)|>\eta-2\eta/8=3\eta/4\quad(i\ne j).
+\]
+Two normalized points must lie in the same one of at most $N$
+components, contradicting \eqref{eq:small-gradient-diameter}.
+Consequently $|K_\infty|\le N$.
+
+This proof uses semialgebraicity of the radius sets $E_j$, not a prior
+finiteness or algebraicity theorem for $K_\infty$. It does not require
+curve selection at infinity or Puiseux expansions.
+\end{proof}
+
+We also write $K_0(F)=K_0$ and $K_\infty(F)=K_\infty$ when making the
+function explicit.
 \begin{proposition}[Finiteness of generalized critical values]\label{prop:generalized-critical}
 For nonconstant $f\in R_d$, the set
 \[
@@ -692,64 +820,92 @@ For nonconstant $f\in R_d$, the set
 is finite.
 \end{proposition}
 \begin{proof}
-The critical locus of the polynomial $F|_{\mathcal T_d}$ is algebraic.
-It has finitely many irreducible components, and $F$ is constant on each:
-on the smooth dense locus of such a component its differential vanishes.
-Hence $K_0(F)$ is finite.
-
-It remains to treat $K_\infty(F)$.  Fix $N$ from Standard
-input~\ref{std:asymptotic}, and put
-\[
- \Sigma_r=\widetilde\Sigma_{R_0}\cap\{\rho=r\}.
-\]
-Apply Hardt triviality from Standard input~\ref{std:sa} to the radius map
-on $\widetilde\Sigma_{R_0}$ and increase $R_0$ past the last exceptional
-radius.  The unbounded tail then has finitely many connected components
-$E_1,\ldots,E_k$, each meeting every sphere $\{\rho=r\}$, $r\ge R_0$, in
-a connected component $L_{j,r}$ of $\Sigma_r$.
-
-For each $j$, semialgebraic selection and finite decomposition give a
-$C^1$ semialgebraic section
-\[
- \gamma_j:[R_0,\infty)\to E_j,
- \qquad \rho(\gamma_j(r))=r.
-\]
-After increasing $R_0$ again, $\|\gamma_j'(r)\|\le2$.  Indeed,
-$u_j(r)=\gamma_j(r)/r$ is a bounded semialgebraic curve on the unit
-sphere.  By semialgebraic monotonicity (equivalently, its Puiseux behavior at
-infinity), $u_j(r)$ has a limit and $r u_j'(r)\to0$; thus
-$\gamma_j'(r)=u_j(r)+r u_j'(r)$ has norm tending to $1$.
-Using \eqref{eq:scalar-rabier},
-\[
- |(F\circ\gamma_j)'(r)|
- \le \lambda(\gamma_j(r))\|\gamma_j'(r)\|
- \le 2r^{-(1+1/N)}.
-\]
-Therefore $F(\gamma_j(r))$ converges to a limit $c_j\in\C$, with
-\begin{equation}\label{eq:radial-tail}
- |F(\gamma_j(r))-c_j|\le 2N r^{-1/N}.
-\end{equation}
-
-By Standard input~\ref{std:asymptotic}(ii), any
-$p\in L_{j,r}$ can be joined to $\gamma_j(r)$ inside $L_{j,r}$ by a curve
-of length at most $Mr$.  Along that curve
-$\|\dd F\|=\lambda\le r^{-(1+1/N)}$, so
-\begin{equation}\label{eq:spherical-diameter}
- |F(p)-F(\gamma_j(r))|\le M r^{-1/N}.
-\end{equation}
-Combining \eqref{eq:radial-tail} and
-\eqref{eq:spherical-diameter}, the image of
-$E_j\cap\{\rho\ge R\}$ is contained in a ball about $c_j$ whose radius is
-$O(R^{-1/N})$.  Consequently every sequence in
-$\widetilde\Sigma_R$ escaping to infinity and having bounded $F$-value has,
-after passage to one of the finitely many components, limit $c_j$.
-Equation~\eqref{eq:Kinf-tail} gives
-\[
- K_\infty(F)\subset\{c_1,\ldots,c_k\}.
-\]
-Thus $B$ is finite.
+This is the union of the two finite sets in
+Lemma~\ref{lem:scalar-finiteness}.
 \end{proof}
 
+Put $U=\C\setminus B$.
+\begin{lemma}[Uniform differential lower bound]\label{lem:uniform-gradient}
+For every compact $Q\subset U$ there is $c_Q>0$ such that
+\begin{equation}\label{eq:malgrange-uniform}
+ (1+\|x\|)\lambda(x)\ge c_Q
+ \qquad(x\in X,\ F(x)\in Q).
+\end{equation}
+\end{lemma}
+\begin{proof}
+An empty inverse image is harmless. Otherwise, if no positive lower
+bound exists, choose $x_n$ with $F(x_n)\in Q$ and
+$(1+\|x_n\|)\lambda(x_n)\to0$. Compactness gives a subsequence with
+$F(x_n)\to c\in Q$. If this subsequence has a bounded subsequence,
+closedness of $X$ gives a further convergent subsequence with limit
+$x\in X$, $F(x)=c$, and $\lambda(x)=0$. Then $c\in K_0$.
+If it has no bounded subsequence, its norms tend to infinity. The same
+inequalities then give $c\in K_\infty$.
+Both alternatives contradict $Q\cap B=\varnothing$.
+\end{proof}
+
+\subsection{Complete gradient transport}
+We use ordinary finite-dimensional real ODE theory on an open subset of
+$\C^d\simeq\R^{2d}$: a smooth vector field has unique maximal solutions,
+solutions depend smoothly on initial data and finite-dimensional
+parameters on their domain of existence, and a solution confined to a
+compact subset of the vector-field domain cannot have a finite terminal
+time. The same facts hold for time-dependent fields continuous in time and
+smooth in the spatial variables, with their spatial derivatives continuous;
+the relevant local Lipschitz bounds are uniform on compact time-space sets.
+These are the local existence, dependence, and continuation results of
+\cite[Sections 2.2 and 2.4--2.6]{Teschl}. For the local trivializations
+below, dependence on finite-dimensional parameters is used only for the
+explicit smooth family of autonomous fields $V_a$. The growth estimate
+needed below is proved directly.
+
+\begin{lemma}[Transport along a segment]\label{lem:complete-segment}
+Let $\sigma(t)=s_0+ta$, $0\le t\le1$, be a segment contained in $U$.
+For every $z_0\in f^{-1}(s_0)$, the real ODE
+$\dot z=V_a(z)$, $z(0)=z_0$, is defined throughout $[0,1]$ and satisfies
+$f(z(t))=\sigma(t)$. Its time-one map is a smooth diffeomorphism
+$f^{-1}(s_0)\to f^{-1}(s_0+a)$. Transport of a compact cycle stays
+in a compact subset of $T$ throughout this segment.
+\end{lemma}
+\begin{proof}
+The field \eqref{eq:gradient-lift} is real smooth on
+$\mathcal O=\{z\in T:\lambda(\Phi(z))>0\}$. The first identity in
+\eqref{eq:gradient-identities} shows that $f(z(t))=s_0+ta$ as long as
+the solution exists. Apply Lemma~\ref{lem:uniform-gradient} with the
+compact set $Q=\sigma([0,1])$. Along the existing part of the solution,
+\begin{equation}\label{eq:embedded-growth}
+ \left\|\frac{\dd}{\dd t}\Phi(z(t))\right\|
+ \le\frac{|a|}{c_Q}(1+r(z(t))).
+\end{equation}
+Since $r(z)\ge\sqrt{2d}>0$, its derivative exists along the smooth
+solution and is at most the norm on the left. Set $C=|a|/c_Q$.
+Differentiating $e^{-Ct}(1+r(z(t)))$ gives a nonpositive quantity;
+hence
+\begin{equation}\label{eq:gronwall-radius}
+ 1+r(z(t))\le(1+r(z_0))e^{Ct}\qquad(0\le t\le1)
+\end{equation}
+whenever the solution exists.
+
+Choose $R_*> (1+r(z_0))e^C$. The trajectory, before any putative
+terminal time at most one, lies in
+\[
+ \mathcal K=\{z\in T:r(z)\le R_*,\ f(z)\in Q\}.
+\]
+This set is compact, and \eqref{eq:malgrange-uniform} gives
+$\lambda(\Phi(z))\ge c_Q/(1+R_*)>0$ on it. Thus $\mathcal K$ is a
+compact subset of $\mathcal O$, not merely a bounded subset of $T$.
+ODE continuation excludes such a terminal time. In particular the bound
+controls both $|z_i|$ and $|z_i|^{-1}$: neither infinity nor a deleted
+coordinate hyperplane can be reached in finite time.
+
+The reversed segment uses $V_{-a}=-V_a$; uniqueness gives the inverse
+of the time-one map. Smooth dependence gives smoothness of both maps.
+For initial points in a compact cycle, $r(z_0)$ has a common upper
+bound. The same argument is therefore uniform on that cycle, and its
+sweep over $[0,1]$ is compact by continuous dependence.
+\end{proof}
+
+For $s\in\C$, write $X_s=f^{-1}(s)$.
 \begin{proposition}[Complete ODE transport]\label{prop:bifurcation}
 Let $B$ be the finite set in Proposition~\ref{prop:generalized-critical}
 and put $U=\C\setminus B$.  Every fiber over $U$ is smooth.  Moreover,
@@ -766,57 +922,98 @@ is locally smoothly trivial, and its fiber homology groups form a local
 system on $U$.
 \end{proposition}
 \begin{proof}
-Let $Q=\alpha([0,1])$.  Since $Q$ is compact and disjoint from
-$K_0(F)\cup K_\infty(F)$, there is $c_Q>0$ such that
-\begin{equation}\label{eq:malgrange-uniform}
- (1+\rho(p))\lambda(p)\ge c_Q
- \qquad(F(p)\in Q).
-\end{equation}
-Otherwise there would be a sequence $p_\nu$ with $F(p_\nu)\in Q$ and
-$(1+\rho(p_\nu))\lambda(p_\nu)\to0$.  If $\rho(p_\nu)$ were bounded,
-properness of $\rho$ would give a convergent subsequence ending at a
-critical point with value in $Q$, contrary to $Q\cap K_0(F)=\varnothing$.
-If it were unbounded, pass to a subsequence with
-$\rho(p_\nu)\to\infty$ and $F(p_\nu)\to c\in Q$; then
-$c\in K_\infty(F)$, again a contradiction.
-
-For a regular point $p$, set $A_p=\dd F_p$ and let
-\[
- R_p=A_p^*(A_pA_p^*)^{-1}:\C\to T_p\mathcal T_d
-\]
-be its minimal-norm real right inverse.  It depends smoothly on $p$ and
-satisfies
-\[
- A_pR_p=\operatorname{id}_{\C},\qquad
- \|R_p\|=\lambda(p)^{-1}.
-\]
-Along a $C^1$ piece of $\alpha$, consider
+Values outside $K_0$ have smooth fibers. First consider a $C^1$ piece
+$\alpha:[u,v]\to U$; here the derivative is continuous up to the endpoints.
+With $Q=\alpha([u,v])$, solve the real ODE on
+$\mathcal O=\{z\in T:\lambda(\Phi(z))>0\}$ given by
 \begin{equation}\label{eq:horizontal-ode}
- p'(t)=R_{p(t)}\alpha'(t),
- \qquad F(p(0))=\alpha(0).
+ \dot z_i(t)=V_{\alpha'(t)}(z(t))_i
+ =\frac{\alpha'(t)\,\overline{f_i(z(t))}}
+        {h_i(z(t))\lambda(\Phi(z(t)))^2},
+ \qquad f(z(u))=\alpha(u).
 \end{equation}
-Then
-\[
- \frac{\dd}{\dd t}F(p(t))=\alpha'(t),
-\]
-so $F(p(t))=\alpha(t)$ while the solution exists.  By
-\eqref{eq:malgrange-uniform},
+The coefficients are continuous in time and smooth in space, so local
+existence and uniqueness apply. By \eqref{eq:gradient-identities},
+$f(z(t))=\alpha(t)$ while the solution exists. Put
+$C=\sup_{[u,v]}|\alpha'|/c_Q$. Then
 \begin{equation}\label{eq:linear-growth}
- \|p'(t)\|\le C_\alpha(1+\rho(p(t)))
+ \left\|\frac{\dd}{\dd t}\Phi(z(t))\right\|
+ \le C(1+r(z(t))),\qquad
+ 1+r(z(t))\le(1+r(z(u)))e^{C(t-u)}.
 \end{equation}
-for a constant depending only on the path.  Since
-$|\rho'(t)|\le\|p'(t)\|$, Gronwall's inequality bounds $\rho(p(t))$ on
-every finite time interval.  The sublevel sets of $\rho$ are compact in
-$\mathcal T_d$, so the ordinary ODE continuation theorem extends the
-solution across all of $[0,1]$.  This excludes both ordinary Euclidean
-escape and approach to a deleted coordinate hyperplane.
+The second estimate follows by the same integrating-factor calculation
+as \eqref{eq:gronwall-radius}. As in Lemma~\ref{lem:complete-segment},
+the trajectory stays in a compact set $\{r\le R_*,\ f\in Q\}$ on which
+$\lambda\ge c_Q/(1+R_*)>0$. This is a compact subset of the ODE domain;
+continuation therefore covers the whole piece. The reversed path gives
+the inverse transport, and smooth dependence on the initial point gives
+a diffeomorphism of fibers. A piecewise $C^1$ path has a finite partition
+into such pieces; composing their transports proves the path assertion.
+Each lift is the minimal-norm lift by \eqref{eq:gradient-identities} and
+the Cauchy--Schwarz argument following it. For a polygonal path all the
+pieces use the autonomous fields of Lemma~\ref{lem:complete-segment}.
 
-Transport along the reversed path gives the inverse map, and smooth
-dependence on initial conditions gives a diffeomorphism of fibers.
-Applying the same construction to the straight radial paths in a small
-disc compactly contained in $U$ yields a smooth local trivialization.
-The homology groups therefore form a local system.
+For local triviality, fix $b\in U$ and an open disk $D$ centered at $b$
+with $\overline D\subset U$. For $s\in D$ let $\Theta(s,z)$ be the
+time-one solution of $V_{s-b}$ starting at $z\in X_b$.
+Lemma~\ref{lem:complete-segment} applies to every such segment, using the
+single compact base set $\overline D$ for the differential lower bound.
+Smooth dependence on $s$ and the initial point makes
+\[
+ \Theta:D\times X_b\longrightarrow f^{-1}(D)
+\]
+smooth. Its inverse sends $y$ to $f(y)$ together with the time-one
+solution of $V_{b-f(y)}$ starting at $y$, and is smooth for the same
+reason. The reverse-flow identity proves that the maps are inverse;
+moreover $f(\Theta(s,z))=s$. Empty fibers cause no difficulty, since
+reverse transport shows that a disk with empty reference fiber has
+empty preimage.
+
+The induced fiber homology groups form a local system. No canonical or
+globally monodromy-invariant cycle is claimed. Uniformity on any fixed
+compact cycle follows from the radius bound and continuous dependence;
+no bound uniform over an entire noncompact fiber is required.
 \end{proof}
+
+\begin{remark}[Behavior at infinity is essential]\label{rem:asymptotic-example}
+Newton interiority does not let one replace $B$ by $K_0$. For $c\in\C$,
+consider
+\[
+ f_c(x,y)=c+x+\frac{(y-1)^2}{xy}.
+\]
+Its Newton polytope has vertices $(1,0),(-1,1),(-1,-1)$, and the origin
+is their convex combination with positive coefficients $1/2,1/4,1/4$.
+Along $(x,y)=(t,1)$, $t\downarrow0$, one has
+\[
+ f_c(t,1)=c+t,\qquad (f_c)_x(t,1)=1,\qquad (f_c)_y(t,1)=0,
+\]
+and, in the metric \eqref{eq:embedding-metric},
+\[
+ \lambda(\Phi(t,1))=\frac{t^2}{\sqrt{1+t^4}},\qquad
+ r(t,1)=t+t^{-1}.
+\]
+Thus $r(t,1)\lambda(\Phi(t,1))\to0$ and $c\in K_\infty$.
+The ordinary critical points have $y=-1$ and $x=\pm2\ii$, with critical
+values $c\pm4\ii$. Hence $c$ is an ordinary regular value despite this
+asymptotic degeneration.
+\end{remark}
+\begin{remark}[Scope and attribution of the transport proof]\label{rem:transport-background}
+The normalized-gradient mechanism is a scalar specialization of the
+asymptotic-critical-value approach to nonproper fibrations; see
+\cite[Section 3]{Jelonek04} and \cite{KOS}. The proof here establishes the
+needed finiteness by the common-radius argument and establishes
+completeness by \eqref{eq:gronwall-radius}, rather than invoking a
+generalized Bertini--Sard or fibration theorem. The tangency-value
+alternative in \cite[Theorem 3.1]{NPP} is related background, not an
+input to this proof. Appendix~\ref{app:whitney-thom} retains the independent
+projective-graph/Whitney--Thom argument.
+
+The real-smooth field $V_a$ is semialgebraic, but its flow need not be:
+even $\dot u=u$ has an exponential flow. Transport provides the homology
+class and local trivializations, not the semialgebraic chain used for the
+endpoint estimate. Those representatives will be chosen separately in
+Section~\ref{sec:primitive}.
+\end{remark}
 
 \subsection{Relative forms and holomorphic periods}
 At a regular value $s$, put $X_s=f^{-1}(s)$. There is a canonical
@@ -863,8 +1060,11 @@ along every path in $U$.  No global monodromy invariance of the transported
 class is required.
 \end{proof}
 
-
 \section{Semialgebraic sweeps and the endpoint primitive}\label{sec:primitive}
+The flows of Section~\ref{sec:transport} select the transported homology
+class. They are not used as semialgebraic parametrizations. We now use
+Hardt triviality again, independently of its earlier use in
+Lemma~\ref{lem:connecting-paths}, to obtain the required semialgebraic sweep.
 Continue to assume $0\in\Int\Newt(f)$ and $d\ge1$. Choose $b>0$
 sufficiently small that $(0,b]\subset U$. Applying Hardt triviality to
 the restriction of $f$ over the real interval, and decreasing $b$ once
@@ -934,8 +1134,10 @@ zero to these $d$-integrals. Since $f=s$ on the sweep,
 to prove \eqref{eq:primitive-derivative}; the fundamental theorem of
 calculus will then give \eqref{eq:sweep-integral}.
 
-On the regular locus of $f$, define the smooth complex vector field
-and smooth $(d-1)$-form
+For this local Stokes calculation only, no control of escape is needed.
+The following lift in the original coordinates is distinct from the
+proper-metric transport field \eqref{eq:gradient-lift}. On the regular
+locus of $f$, define the smooth complex vector field and smooth $(d-1)$-form
 \begin{equation}\label{eq:explicit-lift}
  V=\frac{\sum_{j=1}^d\overline{\partial_j f}\,\partial/\partial x_j}
           {\sum_{j=1}^d|\partial_j f|^2},
@@ -1161,7 +1363,7 @@ $F,H$ on $K$, if $\int_K F^n=0$ for every $n\ge1$, then
 $\int_K HF^n=0$ for all sufficiently large $n$.
 \end{corollary}
 \begin{proof}
-Identify a character with$x^\alpha=e^{\ii\pair{\alpha}{\theta}}$, $\alpha\in\Z^d$.
+Identify a character with $x^\alpha=e^{\ii\pair{\alpha}{\theta}}$, $\alpha\in\Z^d$.
 Direct integration in each circle coordinate gives
 \[
  \frac1{(2\pi)^d}\int_{[0,2\pi]^d}
@@ -1205,29 +1407,29 @@ semialgebraic family. These precise hypotheses, rather than merely
 similar terminology, must be used in any priority comparison.
 
 Question~9.1 of \cite{Kiselman} motivates the search for a simpler
-nonvanishing proof.  The present route retains substantial, explicitly
-identified semialgebraic inputs: Hardt triviality, the \L{}ojasiewicz
-control of generalized critical values at infinity, and a uniform radial
-path-length estimate.  The normalized-gradient/right-inverse transport in
-Section~\ref{sec:transport} is the standard Malgrange--Rabier mechanism in
-a proper metric on the affine torus; compare \cite{JK03,Jelonek04,JK05}.
-No Whitney stratification or Thom isotopy is used in the main proof, although
-Appendix~\ref{app:whitney-thom} retains that earlier route for comparison.
-The argument is therefore described as resolution-free rather than as
-elementary in every respect. The stronger singularity and growth conclusions
-of \cite[Theorem 5]{DvK} are outside the claims made here. A proof and
+nonvanishing proof. The main route retains substantial, explicitly
+identified semialgebraic and integration results, together with ordinary
+finite-dimensional ODE theory. Whitney stratification and Thom isotopy
+are confined to the independent appendix proof and are not dependencies
+of the main route. The argument is therefore described as resolution-free
+rather than as elementary in every respect. The stronger singularity and growth conclusions of
+\cite[Theorem 5]{DvK} are outside the claims made here. A proof and
 generalization using Newton--Puiseux methods in one variable is discussed
 in \cite{ES}; the present theorem has no rank restriction.
 
 The intended future formalization has one core endpoint,
 Theorem~\ref{thm:minimal}. Lemma~\ref{lem:powers} and the separation
 argument then give Theorem~\ref{thm:main} and
-Corollary~\ref{cor:mathieu}. Standard inputs in
-Section~\ref{sec:sa} and Section~\ref{sec:transport} remain genuine
-mathematical dependencies: a formal proof must establish them or invoke
-proved library theorems, not add them as unproved project axioms.  The main
-formalization target is the generalized-critical-value/ODE route; the
-Whitney--Thom appendix is an alternate proof, not a required dependency.
+Corollary~\ref{cor:mathieu}. The semialgebraic and integration inputs in
+Section~\ref{sec:sa} and the ODE facts identified in
+Section~\ref{sec:transport} remain genuine mathematical dependencies:
+a formal proof must establish them or invoke proved library theorems,
+not add them as unproved project axioms. In particular, the connecting-path
+lemma is derived from the existing uniform-volume bound; finiteness of
+$K_\infty$ is then proved rather than supplied by an external theorem.
+Formalization of the independent appendix proof would additionally need
+Standard input~\ref{std:whitney}; that input is not required to formalize
+the main scalar-gradient route.
 
 \subsection*{Acknowledgment of computational assistance}
 ChatGPT assisted with the development and drafting of this manuscript.
@@ -1237,10 +1439,12 @@ or a Lean formalization.
 
 \appendix
 \section{Whitney--Thom alternative for finite bifurcation and cycle transport}\label{app:whitney-thom}
-This appendix records the compactification-and-stratification route that
-was used in an earlier version of the proof.  It is logically independent
-of the generalized-critical-value/ODE transport in
-Section~\ref{sec:transport} and is not used in the main argument.
+This appendix records an independent proof of the finite-exceptional-set
+and topological transport conclusion needed for the period argument. It
+is not used in the main proof. The exceptional set below need not equal
+$K_0\cup K_\infty$. This route does not assert the quantitative gradient
+bounds or the specific transport diffeomorphisms of
+Proposition~\ref{prop:bifurcation}.
 
 \begin{standard}[Complex algebraic stratification and first isotopy]\label{std:whitney}
 A complex algebraic variety, together with finitely many specified
@@ -1305,14 +1509,13 @@ be singular; no resolution theorem is hidden in this argument.
 Proposition~\ref{prop:bifurcation-whitney} can replace
 Propositions~\ref{prop:generalized-critical}--\ref{prop:bifurcation} in
 the nonvanishing proof.  For the period itself, one then uses the local
-compact-cycle argument from the earlier draft: on a sufficiently small disc
+compact-cycle argument: on a sufficiently small disc
 of regular values, lift the two real coordinate vector fields only near the
 compact cycle support, transport the finite cycle smoothly, and apply the
 triangle-sweep/Morera argument of Lemma~\ref{lem:holomorphy}.  Thus the
 appendix route supplies the same analytic continuation without any appeal to
 the ODE completeness argument of Section~\ref{sec:transport}.
 \end{remark}
-
 
 \begin{thebibliography}{99}
 \bibitem{BCR}
@@ -1358,24 +1561,6 @@ Semi-algebraic local-triviality in semi-algebraic mappings,
 \emph{Amer. J. Math.} \textbf{102} (1980), no.~2, 291--302.
 \href{https://doi.org/10.2307/2374240}{doi:10.2307/2374240}.
 
-\bibitem{JK03}
-Z.~Jelonek and K.~Kurdyka,
-On asymptotic critical values of a complex polynomial,
-\emph{J. Reine Angew. Math.} \textbf{565} (2003), 1--11.
-\href{https://doi.org/10.1515/crll.2003.101}{doi:10.1515/crll.2003.101}.
-
-\bibitem{Jelonek04}
-Z.~Jelonek,
-On asymptotic critical values and the Rabier theorem,
-\emph{Banach Center Publ.} \textbf{65} (2004), 125--133.
-\href{https://doi.org/10.4064/bc65-0-9}{doi:10.4064/bc65-0-9}.
-
-\bibitem{JK05}
-Z.~Jelonek and K.~Kurdyka,
-Quantitative generalized Bertini--Sard theorem for smooth affine varieties,
-\emph{Discrete Comput. Geom.} \textbf{34} (2005), no.~4, 659--678.
-\href{https://doi.org/10.1007/s00454-005-1203-1}{doi:10.1007/s00454-005-1203-1}.
-
 \bibitem{Kaloshin}
 V.~Kaloshin,
 A geometric proof of the existence of Whitney stratifications,
@@ -1400,5 +1585,31 @@ $C^1$-triangulations of semialgebraic sets,
 \emph{J. Topol.} \textbf{10} (2017), no.~3, 765--775.
 \href{https://doi.org/10.1112/topo.12024}{doi:10.1112/topo.12024}.
 See also \arxiv{1505.03970}, version~2 (2017), especially Section~4.
+
+\bibitem{Jelonek04}
+Z.~Jelonek,
+On asymptotic critical values and the Rabier theorem,
+\emph{Banach Center Publ.} \textbf{65} (2004), 125--133.
+\href{https://doi.org/10.4064/bc65-0-9}{doi:10.4064/bc65-0-9}.
+
+\bibitem{KOS}
+K.~Kurdyka, P.~Orro, and S.~Simon,
+Semialgebraic Sard theorem for generalized critical values,
+\emph{J. Differential Geom.} \textbf{56} (2000), no.~1, 67--92.
+\href{https://doi.org/10.4310/jdg/1090347525}{doi:10.4310/jdg/1090347525}.
+In particular, Theorem~3.3 and Section~3.4.
+
+\bibitem{NPP}
+T.~T.~Nguyen, P.-P.~Pham, and T.-S.~Pham,
+Bifurcation sets and global monodromies of Newton non-degenerate
+polynomials on algebraic sets, \arxiv{1803.09654} (2018).
+See Theorem~3.1 for the tangency-value approach.
+
+\bibitem{Teschl}
+G.~Teschl,
+\emph{Ordinary Differential Equations and Dynamical Systems},
+Graduate Studies in Mathematics, vol.~140, American Mathematical Society,
+Providence, RI, 2012. Sections~2.2 and~2.4--2.6.
+
 \end{thebibliography}
 \end{document}
