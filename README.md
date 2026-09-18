@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 74 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 78 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -130,7 +130,11 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   the fiber value and remaining coordinates vary;
 - the exact positive sheet count of the residue covering, including
   surjectivity and nonemptiness, by a regular deformation to a monomial
-  equation. The oriented residue cycle and its integration identity remain open.
+  equation;
+- semialgebraicity of the actual compact residue covering image and its total
+  family in the complex fiber parameter, via explicit real polynomial
+  equalities and inequalities. The oriented residue cycle and its integration
+  identity remain open.
 
 Semialgebraic projection and uniform path bounds, critical-value finiteness,
 chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is

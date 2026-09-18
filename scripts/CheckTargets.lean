@@ -222,7 +222,7 @@ example {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d) (r : Fin d → �
 #check DuistermaatVanDerKallen.exists_residue_covering_with_branches
 
 -- This is the full compact-covering component, with no unproved regularity
--- premise. Finite fibers do not assert the still-open positive sheet count.
+-- premise. The exact positive sheet count is checked separately below.
 example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
     (u : MvPolynomial (Fin (d + 1)) ℂ) (hu : u.coeff 0 ≠ 0) :
     ∃ ε : ℝ, 0 < ε ∧ ∃ B : ℝ, ∀ s : ℂ, B < ‖s‖ →
@@ -254,3 +254,23 @@ example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
       ∀ b : DuistermaatVanDerKallen.residueCircleBase d ε,
         Nat.card (DuistermaatVanDerKallen.residueRootProjection m u ε s ⁻¹' {b}) = m 0 :=
   DuistermaatVanDerKallen.exists_residue_covering_degree m hm u hu
+
+#check DuistermaatVanDerKallen.complexCoordinatesHomeomorph
+#check DuistermaatVanDerKallen.IsSemialgebraic.polynomial_preimage
+#check DuistermaatVanDerKallen.IsComplexSemialgebraic.polynomial_preimage
+#check DuistermaatVanDerKallen.range_residueRootPoint_eq
+#check DuistermaatVanDerKallen.isComplexSemialgebraic_residueFamily
+
+-- Compactness and semialgebraicity concern the actual coordinate image,
+-- while covering and degree concern its actual projection to the circle base.
+example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
+    (u : MvPolynomial (Fin (d + 1)) ℂ) (hu : u.coeff 0 ≠ 0) :
+    ∃ ε : ℝ, 0 < ε ∧ ∃ B : ℝ, ∀ s : ℂ, B < ‖s‖ →
+      IsCompact (Set.range (DuistermaatVanDerKallen.residueRootPoint m u ε s)) ∧
+      DuistermaatVanDerKallen.IsComplexSemialgebraic
+        (Set.range (DuistermaatVanDerKallen.residueRootPoint m u ε s)) ∧
+      IsCoveringMap (DuistermaatVanDerKallen.residueRootProjection m u ε s) ∧
+      Function.Surjective (DuistermaatVanDerKallen.residueRootProjection m u ε s) ∧
+      ∀ b : DuistermaatVanDerKallen.residueCircleBase d ε,
+        Nat.card (DuistermaatVanDerKallen.residueRootProjection m u ε s ⁻¹' {b}) = m 0 :=
+  DuistermaatVanDerKallen.exists_compact_semialgebraic_residue_covering m hm u hu

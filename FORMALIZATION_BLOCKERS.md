@@ -297,7 +297,11 @@ fiber of `residueRootProjection` has `Nat.card` equal to `m 0`. The projection
 is surjective and the compact root locus is nonempty. The implementation
 replaces the manuscript's Rouché step by the regular deformation
 `u(t y₁,y′)`, an endpoint fiber equivalence, and the exact monomial root count.
-The next residue obligations are semialgebraicity of the root locus,
+`ResidueSemialgebraic` now proves semialgebraicity of the actual covering
+coordinate image and of the total family with the fiber value as a parameter.
+`SemialgebraicSets` uses the standard finite Boolean polynomial-sign definition;
+realification and polynomial substitution are proved directly, without
+projection or Hardt input. The next residue obligations are
 orientation and cycle construction, comparison of logarithmic-form integration
 with scalar circle integration, and the residue-period identity including
 its sign and normalization. Local smooth root branches are proved; the
