@@ -1,0 +1,156 @@
+semialgebraic \L{}ojasiewicz inequality at
++infinity for generalized critical values.  The second is the
++Teissier--Yomdin radial path-length estimate.  In the polynomial case these
++are used together in the direct proof of finiteness of asymptotic critical
++values in \cite[Proposition~4.2]{JK03}.  The Rabier-function formulation for
++polynomial maps on smooth affine varieties is developed in \cite{Jelonek04};
++see also the quantitative generalized Bertini--Sard theorem
++\cite{JK05}.  We use only the two explicit consequences stated above.
+ 
+-\begin{proposition}[Finite exceptional set]\label{prop:bifurcation}
+-For a nonconstant $f\in R_d$, there is a finite set $B\subset\C$ such
+-that all fibers over $U=\C\setminus B$ are smooth and
++\begin{proposition}[Finiteness of generalized critical values]\label{prop:generalized-critical}
++For nonconstant $f\in R_d$, the set
+ \[
+- f:f^{-1}(U)\longrightarrow U
++ B:=K_0(F)\cup K_\infty(F)\subset\C
+ \]
+-is locally topologically trivial. Its fiber homology groups therefore
+-form a local system on $U$.
++is finite.
+ \end{proposition}
+ \begin{proof}
+-Let $\overline\Gamma$ be the closure of the graph of $f$ in
+-$(\Pj^1)^d\times\Pj^1$, let $p:\overline\Gamma\to\Pj^1$ be projection,
+-and let $D_\infty$ be the complement of the open graph identified with
+-$\torus$. The projection $p$ is proper. Choose a finite complex
+-algebraic Whitney stratification compatible with $D_\infty$.
+-
+-For a stratum $W$, the critical locus of $p|_W$ is algebraic in $W$.
+-At such a point its complex differential has rank zero, because the
+-base has complex dimension one. On the smooth locus of any irreducible
+-component of this critical locus, the restriction of $p$ consequently
+-has zero differential and is locally constant. It is therefore constant
+-on that component. Equivalently, a rational function with zero
+-differential on an irreducible complex variety is constant. There are
+-only finitely many components and strata, so their critical images form
+-a finite subset of $\Pj^1$.
+-
+-Remove that finite subset and the value $\infty$. On the remaining base,
+-$p$ is a proper stratified submersion, so Standard
+-input~\ref{std:whitney} gives local trivializations preserving all strata.
+-They preserve $D_\infty$ and its complement. Restricting to the latter
+-gives the claimed local trivializations of $f$. At a point of this open
+-graph, submersivity on its stratum implies submersivity on the ambient
+-smooth torus; hence every remaining fiber is smooth. Empty fibers, if
+-present, cause no difficulty in this statement. In the application a
+-nonempty fiber is supplied by the explicit residue construction.
++The critical locus of the polynomial $F|_{\mathcal T_d}$ is algebraic.
++It has finitely many irreducible components, and $F$ is constant on each:
++on the smooth dense locus of such a component its differential vanishes.
++Hence $K_0(F)$ is finite.
++
++It remains to treat $K_\infty(F)$.  Fix $N$ from Standard
++input~\ref{std:asymptotic}, and put
++\[
++ \Sigma_r=\widetilde\Sigma_{R_0}\cap\{\rho=r\}.
++\]
++Apply Hardt triviality from Standard input~\ref{std:sa} to the radius map
++on $\widetilde\Sigma_{R_0}$ and increase $R_0$ past the last exceptional
++radius.  The unbounded tail then has finitely many connected components
++$E_1,\ldots,E_k$, each meeting every sphere $\{\rho=r\}$, $r\ge R_0$, in
++a connected component $L_{j,r}$ of $\Sigma_r$.
++
++For each $j$, semialgebraic selection and finite decomposition give a
++$C^1$ semialgebraic section
++\[
++ \gamma_j:[R_0,\infty)\to E_j,
++ \qquad \rho(\gamma_j(r))=r.
++\]
++After increasing $R_0$ again, $\|\gamma_j'(r)\|\le2$.  Indeed,
++$u_j(r)=\gamma_j(r)/r$ is a bounded semialgebraic curve on the unit
++sphere.  By semialgebraic monotonicity (equivalently, its Puiseux behavior at
++infinity), $u_j(r)$ has a limit and $r u_j'(r)\to0$; thus
++$\gamma_j'(r)=u_j(r)+r u_j'(r)$ has norm tending to $1$.
++Using \eqref{eq:scalar-rabier},
++\[
++ |(F\circ\gamma_j)'(r)|
++ \le \lambda(\gamma_j(r))\|\gamma_j'(r)\|
++ \le 2r^{-(1+1/N)}.
++\]
++Therefore $F(\gamma_j(r))$ converges to a limit $c_j\in\C$, with
++\begin{equation}\label{eq:radial-tail}
++ |F(\gamma_j(r))-c_j|\le 2N r^{-1/N}.
++\end{equation}
++
++By Standard input~\ref{std:asymptotic}(ii), any
++$p\in L_{j,r}$ can be joined to $\gamma_j(r)$ inside $L_{j,r}$ by a curve
++of length at most $Mr$.  Along that curve
++$\|\dd F\|=\lambda\le r^{-(1+1/N)}$, so
++\begin{equation}\label{eq:spherical-diameter}
++ |F(p)-F(\gamma_j(r))|\le M r^{-1/N}.
++\end{equation}
++Combining \eqref{eq:radial-tail} and
++\eqref{eq:spherical-diameter}, the image of
++$E_j\cap\{\rho\ge R\}$ is contained in a ball about $c_j$ whose radius is
++$O(R^{-1/N})$.  Consequently every sequence in
++$\widetilde\Sigma_R$ escaping to infinity and having bounded $F$-value has,
++after passage to one of the finitely many components, limit $c_j$.
++Equation~\eqref{eq:Kinf-tail} gives
++\[
++ K_\infty(F)\subset\{c_1,\ldots,c_k\}.
++\]
++Thus $B$ is finite.
+ \end{proof}
+ 
+-\begin{remark}\label{rem:complex-strata}
+-The adjective \emph{complex algebraic} matters in this proof. Real
+-semialgebraic strata can map to curves of real critical values. Such a
+-real exceptional set need not leave a connected complement through which
+-the required analytic germ can be transported. The projective graph
+-above may be singular; no resolution is being hidden in this argument.
+-\end{remark}
++\begin{proposition}[Complete ODE transport]\label{prop:bifurcation}
++Let $B$ be the finite set in Proposition~\ref{prop:generalized-critical}
++and put $U=\C\setminus B$.  Every fiber over $U$ is smooth.  Moreover,
++for every piecewise $C^1$ path $\alpha:[0,1]\to U$, the minimal-norm
++horizontal ODE gives a complete transport diffeomorphism
++\[
++ X_{\alpha(0)}\simeq X_{\alpha(1)}.
++\]
++In particular
++\[
++ f:f^{-1}(U)\longrightarrow U
++\]
++is locally smoothly trivial, and its fiber homology groups form a local
++system on $U$.
++\end{proposition}
++\begin{proof}
++Let $Q=\alpha([0,1])$.  Since $Q$ is compact and disjoint from
++$K_0(F)\cup K_\infty(F)$, there is $c_Q>0$ such that
++\begin{equation}\label{eq:malgrange-uniform}
++ (1+\rho(p))\lambda(p)\ge c_Q
++ \qquad(F(p)\in Q).
++\end{equation}
++Otherwise there would be a sequence $p_\nu$ with $F(p_\nu)\in Q$ and
++$(1+\rho(p_\nu))\lambda(p_\nu)\to0$.  If $\rho(p_\nu)$ were bounded,
++properness of $\rho$ would give a convergent subsequence ending at a
++critical point with value in $Q$, contrary to $Q\cap K_0(F)=\varnothing$.
++If it were unbounded, pass to a subsequence with
++$\rho(p_\nu)\to\infty$ and $F(p_\nu)\to c\in Q$; then
++$c\in K_\infty(F)$, again a contradiction.
++
++For a regular point $p$, set $A_p=\dd F_p$ and let
++\[
++ R_p=A_p^*(A_pA_p^*)^{-1}:\C\to T_p\mathcal T_d
++\]
++be its minimal-norm real right inverse.  It depends smoothly on $p$ and
++satisfies
++\[
++ A_pR_p=\operatorname{id}_{\C},\qquad
++ \|R_p\|=\lambda(p)^{-1}.
++\]
++Along a $C^1$ piece of $\alpha$, consider
++\begin{equation}\label{eq:horizontal-ode}
++ p'(t)=R_{p(t)}\alpha'(t),
