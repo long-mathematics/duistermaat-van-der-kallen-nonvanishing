@@ -39,3 +39,11 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.laurent_segment_unique
 #check DuistermaatVanDerKallen.laurent_segment_reverse_inverse
 #check DuistermaatVanDerKallen.laurent_zero_velocity_curve
+#check DuistermaatVanDerKallen.fiberTransportEquiv
+#check DuistermaatVanDerKallen.fiberCurves_compact_control
+#check DuistermaatVanDerKallen.fiberCurves_lipschitz_initial
+#check DuistermaatVanDerKallen.fiberCurves_continuous
+#check DuistermaatVanDerKallen.fiberTransportHomeomorph
+#check DuistermaatVanDerKallen.fiberSweep_isCompact
+#check DuistermaatVanDerKallen.fiberSweep_subset_regular
+#check DuistermaatVanDerKallen.fiberTransport_zero

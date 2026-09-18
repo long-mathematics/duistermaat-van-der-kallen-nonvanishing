@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the eighteen modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the twenty modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   explicitly conditional downstream implications;
@@ -74,10 +74,14 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   region inside the actual coordinate ODE domain;
 - compact-domain continuation and complete existence along every segment
   avoiding the ordinary/asymptotic critical values, including uniqueness and
-  the reverse-trajectory identity.
+  the reverse-trajectory identity;
+- fiber transport homeomorphisms, uniform Lipschitz dependence on initial
+  points for bounded proper radius, joint continuity in initial point and time,
+  and compact sweeps of compact initial sets.
 
-Semialgebraic projection and uniform path bounds, smooth flow dependence,
-transport diffeomorphisms, chain integration, periods, residues, and minimal
+Semialgebraic projection and uniform path bounds, smooth dependence on initial
+points and velocity, transport diffeomorphisms, chain integration, periods,
+residues, and minimal
 nonvanishing remain open. No general-rank nonvanishing theorem is being claimed
 from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.

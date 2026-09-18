@@ -59,8 +59,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `prop:generalized-critical`: finite union of ordinary/asymptotic values | None | OPEN | Requires both parts of scalar finiteness. |
 | `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
 | ODE standard inputs before `lem:complete-segment` | `PolynomialGradient`; `ODEContinuation` | PARTIAL | Joint field smoothness, local existence, uniqueness, uniform existence time on compact subsets, extension past finite endpoints, and existence from a priori compact control are proved for autonomous fields. Smooth flow dependence and the time-dependent ODE package remain open. |
-| `lem:complete-segment`: complete segment transport | `laurent_complete_segment`, `laurent_segment_unique`, `laurent_segment_reverse_inverse` in `LaurentTransport` | PARTIAL | Complete existence on an open interval containing `[0,1]`, exact base motion, uniqueness, and reversal identity are proved for every Laurent polynomial and every initial torus point under precisely segment exclusion from the ordinary/asymptotic critical values. Compact control is proved, not assumed. Construction of smooth fiber diffeomorphisms and a compact cycle sweep through smooth dependence remain open. |
-| `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | None beyond preceding controls | OPEN | ODE transport and smooth parameter dependence; fiber homology constructions. |
+| `lem:complete-segment`: complete segment transport | `laurent_complete_segment`, `laurent_segment_unique`, `laurent_segment_reverse_inverse` in `LaurentTransport` | PARTIAL | Complete existence on an open interval containing `[0,1]`, exact base motion, uniqueness, and reversal identity are proved for every Laurent polynomial and every initial torus point under precisely segment exclusion from the ordinary/asymptotic critical values. Compact control is proved, not assumed. `fiberTransportHomeomorph` gives the fiber homeomorphism; `fiberCurves_continuous` gives joint continuity in initial point and time for fixed velocity; `fiberSweep_isCompact` gives compact sweeps. Smoothness of the fiber maps and dependence on varying velocity remain open. |
+| `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberTransport`; `FiberContinuity` | PARTIAL | Fixed straight segments have actual fiber homeomorphisms. Arbitrary piecewise C¹ paths, smooth dependence including base-velocity parameters, local smooth trivializations, and the fiber homology local system remain open. |
 | `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | None | OPEN | Example retained in the unchanged manuscript; derivative, limits, Newton interior and regular-value computation not formalized. |
 | `rem:transport-background`: smooth transport distinct from semialgebraic sweep | Module architecture and boundary documentation | DESIGN CONSTRAINT | No assertion that the normalized-gradient flow is semialgebraic. No background alternative is imported. |
 | Relative form preceding `lem:holomorphy` | None | OPEN | Well-defined quotient form, independence, holomorphicity and fiberwise closedness. |
@@ -108,7 +108,11 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Radius Gronwall estimate on an existing trajectory | PROVED component: `trajectory_radius_bound`, specialized to actual Laurent integral curves by `laurent_integral_curve_radius_bound`. |
 | Compact sublevel ∩ compact-base inverse image, positive differential lower bound | PROVED component: `compact_regular_controlled_region`; `laurentControlledRegion_isCompact` and `laurentControlledRegion_regular` transfer this to the actual coordinate ODE domain. |
 | Exact straight-segment base equation | PROVED component: `laurent_integral_curve_base` on every connected open time interval carrying an integral curve. |
-| Reverse-path inverse and smooth local segment trivialization | PARTIAL: `laurent_segment_reverse_inverse` proves that any reversed solution retraces the forward curve. Smooth fiber maps and local trivializations remain open. |
+| Reverse-path inverse and smooth local segment trivialization | PARTIAL: `fiberTransportEquiv` and `fiberTransportHomeomorph` construct actual inverse fiber maps. Smoothness and local trivializations remain open. |
+| Uniform Lipschitz dependence in initial points at bounded proper radius | PROVED: `fiberCurves_lipschitz_initial`, via a common compact regular region and Gronwall. Velocity is fixed. |
+| Joint continuity in initial point and time | PROVED: `fiberCurves_continuous`, on the initial fiber times `[0,1]`. |
+| Compact sweep of a compact initial subset | PROVED: `fiberSweep_isCompact`, `fiberSweep_subset_regular`; the whole image is compact and contained in the regular torus domain. No smooth or semialgebraic parametrization is claimed. |
+| Identity transport for a stationary segment | PROVED regression: `fiberTransport_zero`. |
 | Uniform local time on a compact subset of the regular domain | PROVED: `uniform_ode_time_on_compact`, retaining the range bound from the local Picard construction. |
 | Compact-domain continuation | PROVED: `ode_extend_right_of_compact` and `ode_exists_past_of_compact_control`; autonomous Banach-space statements with explicit domain and compact-control hypotheses. |
 | Complete Laurent segment existence | PROVED component: `laurent_complete_segment` derives its own compact control and constructs an open solution interval containing `[0,1]`. |
@@ -162,7 +166,13 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
    and the proper-radius Gronwall bound. This implements the manuscript
    continuation argument without assuming a maximal flow or completeness.
    Smooth parameter dependence is not inferred from these existence results.
-9. No mathematical manuscript corrections or changes were made. No alternate
+9. `FiberTransport` chooses complete trajectories and uses uniqueness and
+   reversal to construct inverse maps on fibers. `FiberContinuity` places each
+   family with bounded initial proper radius in one compact regular region,
+   obtains a Lipschitz constant there, and applies Gronwall to prove continuous
+   dependence and compactness of sweeps. This proves the topological components
+   of transport; smooth dependence, especially in velocity, is still open.
+10. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -178,7 +188,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 18 mathematical module files plus the root umbrella and
+The checkpoint has 20 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

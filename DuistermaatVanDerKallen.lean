@@ -14,3 +14,5 @@ import DuistermaatVanDerKallen.LaurentEvaluation
 import DuistermaatVanDerKallen.LaurentGeometry
 import DuistermaatVanDerKallen.ODEContinuation
 import DuistermaatVanDerKallen.LaurentTransport
+import DuistermaatVanDerKallen.FiberTransport
+import DuistermaatVanDerKallen.FiberContinuity
