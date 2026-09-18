@@ -1,18 +1,18 @@
-Finite simplicial-model path checkpoint validation (2026-09-18 America/New_York)
+Continuous semialgebraic curve regularity checkpoint validation (2026-09-18 America/New_York)
 
 Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
 Lean: leanprover/lean4:v4.34.0
 Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
 
-lake build: SUCCESS, 3780 jobs (includes dependencies; not 3780 project proofs)
-Project mathematical module files: 108
+lake build: SUCCESS, 3788 jobs (includes dependencies; not 3788 project proofs)
+Project mathematical module files: 113
 Root umbrella modules: 1
 Lean verification helpers: 2
-Explicitly written theorem declarations: 675 (comments excluded)
-Environment-level project declarations: 1745
-Environment-level theorem declarations, including generated: 1335
+Explicitly written theorem declarations: 694 (comments excluded)
+Environment-level project declarations: 1783
+Environment-level theorem declarations, including generated: 1370
 
-Source audit: PASS, 111 Lean files; forbidden proof mechanisms absent.
+Source audit: PASS, 116 Lean files; forbidden proof mechanisms absent.
 Project-added-axiom audit: PASS, zero project axiom declarations.
 Transitive-axiom audit: PASS for every declaration defined in project modules.
 Transitive axioms used: propext, Classical.choice, Quot.sound.

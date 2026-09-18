@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 108 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 113 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   the full arbitrary-rank Newton-polytope power identity, and the complete
@@ -75,6 +75,10 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
   explicit open premise; measurable injective pieces and almost-everywhere
   finite fibers are now derived. Manifold-stratum and form-density integration
   remain open;
+- smoothness of each continuous semialgebraic scalar or Euclidean curve
+  outside a finite set of interior parameter values, derived from nonzero
+  polynomial relations and simple-root implicit functions. Uniform exceptional
+  counts across families and endpoint C¹ reparametrizations remain open;
 - uniform variation and rectifiable-length bounds for supplied bounded
   semialgebraic curve families, C¹ in the interval interior. These use real
   line-fiber counts without projection or uniform Lipschitz assumptions;
