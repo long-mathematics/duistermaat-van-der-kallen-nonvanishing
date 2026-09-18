@@ -78,3 +78,10 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.convexTransport_center
 #check DuistermaatVanDerKallen.convexTransport_compact_sweep
 #check DuistermaatVanDerKallen.laurent_local_trivialization_at
+#check DuistermaatVanDerKallen.laurent_exists_driven_picard_neighborhood
+#check DuistermaatVanDerKallen.laurent_driven_local_family
+#check DuistermaatVanDerKallen.laurent_driven_uniform_time
+#check DuistermaatVanDerKallen.laurent_driven_unique_on_open_interval
+#check DuistermaatVanDerKallen.laurent_driven_exists_past_of_compact_control
+#check DuistermaatVanDerKallen.laurent_driven_curve_radius_bound
+#check DuistermaatVanDerKallen.laurent_complete_C1_path
