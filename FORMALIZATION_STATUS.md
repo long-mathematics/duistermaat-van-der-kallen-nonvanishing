@@ -32,8 +32,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Manuscript obligation | Lean correspondence | Status | Proof / unresolved dependencies |
 |---|---|---|---|
 | `thm:main`: arbitrary-rank infinite nonvanishing | `InfiniteNonvanishing` in `Targets`; `infinite_of_minimal` in `NewtonPowers` | CONDITIONAL | The manuscript power argument now requires only `MinimalNonvanishing`, which remains unproved. The Newton-power premise is discharged by `origin_in_newton_powers`. The older two-premise implication remains available. |
-| `thm:minimal`: arbitrary-rank minimal nonvanishing | `MinimalNonvanishing`; `minimal_nonvanishing_rank_zero` | PARTIAL | Only rank zero is unconditional. All positive ranks and the analytic contradiction remain open. |
-| `lem:face`: minimal-face reduction | `support_pow_lower_bound` in `Laurent` is related support infrastructure only | OPEN | Exposed face, coefficient identity including cancellation, rational subspace lattice basis, rank reduction and relative interior. |
+| `thm:minimal`: arbitrary-rank minimal nonvanishing | `MinimalNonvanishing`; `minimal_nonvanishing_rank_zero` | PARTIAL | Rank zero is unconditional. `minimal_iff_interior_minimal` now proves that the full target is equivalent to its positive-rank full-interior case; that analytic assertion remains open. |
+| `lem:face`: minimal-face reduction | `face_reduction` in `FaceReduction` | PROVED | Every origin-containing Newton polytope reduces to a polynomial in `r ≤ d` variables with all power constant terms preserved, including `n = 0`. The reduced polynomial is either a nonzero constant in rank zero or has the origin in its full interior in positive rank. Successive supporting cuts replace the one-step minimal-face choice; an integer basis of the saturated lattice supplies coordinates. |
 | `lem:powers`: Newton polytope of powers | `newtonPolytope_pow`; `origin_in_newton_powers` in `NewtonPowers` | PROVED | Full equality `Newt(f^n) = n • Newt(f)` in arbitrary finite rank for every `n ≥ 1`. Support containment proves one inclusion; uniquely exposed support vertices survive with coefficient `a_v^n`, and finite convex-hull recovery proves the other. The result also handles the zero polynomial. |
 | `lem:chart`: unimodular vertex chart | `constantTerm_pow_reindex` | PARTIAL | Arbitrary lattice automorphisms preserve all power constant terms. Existence of the cone basis, negative vertex coordinates, and polynomial factorization remain open. |
 | `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
@@ -154,6 +154,11 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Exponent support estimates, strict separation and eventual multiplier vanishing | PROVED components in `Laurent`; adapted proof provenance below. |
 | Newton-power coefficient and vertex arguments | PROVED: `coeff_pow_unique_min` proves the exact coefficient at `n • v`, `finite_extremePoint_exposed` supplies a strict supporting functional for every extreme point of a finite hull, and `extremePoint_pow_mem` proves vertex survival. `newtonPolytope_mul_subset` and `newtonPolytope_pow_subset` supply the support-based inclusions. |
 | Finite vertex hull and Newton-power homogeneity | PROVED: `newtonPolytope_pow` recovers the finite vertex hull using mathlib's Krein–Milman theorem plus compactness, then proves the full set equality. `origin_in_newton_powers` inhabits the exact previously isolated target proposition. |
+
+| Supporting-face restriction | PROVED: `facePart_mul`, `facePart_pow`, and `constantTerm_facePart_pow` compare full convolution coefficients under nonnegative supporting weights. `newtonPolytope_facePart` gives the exact intersection with the supporting hyperplane. |
+| Termination of supporting cuts | PROVED: `exists_proper_supporting_cut` works in the actual real-span topology. `facePart_support_card_lt` and support-cardinality induction give `exists_span_interior_restriction`, with surviving coefficients and every power constant term preserved. |
+| Integral coordinates and full interior | PROVED: `integralLattice`, `latticeEmbedding`, and `latticeRealMap` use an integer basis of the lattice in the real span. `latticeRealMap_injective` uses faithful scalar extension of integer vectors, `lattice_rank_le` proves `r ≤ d`, and `exists_interior_lattice_coordinates` transfers relative interior through a real linear homeomorphism. |
+| Boundary-to-interior minimal theorem reduction | CONDITIONAL: `minimal_of_interior_minimal` and `minimal_iff_interior_minimal` remove boundary and rank-zero cases. `InteriorMinimalNonvanishing` is an unproved proposition for all positive ranks, not a theorem or an axiom. |
 
 ## Proof substitutions and provenance
 
@@ -356,7 +361,26 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     proof also handles zero polynomials. `infinite_of_minimal` discharges the
     formerly separate Newton-power premise while leaving minimal nonvanishing
     explicit and unproved.
-24. No mathematical manuscript corrections or changes were made. No alternate
+24. `FaceRestriction`, `RelativeFaceReduction`, `LatticeCoordinates`, and
+    `FaceReduction` prove the complete statement of `lem:face`. The implementation
+    uses successive proper supporting cuts in place of selecting the smallest
+    face in one step. Hahn–Banach in the real span gives a functional that is
+    genuinely positive somewhere whenever zero is not interior; each cut strictly
+    reduces finite support cardinality. Full convolution identities preserve
+    coefficients and every power constant term, including the zeroth power.
+    The exact convex-hull intersection uses extreme points and finite-hull
+    compactness as in the preceding Krein–Milman specialization. This is a
+    proof substitution, not a manuscript correction or a new hypothesis.
+    After termination, the lattice is exactly the integral vectors in the
+    real span. The PID submodule basis theorem gives its integer basis;
+    faithful scalar extension proves real independence, and the support gives
+    real spanning. The induced linear homeomorphism transfers interior and
+    proves the rank bound. The zero-rank polynomial is explicitly a nonzero
+    singleton at exponent zero. Downstream, `minimal_iff_interior_minimal`
+    proves that the outstanding principal theorem is equivalent to its
+    positive-rank full-interior form. No positive-rank nonvanishing follows
+    without that remaining analytic premise.
+25. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -372,7 +396,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 50 mathematical module files plus the root umbrella and
+The checkpoint has 54 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

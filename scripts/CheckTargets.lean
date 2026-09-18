@@ -136,3 +136,24 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.newtonPolytope_pow
 #check DuistermaatVanDerKallen.origin_in_newton_powers
 #check DuistermaatVanDerKallen.infinite_of_minimal
+
+#check DuistermaatVanDerKallen.facePart_mul
+#check DuistermaatVanDerKallen.newtonPolytope_facePart
+#check DuistermaatVanDerKallen.constantTerm_facePart_pow
+#check DuistermaatVanDerKallen.exists_span_interior_restriction
+#check DuistermaatVanDerKallen.latticeRealMap_injective
+#check DuistermaatVanDerKallen.exists_interior_lattice_coordinates
+#check DuistermaatVanDerKallen.face_reduction
+#print DuistermaatVanDerKallen.InteriorMinimalNonvanishing
+#check DuistermaatVanDerKallen.minimal_of_interior_minimal
+#check DuistermaatVanDerKallen.minimal_iff_interior_minimal
+
+-- Exact manuscript statement, checked independently of its inferred printed type.
+example {d : ℕ} (f : DuistermaatVanDerKallen.MultiLaurent d)
+    (hf : (0 : Fin d → ℝ) ∈ DuistermaatVanDerKallen.newtonPolytope f) :
+    ∃ r ≤ d, ∃ g : DuistermaatVanDerKallen.MultiLaurent r,
+      (∀ n : ℕ, DuistermaatVanDerKallen.constantTerm (g ^ n) =
+        DuistermaatVanDerKallen.constantTerm (f ^ n)) ∧
+      ((r = 0 ∧ ∃ c : ℂ, c ≠ 0 ∧ g = AddMonoidAlgebra.single 0 c) ∨
+        (1 ≤ r ∧ (0 : Fin r → ℝ) ∈ interior (DuistermaatVanDerKallen.newtonPolytope g))) :=
+  DuistermaatVanDerKallen.face_reduction f hf
