@@ -32,3 +32,10 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.laurentControlledRegion_regular
 #check DuistermaatVanDerKallen.laurent_integral_curve_base
 #check DuistermaatVanDerKallen.laurent_integral_curve_radius_bound
+#check DuistermaatVanDerKallen.uniform_ode_time_on_compact
+#check DuistermaatVanDerKallen.ode_extend_right_of_compact
+#check DuistermaatVanDerKallen.ode_exists_past_of_compact_control
+#check DuistermaatVanDerKallen.laurent_complete_segment
+#check DuistermaatVanDerKallen.laurent_segment_unique
+#check DuistermaatVanDerKallen.laurent_segment_reverse_inverse
+#check DuistermaatVanDerKallen.laurent_zero_velocity_curve

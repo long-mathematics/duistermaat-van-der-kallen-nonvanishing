@@ -12,3 +12,5 @@ import DuistermaatVanDerKallen.PolynomialCalculus
 import DuistermaatVanDerKallen.PolynomialGradient
 import DuistermaatVanDerKallen.LaurentEvaluation
 import DuistermaatVanDerKallen.LaurentGeometry
+import DuistermaatVanDerKallen.ODEContinuation
+import DuistermaatVanDerKallen.LaurentTransport
