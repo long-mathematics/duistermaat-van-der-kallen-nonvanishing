@@ -1,0 +1,49 @@
+name: One-time manuscript revision
+
+on:
+  push:
+    branches:
+      - paper/ode-transport-revision
+
+permissions:
+  contents: write
+
+jobs:
+  revise-and-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: paper/ode-transport-revision
+
+      - name: Apply audited manuscript patch
+        run: |
+          cat .tmp/manuscript.patch.part.* > /tmp/manuscript.patch
+          patch --batch -p0 < /tmp/manuscript.patch
+          rm -rf .tmp
+
+      - name: Install LaTeX and PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra lmodern poppler-utils
+
+      - name: Compile and audit manuscript
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error duistermaat_van_der_kallen_nonvanishing.tex
+          test -s duistermaat_van_der_kallen_nonvanishing.pdf
+          if grep -E "LaTeX Warning: (Reference|Citation).*undefined|There were undefined references|There were undefined citations" duistermaat_van_der_kallen_nonvanishing.log; then
+            exit 1
+          fi
+          pdfinfo duistermaat_van_der_kallen_nonvanishing.pdf | tee /tmp/pdfinfo.txt
+          grep -F "Pages:" /tmp/pdfinfo.txt
+          grep -F "Author:" /tmp/pdfinfo.txt | grep -F "Christopher D. Long"
+
+      - name: Commit revised source and PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/revise-manuscript-once.yml
+          git add duistermaat_van_der_kallen_nonvanishing.tex
+          git add -f duistermaat_van_der_kallen_nonvanishing.pdf
+          git commit -m "Revise transport proof to generalized-critical-value ODE"
+          git push origin HEAD:paper/ode-transport-revision
