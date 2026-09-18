@@ -20,3 +20,5 @@ import DuistermaatVanDerKallen.CurveField
 import DuistermaatVanDerKallen.CurveIntegral
 import DuistermaatVanDerKallen.PicardImplicit
 import DuistermaatVanDerKallen.LaurentPicard
+import DuistermaatVanDerKallen.AnalyticTransport
+import DuistermaatVanDerKallen.SegmentAnalytic

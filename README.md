@@ -81,12 +81,16 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
 - smoothness of the actual field on Banach spaces of continuous curves, a
   bounded primitive operator, and a regular analytic Picard branch on an open
   parameter neighborhood of zero time scale, jointly in velocity and initial
-  point, with its integral equation yielding actual scaled ODE trajectories.
+  point, with its integral equation yielding actual scaled ODE trajectories;
+- analytic dependence of the chosen complete segment transport on admissible
+  velocity, initial-point and time parameters, with analytic ambient extensions
+  of the forward and inverse fiber maps near every point.
 
-Semialgebraic projection and uniform path bounds, smooth dependence of complete
-transport on initial points and velocity, transport diffeomorphisms, chain
-integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is being claimed
-from the conditional implications. The general-torus dependency in the
+Semialgebraic projection and uniform path bounds, regular-fiber manifold and
+local-trivialization packages, general piecewise C¹ path transport, chain
+integration, periods, residues, and minimal nonvanishing remain open. No
+general-rank nonvanishing theorem is being claimed from the conditional
+implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
 
 ```sh
