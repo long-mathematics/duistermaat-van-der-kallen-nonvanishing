@@ -70,8 +70,10 @@ van der Kallen identifies the constant-term generating function with a
 fiber period. Our estimate gives a primitive with a power-law endpoint
 bound, contradicting the simple pole forced by vanishing of all positive
 constant terms. Infinite nonvanishing follows by applying this minimal
-nonvanishing statement to powers of the polynomial. The standard
-semialgebraic and stratified-topological inputs are stated explicitly.
+nonvanishing statement to powers of the polynomial. The standard semialgebraic inputs are stated explicitly.  Global cycle
+transport is obtained by an explicit generalized-critical-value ODE rather
+than Whitney--Thom theory; the latter is retained as an alternative in an
+appendix.
 \end{abstract}
 
 \section{Introduction and statements}\label{sec:introduction}
@@ -144,14 +146,19 @@ $J(s)=-(2\pi\ii)^{d-1}/s$. Its integral over $[a,2a]$ is a fixed nonzero
 constant, giving a contradiction.
 
 The term \emph{resolution-free} is literal: no resolution of singularities
-is used. The proof of the finite exceptional-value statement in
-Section~\ref{sec:transport} does use a possibly singular projective graph
-closure, a complex algebraic Whitney stratification, and Thom's first
-isotopy lemma. Semialgebraic triviality and integration are also retained.
-The presentation proves the argument relative to these explicitly stated
-standard inputs; it is not a reconstruction of their foundations.
-The stronger critical-value and exponential-growth statement in
-\cite[Theorem 5]{DvK} is not a theorem of this draft.
+is used.  The global transport step in Section~\ref{sec:transport} works
+directly on the closed affine embedding
+$\torus\simeq\{(z,w):z_jw_j=1\}\subset\C^{2d}$.  Generalized critical
+values give a finite exceptional set, and a minimal-norm right inverse of
+$\dd f$ gives an explicit horizontal ODE.  Its linear growth in the proper
+affine radius yields complete path lifting by Gronwall.  Hardt triviality is
+retained for semialgebraic control, in particular for the final real sweep
+near zero.  Appendix~\ref{app:whitney-thom} records the older
+projective-graph/Whitney--Thom transport as an independent alternative; it is
+not a dependency of the main proof.  The presentation remains relative to
+the explicitly stated standard semialgebraic inputs rather than reconstructing
+their foundations.  The stronger critical-value and exponential-growth
+statement in \cite[Theorem 5]{DvK} is not a theorem of this draft.
 
 \section{Elementary Newton-polytope reductions}\label{sec:newton}
 \begin{lemma}[Minimal-face reduction]\label{lem:face}
@@ -584,69 +591,232 @@ bounds with the finitely many absolute chain multiplicities proves the
 chain version.
 \end{proof}
 
-\section{Finite exceptional values and fiber periods}\label{sec:transport}
-We record the topological input needed to continue a cycle from a large
-parameter to a punctured interval approaching zero. Avoiding only the
-ordinary critical values of a nonproper map would not suffice.
+\section{Generalized critical values and ODE transport}\label{sec:transport}
+We now supply the global transport needed to continue the residue cycle from a
+large parameter to a punctured interval approaching zero.  The point is to do
+this directly on the affine torus, without compactification, Whitney
+stratifications, or Thom isotopy.
 
-\begin{standard}[Complex algebraic stratification and first isotopy]\label{std:whitney}
-A complex algebraic variety, together with finitely many specified
-algebraic subsets, admits a finite complex algebraic Whitney
-stratification compatible with those subsets. If a map from a closed
-Whitney-stratified subset of a smooth manifold to a smooth base is proper
-and restricts to a submersion on every stratum, it is locally topologically
-trivial by homeomorphisms preserving the strata.
+\subsection{A proper metric on the affine torus}
+Write
+\[
+ \mathcal T_d=\{(z,w)\in\C^{2d}:z_jw_j=1\ (1\le j\le d)\}.
+\]
+The map
+\[
+ \iota:\torus\longrightarrow\mathcal T_d,\qquad
+ x\longmapsto(x_1,\ldots,x_d,x_1^{-1},\ldots,x_d^{-1})
+\]
+is an algebraic isomorphism onto the closed smooth affine variety
+$\mathcal T_d$.  Replace every negative power $x_j^{-m}$ in $f$ by $w_j^m$;
+this gives a polynomial $F$ on $\C^{2d}$ whose restriction to
+$\mathcal T_d$ corresponds to $f$.
+
+Equip $\mathcal T_d$ with the metric induced by the Euclidean Hermitian
+metric of $\C^{2d}$, and put
+\begin{equation}\label{eq:proper-radius}
+ \rho(p)=\|p\|,\qquad p\in\mathcal T_d.
+\end{equation}
+Since $\mathcal T_d$ is closed, $\rho$ is proper.  In the original torus
+coordinates,
+\[
+ \rho(x)^2=\sum_{j=1}^d\bigl(|x_j|^2+|x_j|^{-2}\bigr).
+\]
+Thus approaching a coordinate hyperplane $x_j=0$ is correctly counted as
+escape to infinity.
+
+For $p\in\mathcal T_d$, let
+\begin{equation}\label{eq:rabier-function}
+ \lambda(p)=\inf_{|u|=1}\|\dd F_p^*u\|,
+\end{equation}
+where $\dd F_p:T_p\mathcal T_d\to\C$ is regarded as a real linear map and
+$\dd F_p^*$ is its metric adjoint.  Because $F|_{\mathcal T_d}$ is
+holomorphic and the metric is Hermitian, its two real singular values agree;
+consequently
+\begin{equation}\label{eq:scalar-rabier}
+ \lambda(p)=\|\dd F_p\|.
+\end{equation}
+In particular $\lambda(p)=0$ exactly at the critical points of $F$.
+
+Define the ordinary and asymptotic critical-value sets by
+\begin{align}
+ K_0(F)&=F\bigl(\Crit(F)\bigr),\label{eq:K0}\\
+ K_\infty(F)&=\left\{c\in\C:\begin{array}{l}
+ \text{there are }p_\nu\in\mathcal T_d\text{ with }\rho(p_\nu)\to\infty,\\
+ F(p_\nu)\to c,\quad \rho(p_\nu)\lambda(p_\nu)\to0
+ \end{array}\right\}.\label{eq:Kinf}
+\end{align}
+We henceforth use these definitions through the fixed algebraic
+identification with $\torus$; the chosen radius is proper on that torus.
+
+\begin{standard}[Semialgebraic control at infinity]\label{std:asymptotic}
+For a fixed polynomial function on a closed smooth affine semialgebraic
+submanifold equipped with an induced semialgebraic metric, the following
+hold.
+\begin{enumerate}[label=(\roman*)]
+\item There is an integer $N\ge1$ such that an asymptotic critical value can
+be detected along a sequence satisfying
+\[
+ \lambda(p)\le \rho(p)^{-(1+1/N)}.
+\]
+Equivalently, if
+\[
+ \widetilde\Sigma_R=
+ \{p:\rho(p)\ge R,\ \lambda(p)\le\rho(p)^{-(1+1/N)}\},
+\]
+then
+\begin{equation}\label{eq:Kinf-tail}
+ K_\infty(F)=\bigcap_{R>0}\overline{F(\widetilde\Sigma_R)}.
+\end{equation}
+\item For a fixed semialgebraic family of subsets of Euclidean spheres,
+there is $M<\infty$ such that any two points in one connected component of
+a radius-$r$ member can be joined inside that component by a piecewise
+$C^1$ curve of length at most $Mr$, for all sufficiently large $r$.
+\end{enumerate}
 \end{standard}
 
-These are the algebraic Whitney-stratification theorem and Thom's first
-isotopy lemma; see \cite{Kaloshin,Mather}. For a direct treatment of
-nonproper polynomial maps, see \cite{DJ}, especially Theorems 3.1 and
-5.1 of its arXiv version. The following deduction specifies their use here.
+The first statement is the usual semialgebraic \L{}ojasiewicz inequality at
+infinity for generalized critical values.  The second is the
+Teissier--Yomdin radial path-length estimate.  In the polynomial case these
+are used together in the direct proof of finiteness of asymptotic critical
+values in \cite[Proposition~4.2]{JK03}.  The Rabier-function formulation for
+polynomial maps on smooth affine varieties is developed in \cite{Jelonek04};
+see also the quantitative generalized Bertini--Sard theorem
+\cite{JK05}.  We use only the two explicit consequences stated above.
 
-\begin{proposition}[Finite exceptional set]\label{prop:bifurcation}
-For a nonconstant $f\in R_d$, there is a finite set $B\subset\C$ such
-that all fibers over $U=\C\setminus B$ are smooth and
+\begin{proposition}[Finiteness of generalized critical values]\label{prop:generalized-critical}
+For nonconstant $f\in R_d$, the set
+\[
+ B:=K_0(F)\cup K_\infty(F)\subset\C
+\]
+is finite.
+\end{proposition}
+\begin{proof}
+The critical locus of the polynomial $F|_{\mathcal T_d}$ is algebraic.
+It has finitely many irreducible components, and $F$ is constant on each:
+on the smooth dense locus of such a component its differential vanishes.
+Hence $K_0(F)$ is finite.
+
+It remains to treat $K_\infty(F)$.  Fix $N$ from Standard
+input~\ref{std:asymptotic}, and put
+\[
+ \Sigma_r=\widetilde\Sigma_{R_0}\cap\{\rho=r\}.
+\]
+Apply Hardt triviality from Standard input~\ref{std:sa} to the radius map
+on $\widetilde\Sigma_{R_0}$ and increase $R_0$ past the last exceptional
+radius.  The unbounded tail then has finitely many connected components
+$E_1,\ldots,E_k$, each meeting every sphere $\{\rho=r\}$, $r\ge R_0$, in
+a connected component $L_{j,r}$ of $\Sigma_r$.
+
+For each $j$, semialgebraic selection and finite decomposition give a
+$C^1$ semialgebraic section
+\[
+ \gamma_j:[R_0,\infty)\to E_j,
+ \qquad \rho(\gamma_j(r))=r.
+\]
+After increasing $R_0$ again, $\|\gamma_j'(r)\|\le2$.  Indeed,
+$u_j(r)=\gamma_j(r)/r$ is a bounded semialgebraic curve on the unit
+sphere.  By semialgebraic monotonicity (equivalently, its Puiseux behavior at
+infinity), $u_j(r)$ has a limit and $r u_j'(r)\to0$; thus
+$\gamma_j'(r)=u_j(r)+r u_j'(r)$ has norm tending to $1$.
+Using \eqref{eq:scalar-rabier},
+\[
+ |(F\circ\gamma_j)'(r)|
+ \le \lambda(\gamma_j(r))\|\gamma_j'(r)\|
+ \le 2r^{-(1+1/N)}.
+\]
+Therefore $F(\gamma_j(r))$ converges to a limit $c_j\in\C$, with
+\begin{equation}\label{eq:radial-tail}
+ |F(\gamma_j(r))-c_j|\le 2N r^{-1/N}.
+\end{equation}
+
+By Standard input~\ref{std:asymptotic}(ii), any
+$p\in L_{j,r}$ can be joined to $\gamma_j(r)$ inside $L_{j,r}$ by a curve
+of length at most $Mr$.  Along that curve
+$\|\dd F\|=\lambda\le r^{-(1+1/N)}$, so
+\begin{equation}\label{eq:spherical-diameter}
+ |F(p)-F(\gamma_j(r))|\le M r^{-1/N}.
+\end{equation}
+Combining \eqref{eq:radial-tail} and
+\eqref{eq:spherical-diameter}, the image of
+$E_j\cap\{\rho\ge R\}$ is contained in a ball about $c_j$ whose radius is
+$O(R^{-1/N})$.  Consequently every sequence in
+$\widetilde\Sigma_R$ escaping to infinity and having bounded $F$-value has,
+after passage to one of the finitely many components, limit $c_j$.
+Equation~\eqref{eq:Kinf-tail} gives
+\[
+ K_\infty(F)\subset\{c_1,\ldots,c_k\}.
+\]
+Thus $B$ is finite.
+\end{proof}
+
+\begin{proposition}[Complete ODE transport]\label{prop:bifurcation}
+Let $B$ be the finite set in Proposition~\ref{prop:generalized-critical}
+and put $U=\C\setminus B$.  Every fiber over $U$ is smooth.  Moreover,
+for every piecewise $C^1$ path $\alpha:[0,1]\to U$, the minimal-norm
+horizontal ODE gives a complete transport diffeomorphism
+\[
+ X_{\alpha(0)}\simeq X_{\alpha(1)}.
+\]
+In particular
 \[
  f:f^{-1}(U)\longrightarrow U
 \]
-is locally topologically trivial. Its fiber homology groups therefore
-form a local system on $U$.
+is locally smoothly trivial, and its fiber homology groups form a local
+system on $U$.
 \end{proposition}
 \begin{proof}
-Let $\overline\Gamma$ be the closure of the graph of $f$ in
-$(\Pj^1)^d\times\Pj^1$, let $p:\overline\Gamma\to\Pj^1$ be projection,
-and let $D_\infty$ be the complement of the open graph identified with
-$\torus$. The projection $p$ is proper. Choose a finite complex
-algebraic Whitney stratification compatible with $D_\infty$.
+Let $Q=\alpha([0,1])$.  Since $Q$ is compact and disjoint from
+$K_0(F)\cup K_\infty(F)$, there is $c_Q>0$ such that
+\begin{equation}\label{eq:malgrange-uniform}
+ (1+\rho(p))\lambda(p)\ge c_Q
+ \qquad(F(p)\in Q).
+\end{equation}
+Otherwise there would be a sequence $p_\nu$ with $F(p_\nu)\in Q$ and
+$(1+\rho(p_\nu))\lambda(p_\nu)\to0$.  If $\rho(p_\nu)$ were bounded,
+properness of $\rho$ would give a convergent subsequence ending at a
+critical point with value in $Q$, contrary to $Q\cap K_0(F)=\varnothing$.
+If it were unbounded, pass to a subsequence with
+$\rho(p_\nu)\to\infty$ and $F(p_\nu)\to c\in Q$; then
+$c\in K_\infty(F)$, again a contradiction.
 
-For a stratum $W$, the critical locus of $p|_W$ is algebraic in $W$.
-At such a point its complex differential has rank zero, because the
-base has complex dimension one. On the smooth locus of any irreducible
-component of this critical locus, the restriction of $p$ consequently
-has zero differential and is locally constant. It is therefore constant
-on that component. Equivalently, a rational function with zero
-differential on an irreducible complex variety is constant. There are
-only finitely many components and strata, so their critical images form
-a finite subset of $\Pj^1$.
+For a regular point $p$, set $A_p=\dd F_p$ and let
+\[
+ R_p=A_p^*(A_pA_p^*)^{-1}:\C\to T_p\mathcal T_d
+\]
+be its minimal-norm real right inverse.  It depends smoothly on $p$ and
+satisfies
+\[
+ A_pR_p=\operatorname{id}_{\C},\qquad
+ \|R_p\|=\lambda(p)^{-1}.
+\]
+Along a $C^1$ piece of $\alpha$, consider
+\begin{equation}\label{eq:horizontal-ode}
+ p'(t)=R_{p(t)}\alpha'(t),
+ \qquad F(p(0))=\alpha(0).
+\end{equation}
+Then
+\[
+ \frac{\dd}{\dd t}F(p(t))=\alpha'(t),
+\]
+so $F(p(t))=\alpha(t)$ while the solution exists.  By
+\eqref{eq:malgrange-uniform},
+\begin{equation}\label{eq:linear-growth}
+ \|p'(t)\|\le C_\alpha(1+\rho(p(t)))
+\end{equation}
+for a constant depending only on the path.  Since
+$|\rho'(t)|\le\|p'(t)\|$, Gronwall's inequality bounds $\rho(p(t))$ on
+every finite time interval.  The sublevel sets of $\rho$ are compact in
+$\mathcal T_d$, so the ordinary ODE continuation theorem extends the
+solution across all of $[0,1]$.  This excludes both ordinary Euclidean
+escape and approach to a deleted coordinate hyperplane.
 
-Remove that finite subset and the value $\infty$. On the remaining base,
-$p$ is a proper stratified submersion, so Standard
-input~\ref{std:whitney} gives local trivializations preserving all strata.
-They preserve $D_\infty$ and its complement. Restricting to the latter
-gives the claimed local trivializations of $f$. At a point of this open
-graph, submersivity on its stratum implies submersivity on the ambient
-smooth torus; hence every remaining fiber is smooth. Empty fibers, if
-present, cause no difficulty in this statement. In the application a
-nonempty fiber is supplied by the explicit residue construction.
+Transport along the reversed path gives the inverse map, and smooth
+dependence on initial conditions gives a diffeomorphism of fibers.
+Applying the same construction to the straight radial paths in a small
+disc compactly contained in $U$ yields a smooth local trivialization.
+The homology groups therefore form a local system.
 \end{proof}
-
-\begin{remark}\label{rem:complex-strata}
-The adjective \emph{complex algebraic} matters in this proof. Real
-semialgebraic strata can map to curves of real critical values. Such a
-real exceptional set need not leave a connected complement through which
-the required analytic germ can be transported. The projective graph
-above may be singular; no resolution is being hidden in this argument.
-\end{remark}
 
 \subsection{Relative forms and holomorphic periods}
 At a regular value $s$, put $X_s=f^{-1}(s)$. There is a canonical
@@ -669,36 +839,30 @@ along any path in $U$.
 \end{lemma}
 \begin{proof}
 Closedness of $\eta_s$ and the ordinary de Rham pairing show that the
-integral depends only on the homology class. At a fixed regular fiber,
-choose a compact smooth singular cycle representing the class. Smooth
-representatives may be used for this local argument; later they will be
-replaced by homologous semialgebraic representatives.
+integral depends only on the homology class.  Proposition~\ref{prop:bifurcation}
+provides smooth local trivializations by complete horizontal ODE transport.
+Choose a compact smooth singular cycle in one fiber and transport it in a
+small disc; all transported cycles remain in the image of one compact
+cycle under a smooth map from a compact parameter set.
 
-Near this compact support, the submersion $f$ admits smooth lifts of the
-two real coordinate vector fields on the base. On a sufficiently small
-disc their flows transport the whole finite cycle smoothly and remain
-in a compact neighborhood. These cycles represent the locally constant
-class, since in a topological local trivialization they give a continuous
-homotopy starting at that class. Integration on this finite smooth family
-first gives continuity of $J$.
-
-For a small oriented triangle $\Delta$ in the disc, sweep the cycle over
-$\Delta$ using the smooth local transport. This is a $(d+1)$-chain
-$\Gamma_\Delta$. The boundary of its cycle factor is zero; with the
-base orientation first, its boundary is the sweep over $\partial\Delta$.
-On the sweep over each edge,
-$\omegaD=\dd f\wedge\eta$ and $f$ is the base coordinate, whence
-ordinary parametrized integration gives
+For a small oriented triangle $\Delta$ in the disc, use such a local
+trivialization to sweep the cycle over $\Delta$.  This is a
+$(d+1)$-chain $\Gamma_\Delta$, whose boundary is the sweep over
+$\partial\Delta$.  On each edge,
+$\omegaD=\dd f\wedge\eta$ and $f$ is the base coordinate, so ordinary
+parametrized integration gives
 \[
  \int_{\partial\Delta}J(s)\,\dd s
  =\int_{\partial\Gamma_\Delta}\omegaD
  =\int_{\Gamma_\Delta}\dd\omegaD=0.
 \]
-The last equality uses that the holomorphic top form $\omegaD$ is
-closed. Morera's theorem proves holomorphy. The argument is local at
-every point of $U$, yielding continuation along paths. It does not
-require global monodromy invariance of the transported homology class.
+The holomorphic top form $\omegaD$ is closed.  Continuity of $J$ follows
+from the same compact smooth family, and Morera's theorem proves
+holomorphy.  Repeating this along overlapping discs gives continuation
+along every path in $U$.  No global monodromy invariance of the transported
+class is required.
 \end{proof}
+
 
 \section{Semialgebraic sweeps and the endpoint primitive}\label{sec:primitive}
 Continue to assume $0\in\Int\Newt(f)$ and $d\ge1$. Choose $b>0$
@@ -1041,11 +1205,17 @@ semialgebraic family. These precise hypotheses, rather than merely
 similar terminology, must be used in any priority comparison.
 
 Question~9.1 of \cite{Kiselman} motivates the search for a simpler
-nonvanishing proof. The present route retains substantial, explicitly
-identified semialgebraic and stratified-topological results. It is
-therefore described as resolution-free rather than as elementary in
-every respect. The stronger singularity and growth conclusions of
-\cite[Theorem 5]{DvK} are outside the claims made here. A proof and
+nonvanishing proof.  The present route retains substantial, explicitly
+identified semialgebraic inputs: Hardt triviality, the \L{}ojasiewicz
+control of generalized critical values at infinity, and a uniform radial
+path-length estimate.  The normalized-gradient/right-inverse transport in
+Section~\ref{sec:transport} is the standard Malgrange--Rabier mechanism in
+a proper metric on the affine torus; compare \cite{JK03,Jelonek04,JK05}.
+No Whitney stratification or Thom isotopy is used in the main proof, although
+Appendix~\ref{app:whitney-thom} retains that earlier route for comparison.
+The argument is therefore described as resolution-free rather than as
+elementary in every respect. The stronger singularity and growth conclusions
+of \cite[Theorem 5]{DvK} are outside the claims made here. A proof and
 generalization using Newton--Puiseux methods in one variable is discussed
 in \cite{ES}; the present theorem has no rank restriction.
 
@@ -1055,13 +1225,94 @@ argument then give Theorem~\ref{thm:main} and
 Corollary~\ref{cor:mathieu}. Standard inputs in
 Section~\ref{sec:sa} and Section~\ref{sec:transport} remain genuine
 mathematical dependencies: a formal proof must establish them or invoke
-proved library theorems, not add them as unproved project axioms.
+proved library theorems, not add them as unproved project axioms.  The main
+formalization target is the generalized-critical-value/ODE route; the
+Whitney--Thom appendix is an alternate proof, not a required dependency.
 
 \subsection*{Acknowledgment of computational assistance}
 ChatGPT assisted with the development and drafting of this manuscript.
 Comments attributed to Claude informed revisions. These tools and their
 informal checks do not constitute independent mathematical verification
 or a Lean formalization.
+
+\appendix
+\section{Whitney--Thom alternative for finite bifurcation and cycle transport}\label{app:whitney-thom}
+This appendix records the compactification-and-stratification route that
+was used in an earlier version of the proof.  It is logically independent
+of the generalized-critical-value/ODE transport in
+Section~\ref{sec:transport} and is not used in the main argument.
+
+\begin{standard}[Complex algebraic stratification and first isotopy]\label{std:whitney}
+A complex algebraic variety, together with finitely many specified
+algebraic subsets, admits a finite complex algebraic Whitney
+stratification compatible with those subsets. If a map from a closed
+Whitney-stratified subset of a smooth manifold to a smooth base is proper
+and restricts to a submersion on every stratum, it is locally topologically
+trivial by homeomorphisms preserving the strata.
+\end{standard}
+
+These are the algebraic Whitney-stratification theorem and Thom's first
+isotopy lemma; see \cite{Kaloshin,Mather}. For a direct treatment of
+nonproper polynomial maps, see \cite{DJ}, especially Theorems 3.1 and
+5.1 of its arXiv version.
+
+\begin{proposition}[Whitney--Thom finite exceptional set]\label{prop:bifurcation-whitney}
+For a nonconstant $f\in R_d$, there is a finite set $B_{\mathrm W}\subset\C$
+such that all fibers over $U_{\mathrm W}=\C\setminus B_{\mathrm W}$ are
+smooth and
+\[
+ f:f^{-1}(U_{\mathrm W})\longrightarrow U_{\mathrm W}
+\]
+is locally topologically trivial.
+\end{proposition}
+\begin{proof}
+Let $\overline\Gamma$ be the closure of the graph of $f$ in
+$(\Pj^1)^d\times\Pj^1$, let $p:\overline\Gamma\to\Pj^1$ be projection,
+and let $D_\infty$ be the complement of the open graph identified with
+$\torus$. The projection $p$ is proper. Choose a finite complex
+algebraic Whitney stratification compatible with $D_\infty$.
+
+For a stratum $W$, the critical locus of $p|_W$ is algebraic in $W$.
+At such a point its complex differential has rank zero, because the
+base has complex dimension one. On the smooth locus of any irreducible
+component of this critical locus, the restriction of $p$ consequently
+has zero differential and is locally constant. It is therefore constant
+on that component. Equivalently, a rational function with zero
+differential on an irreducible complex variety is constant. There are
+only finitely many components and strata, so their critical images form
+a finite subset of $\Pj^1$.
+
+Remove that finite subset and the value $\infty$. On the remaining base,
+$p$ is a proper stratified submersion, so Standard
+input~\ref{std:whitney} gives local trivializations preserving all strata.
+They preserve $D_\infty$ and its complement. Restricting to the latter
+gives the claimed local trivializations of $f$. At a point of this open
+graph, submersivity on its stratum implies submersivity on the ambient
+smooth torus; hence every remaining fiber is smooth. Empty fibers, if
+present, cause no difficulty in this statement. In the application a
+nonempty fiber is supplied by the explicit residue construction.
+\end{proof}
+
+\begin{remark}
+The adjective \emph{complex algebraic} matters in this appendix. Real
+semialgebraic strata can map to curves of real critical values. Such a
+real exceptional set need not leave a connected complement through which
+the required analytic germ can be transported. The projective graph may
+be singular; no resolution theorem is hidden in this argument.
+\end{remark}
+
+\begin{remark}
+Proposition~\ref{prop:bifurcation-whitney} can replace
+Propositions~\ref{prop:generalized-critical}--\ref{prop:bifurcation} in
+the nonvanishing proof.  For the period itself, one then uses the local
+compact-cycle argument from the earlier draft: on a sufficiently small disc
+of regular values, lift the two real coordinate vector fields only near the
+compact cycle support, transport the finite cycle smoothly, and apply the
+triangle-sweep/Morera argument of Lemma~\ref{lem:holomorphy}.  Thus the
+appendix route supplies the same analytic continuation without any appeal to
+the ODE completeness argument of Section~\ref{sec:transport}.
+\end{remark}
+
 
 \begin{thebibliography}{99}
 \bibitem{BCR}
@@ -1106,6 +1357,24 @@ R.~M.~Hardt,
 Semi-algebraic local-triviality in semi-algebraic mappings,
 \emph{Amer. J. Math.} \textbf{102} (1980), no.~2, 291--302.
 \href{https://doi.org/10.2307/2374240}{doi:10.2307/2374240}.
+
+\bibitem{JK03}
+Z.~Jelonek and K.~Kurdyka,
+On asymptotic critical values of a complex polynomial,
+\emph{J. Reine Angew. Math.} \textbf{565} (2003), 1--11.
+\href{https://doi.org/10.1515/crll.2003.101}{doi:10.1515/crll.2003.101}.
+
+\bibitem{Jelonek04}
+Z.~Jelonek,
+On asymptotic critical values and the Rabier theorem,
+\emph{Banach Center Publ.} \textbf{65} (2004), 125--133.
+\href{https://doi.org/10.4064/bc65-0-9}{doi:10.4064/bc65-0-9}.
+
+\bibitem{JK05}
+Z.~Jelonek and K.~Kurdyka,
+Quantitative generalized Bertini--Sard theorem for smooth affine varieties,
+\emph{Discrete Comput. Geom.} \textbf{34} (2005), no.~4, 659--678.
+\href{https://doi.org/10.1007/s00454-005-1203-1}{doi:10.1007/s00454-005-1203-1}.
 
 \bibitem{Kaloshin}
 V.~Kaloshin,

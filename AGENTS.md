@@ -29,7 +29,13 @@ The primary target is the full arbitrary-rank resolution-free Duistermaat--van d
 
 Do not replace the resolution-free proof by Hironaka/resolution-of-singularities machinery unless explicitly instructed.
 
-The manuscript states semialgebraic, stratified-topological, integration, Whitney-stratification, and Thom-isotopy inputs explicitly. Do not turn missing infrastructure into project axioms. Search mathlib first; if a required foundation is absent, isolate the smallest exact missing theorem, record a type-correct target when possible, and distinguish a library blocker from a mathematical gap.
+The **main transport route** in the manuscript is now the generalized-critical-value / complete ODE route on the closed affine embedding
+`(ℂˣ)^d ≃ {(z,w) ∈ ℂ^{2d} : z_j w_j = 1}`.
+Formalize this route first. Use the induced proper metric (or an explicitly proved equivalent one), so both `|x_j| → ∞` and `|x_j| → 0` count as escape.
+
+The main transport dependencies are semialgebraic generalized-critical-value control at infinity, Hardt triviality, a radial path-length estimate, the Rabier/minimal-singular-value function, a minimal-norm right inverse, and an ODE continuation/Gronwall argument. Do not turn unavailable standard theorems into project axioms: search mathlib, prove the required special case where feasible, or isolate the exact missing theorem.
+
+The projective-graph / complex Whitney-stratification / Thom-first-isotopy proof is retained only in the manuscript appendix as an alternate proof. It is **not** a required dependency of the main formalization. Do not silently revert the main formalization to Whitney--Thom merely because that appendix exists.
 
 ## Formalization discipline
 
