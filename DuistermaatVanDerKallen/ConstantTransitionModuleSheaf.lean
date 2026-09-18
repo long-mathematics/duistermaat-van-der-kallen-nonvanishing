@@ -187,6 +187,39 @@ def germLinearEquiv (i : A.Index) [PreconnectedSpace (A.domain i)]
     A.sections (A.domain i) ≃ₗ[ℤ] A.presheaf.stalk x :=
   LinearEquiv.ofBijective (A.presheaf.germ (A.domain i) x hx).hom (A.germ_bijective i x hx)
 
+/-- The étalé projection of the module-valued sheaf itself is a covering. -/
+theorem isCoveringMap_module_etale (hconnected : ∀ i, PreconnectedSpace (A.domain i)) :
+    IsCoveringMap (TopCat.Presheaf.EtaleSpace.base (F := A.presheaf)) := by
+  apply TopCat.Presheaf.EtaleSpace.isCoveringMap_base
+  intro x
+  obtain ⟨i, hi⟩ := A.cover x
+  let : PreconnectedSpace (A.domain i) := hconnected i
+  exact ⟨A.domain i, hi, fun y hy => A.germ_bijective i y hy⟩
+
+/-- The germ of one section, viewed as a map into the étalé space. -/
+def sectionEtaleMap (U : Opens X) (s : A.sections U) : U → A.presheaf.EtaleSpace :=
+  fun x => ⟨x.val, A.presheaf.germ U x.val x.property s⟩
+
+/-- A section over a connected atlas chart gives a continuous germ map. -/
+theorem sectionEtaleMap_continuous (i : A.Index) [PreconnectedSpace (A.domain i)]
+    (s : A.sections (A.domain i)) : Continuous (A.sectionEtaleMap _ s) := by
+  rw [continuous_iff_continuousAt]
+  intro x
+  let e := TopCat.Presheaf.EtaleSpace.homeomorph (F := A.presheaf) (A.domain i)
+    (A.germ_bijective i) x.val x.property
+  have hc := ((continuous_subtype_val.comp e.symm.continuous).comp
+    (continuous_id.prodMk (continuous_const (y :=
+      WithTopology.toTopology ⊥ (A.presheaf.germ (A.domain i) x.val x.property s)))))
+  have he : (fun y : A.domain i => (e.symm (y,
+      WithTopology.toTopology ⊥ (A.presheaf.germ (A.domain i) x.val x.property s))).val) =
+      A.sectionEtaleMap _ s := by
+    funext y
+    dsimp [e, TopCat.Presheaf.EtaleSpace.homeomorph, sectionEtaleMap]
+    congr 2
+    exact Function.leftInverse_surjInv (A.germ_bijective i x.val x.property) s
+  dsimp only [Function.comp_def, id_eq] at hc
+  rw [he] at hc
+  exact hc.continuousAt
 end ConstantTransitionModuleAtlas
 end
 end DuistermaatVanDerKallen
