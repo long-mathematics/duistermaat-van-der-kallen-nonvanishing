@@ -1,0 +1,24 @@
+Foundation checkpoint local validation (2026-09-17 America/New_York)
+
+Manuscript baseline: e4da66e13a47ae533222075487feae1eee6a22c8 (unchanged)
+Lean: leanprover/lean4:v4.34.0
+Mathlib: 5ed2965256430c3649e86755f9576b54eca72435
+
+lake build: SUCCESS, 2535 jobs (includes dependencies; not 2535 project proofs)
+Project mathematical module files: 10
+Root umbrella modules: 1
+Lean verification helpers: 2
+Explicitly written theorem declarations: 40
+Environment-level project declarations: 120
+Environment-level theorem declarations, including generated: 70
+
+Source audit: PASS, 13 Lean files; forbidden proof mechanisms absent.
+Project-added-axiom audit: PASS, zero project axiom declarations.
+Transitive-axiom audit: PASS for every declaration defined in project modules.
+Transitive axioms used: propext, Classical.choice, Quot.sound.
+Coverage bookkeeping: PASS, all 32 labeled result environments represented.
+Exact target checks: PASS (proposition checks are not proofs of open targets).
+
+Coverage: INCOMPLETE; see FORMALIZATION_STATUS.md and FORMALIZATION_BLOCKERS.md.
+No arbitrary-rank DvK endpoint is proved. No general-torus dependency is closed.
+CI results are recorded by the pull request, separately from these local results.

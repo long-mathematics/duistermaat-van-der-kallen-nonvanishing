@@ -49,19 +49,47 @@ The formalization is intended to be independent of the compact-Lie-group develop
 
 ## Lean formalization
 
-Formalization has not yet started. No Lean theorem is currently claimed proved in this repository.
+**Incomplete foundation checkpoint.** The arbitrary-rank DvK theorem and its
+Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
-A fresh formalization should target the manuscript's **direct scalar common-radius / normalized-gradient route**. In particular:
+The project uses Lean 4.34.0 and pinned mathlib. Its root module is
+`DuistermaatVanDerKallen`; the ten modules in `DuistermaatVanDerKallen/` cover:
 
-- use the proper affine-torus metric induced by $z\mapsto(z,z^{-1})$;
-- prove the uniform compact-family connecting-path lemma from the semialgebraic framework already needed elsewhere;
-- prove finiteness of $K_\infty$ by the common-radius component-count argument;
-- use the explicit scalar lift and ODE continuation/Gronwall argument;
-- keep the endpoint Hardt sweep distinct from smooth class transport.
+- Laurent support/separation, the zero-rank case, coordinate invariance, and
+  explicitly conditional downstream implications;
+- the common-radius pigeonhole argument under explicit geometric hypotheses;
+- the tail property for univariate Boolean polynomial inequalities;
+- the proper L2 affine-torus radius, compact sublevels, weighted scalar lift
+  identities, an abstract uniform-gradient bound, and Gronwall/regular-domain control;
+- compactness of the actual small-gradient sphere family and precise unproved
+  semialgebraic obligations.
 
-The Whitney--Thom appendix is an alternate proof and is not a required formalization dependency unless explicitly brought into scope. Standard semialgebraic, integration, homology, and ODE inputs must not be inserted as project axioms: use existing mathlib results where available, prove the required special cases, or record the exact formalization boundary.
+The restricted differential identification, semialgebraic projection and uniform
+path bounds, actual complete smooth ODE transport, chain integration, periods,
+residues, and minimal nonvanishing remain open. No general-rank theorem is being
+claimed from the conditional implications. The general-torus dependency in the
+compact-Lie-group project remains deferred.
 
-See [FORMALIZATION_STATUS.md](FORMALIZATION_STATUS.md) for the coverage ledger.
+```sh
+python3 scripts/fetch_mathlib_cache.py
+lake build
+python3 scripts/audit_sources.py
+python3 scripts/audit_coverage.py
+lake env lean scripts/AxiomAudit.lean
+lake env lean scripts/CheckTargets.lean
+```
+
+The audit checks all project declarations by defining module, including generated
+and private declarations. Only mathlib's standard `propext`, `Classical.choice`,
+and `Quot.sound` may occur as transitive axioms. CI repeats the checks from a clean
+checkout. Target-proposition definitions and conditional proofs do not establish
+their missing premises.
+
+See [the exhaustive coverage ledger](FORMALIZATION_STATUS.md),
+[the precise formalization boundary](FORMALIZATION_BLOCKERS.md), and
+[local validation results](scripts/validation.txt).
+The Whitney–Thom appendix is optional and excluded from this checkpoint; it has
+not been substituted for the required direct scalar proof.
 
 ## Author
 

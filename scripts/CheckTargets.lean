@@ -1,0 +1,17 @@
+import DuistermaatVanDerKallen
+
+/-! Type checks of target propositions and completed general lemmas.
+Printing a proposition is not a proof of it. -/
+
+#print DuistermaatVanDerKallen.MinimalNonvanishing
+#print DuistermaatVanDerKallen.InfiniteNonvanishing
+#print DuistermaatVanDerKallen.RadiusTailObligation
+#print DuistermaatVanDerKallen.SpherePathObligation
+#check DuistermaatVanDerKallen.finite_of_common_radius
+#check DuistermaatVanDerKallen.affineTorus_uniform_gradient
+#check DuistermaatVanDerKallen.compact_regular_controlled_region
+#check DuistermaatVanDerKallen.scalarLift_right_inverse
+#check DuistermaatVanDerKallen.scalarLift_weighted_normSq
+#check DuistermaatVanDerKallen.trajectory_radius_bound
+#check DuistermaatVanDerKallen.constantTerm_pow_reindex
+#check DuistermaatVanDerKallen.minimal_nonvanishing_rank_zero
