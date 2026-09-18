@@ -31,3 +31,6 @@ import DuistermaatVanDerKallen.DrivenPicard
 import DuistermaatVanDerKallen.DrivenLocalODE
 import DuistermaatVanDerKallen.DrivenContinuation
 import DuistermaatVanDerKallen.DrivenTransport
+import DuistermaatVanDerKallen.DrivenAnalytic
+import DuistermaatVanDerKallen.C1FiberTransport
+import DuistermaatVanDerKallen.PiecewiseTransport

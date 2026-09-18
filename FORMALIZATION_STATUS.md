@@ -58,9 +58,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `eq:common-radius-set`: existence of a common large radius | `PolynomialSignFormula.contains_tail_of_unbounded`; `common_radius_contradiction` | PARTIAL | Boolean-polynomial univariate tails and finite intersection of tails proved. Existential radius-set projection remains open. |
 | `prop:generalized-critical`: finite union of ordinary/asymptotic values | None | OPEN | Requires both parts of scalar finiteness. |
 | `lem:uniform-gradient`: uniform differential lower bound | `uniform_gradient_lower_bound`, `affineTorus_uniform_gradient`, `laurent_uniform_gradient` | PROVED | Manuscript proper-radius argument, specialized to every algebraic Laurent polynomial with the actual restricted differential norm. The compact base excludes the explicitly defined ordinary/asymptotic critical-value sets. This lemma requires no finiteness assertion about those sets. |
-| ODE standard inputs before `lem:complete-segment` | `ODEContinuation`; `AnalyticTransport`; `DrivenPicard`; `DrivenLocalODE`; `DrivenContinuation` | PARTIAL | Autonomous transport has complete analytic dependence. For the actual time-dependent scalar family, a Picard branch permits an arbitrary continuous velocity curve as a Banach parameter; anchored integration and time rescaling give two-sided local solutions and uniform existence time on compact time/position sets. Spatial Lipschitz control, uniqueness, gluing, and continuation from compact regular-domain control are proved. Analytic initial-point dependence is proved for the local driven Picard branches; propagation to the complete C¹-path endpoint map remains open. |
+| ODE standard inputs before `lem:complete-segment` | `ODEContinuation`; `AnalyticTransport`; `DrivenPicard`; `DrivenLocalODE`; `DrivenContinuation`; `DrivenAnalytic` | PARTIAL | Autonomous transport has complete analytic dependence. For the actual time-dependent scalar family, a Picard branch permits an arbitrary continuous velocity curve as a Banach parameter; anchored integration and time rescaling give two-sided local solutions and uniform existence time on compact time/position sets. Spatial Lipschitz control, uniqueness, gluing, and continuation from compact regular-domain control are proved. Local analytic endpoint maps are identified by uniqueness, and analytic initial-point dependence propagates along every existing complete driven trajectory. The velocity need only be continuous on the closed time interval. Joint driven initial-point/time continuity is not yet packaged, and no general smooth-dependence theorem for arbitrary nonautonomous vector fields is claimed. |
 | `lem:complete-segment`: complete segment transport | `complete_segment_transport`, `fiberTransportDiffeomorph`; existence on a larger interval in `laurent_complete_segment` | PROVED | Under precisely segment exclusion from ordinary/asymptotic critical values: complete normalized-gradient trajectories, exact base motion, and the actual time-one map as an analytic real-manifold diffeomorphism. Every compact initial subset has compact sweep inside the regular torus, covering the compact-cycle support assertion without assuming a cycle integration package. The regular-fiber manifold instances are constructed from the actual differential, not postulated. |
-| `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberDiffeomorph`; `LocalTrivialization`; `DrivenTransport` | PARTIAL | Regular fibers, straight-segment diffeomorphisms, and local smooth triviality are proved. `laurent_complete_C1_path` now proves complete horizontal lifts with exact base motion for any C¹ path on `[0,1]`, requiring only continuous velocity there and one-sided base derivatives at the endpoints. Compact control is derived, not assumed. The C¹-path endpoint diffeomorphism, finite piecewise composition, and fiber homology local system remain open; critical-value finiteness is still a separate open dependency. |
+| `prop:bifurcation`: piecewise C¹ transport, local smooth triviality, local system | `FiberDiffeomorph`; `LocalTrivialization`; `DrivenTransport`; `C1FiberTransport`; `PiecewiseTransport` | PARTIAL | Regular fibers, straight-segment diffeomorphisms, and local smooth triviality are proved. `laurent_complete_C1_path` now proves complete horizontal lifts with exact base motion for any C¹ path on `[0,1]`, requiring only continuous velocity there and one-sided base derivatives at the endpoints. Compact control is derived, not assumed. `LaurentC1Path.transportDiffeomorph` supplies the actual complete endpoint map and reversed-path inverse as an analytic real-manifold diffeomorphism. `LaurentC1Path.ofInterval` rescales compact time pieces, and `LaurentC1Chain.transportDiffeomorph` composes finite endpoint-matching chains. A chain is an explicit presentation by C¹ pieces; no global derivative at its corners is asserted. The fiber homology local system and critical-value finiteness remain open. |
 | `rem:asymptotic-example`: `c+x+(y−1)²/(xy)` | None | OPEN | Example retained in the unchanged manuscript; derivative, limits, Newton interior and regular-value computation not formalized. |
 | `rem:transport-background`: smooth transport distinct from semialgebraic sweep | Module architecture and boundary documentation | DESIGN CONSTRAINT | No assertion that the normalized-gradient flow is semialgebraic. No background alternative is imported. |
 | Relative form preceding `lem:holomorphy` | None | OPEN | Well-defined quotient form, independence, holomorphicity and fiberwise closedness. |
@@ -131,7 +131,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Picard branch for a continuous driving velocity curve | PROVED: `drivenCurveVectorField_apply`, `drivenCurveVectorField_contDiffAt`, `laurent_exists_driven_picard_neighborhood`. The velocity is a Banach-space parameter in `C([0,1], ℂ)`, with no derivative in time required. `torusCurveIntegralFrom` permits arbitrary time anchors. The integral equation yields actual scaled ODE curves via `laurent_driven_picard_equation_solves_ode`. |
 | Two-sided local driven ODE and uniform compact-family time | PROVED: `laurent_driven_local_family`, `laurent_driven_local_existence`, `laurent_driven_uniform_time`. The family is continuous in start time, scale, and initial point, and analytic in the initial point with the other parameters fixed. A midpoint anchor gives full endpoint derivatives on a two-sided local interval. A finite subcover gives one time for compact time/position sets. No autonomous time augmentation or time differentiability of the velocity is assumed. |
 | Driven uniqueness, gluing, and continuation | PROVED: `laurent_driven_lipschitz_on_compact`, `laurent_driven_unique_on_open_interval`, `laurent_driven_unique_on_closed_interval`, `laurent_driven_glue_right`, `laurent_driven_extend_right_of_compact`, `laurent_driven_exists_past_of_compact_control`. Time-dependent Gronwall supplies uniqueness and the supremum-of-reachable-times proof supplies continuation. |
-| Proper control and complete lifting of a C¹ base path | PROVED component: `laurent_driven_curve_base`, `laurent_driven_curve_radius_bound`, `laurent_complete_driven_path`, `laurent_complete_C1_path`. The compact base is the path image; its positive weighted-gradient bound and a velocity bound give a common proper-radius bound and separation from the critical locus. A clamped continuous velocity extension removes any global-extension hypothesis from the closed-interval theorem. This is existence and exact base motion, not yet a bundled endpoint diffeomorphism or finite piecewise path theorem. |
+| Proper control and complete lifting of a C¹ base path | PROVED component: `laurent_driven_curve_base`, `laurent_driven_curve_radius_bound`, `laurent_complete_driven_path`, `laurent_complete_C1_path`. The compact base is the path image; its positive weighted-gradient bound and a velocity bound give a common proper-radius bound and separation from the critical locus. A clamped continuous velocity extension removes any global-extension hypothesis from the closed-interval theorem. This establishes existence and exact base motion; the subsequent modules below provide endpoint analyticity and finite composition. |
+| Analytic dependence for complete driven solutions | PROVED: `laurent_driven_local_analytic_endpoint`, `laurent_driven_family_analytic`, `laurent_driven_family_analytic_on`. Fixed-time endpoint maps are analytic in the initial position. The driving velocity is fixed and only continuous in time; no joint analytic time dependence or prior continuity of a chosen solution family is assumed. |
+| Complete C¹-path fiber diffeomorphism | PROVED component: `LaurentC1Path.curve_spec`, `reverse_curve`, `transportEquiv`, `ambientCurve_analytic`, `transportDiffeomorph`. The chosen actual normalized-gradient trajectories have exact base motion. Uniqueness gives the inverse through time reversal; analytic ambient germs yield actual manifold maps. Endpoint regularity follows from the path exclusion hypothesis. |
+| Finite composition of C¹ pieces | PROVED component: `LaurentC1Path.ofInterval` rescales an arbitrary compact interval, including the velocity factor. `LaurentC1Chain.transportDiffeomorph` composes a finite nonempty sequence of endpoint-matching unit pieces; its inverse traverses reversed pieces in reverse order. This is a concrete piecewise-path presentation, not an assertion of differentiability at corners, a global concatenated-curve parametrization, or homotopy invariance. |
 | Homology local system and analytic continuation without monodromy invariance | OPEN. |
 | Endpoint representative/ODE class comparison | OPEN. |
 | Endpoint error term by continuity from above on compact truncations | OPEN. |
@@ -227,7 +230,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     manifolds and packages the actual transport equivalence as a diffeomorphism.
     `complete_segment_transport` assembles the segment lemma, including compact
     sweeps for arbitrary compact initial subsets. These are real analytic
-    manifold constructions; no complex atlas or general path transport is claimed.
+    manifold constructions; no complex atlas is claimed. The later driven modules
+    extend the transport from segments to C¹ paths.
 13. `LocalTrivialization` follows the manuscript's straight-segment construction:
     forward transport uses velocity `s - b`, and the inverse uses `b - f(y)`.
     Uniqueness and reversal give the two inverse identities; ambient parameter
@@ -262,9 +266,23 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     positive differential bound on a compact regular-domain subset. The final
     C¹ lifting theorem allows one-sided base derivatives and velocity continuity
     only on the closed unit interval, using a continuous clamped extension in
-    the proof. Smoothness of the complete path endpoint and finite piecewise
-    composition remain separate targets; no stronger coverage is claimed.
-17. No mathematical manuscript corrections or changes were made. No alternate
+    the proof. Endpoint smoothness and finite composition are supplied separately
+    by the next modules.
+17. `DrivenAnalytic` repeats the local-identification/connected-interval argument
+    for fixed continuous driving velocities, rescaling oriented subintervals
+    and using the driven uniqueness theorem. It proves analyticity in initial
+    points only; continuity of the velocity does not imply analytic dependence
+    in time. `C1FiberTransport` reverses the actual chosen complete trajectories
+    and extracts ambient analytic germs to construct the regular-fiber
+    diffeomorphisms. The path structure carries precisely continuous velocity,
+    one-sided base derivatives, endpoint values and critical-value exclusion.
+18. `PiecewiseTransport` represents finite piecewise paths as endpoint-matching
+    C¹ chains. Each piece can be normalized from any compact time interval by
+    `LaurentC1Path.ofInterval`; the velocity acquires the interval-length factor.
+    Endpoint maps compose in order, and inverses in reverse order. This proves
+    the finite-composition component without asserting a derivative at corners
+    or any homotopy/monodromy statement.
+19. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -280,7 +298,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 35 mathematical module files plus the root umbrella and
+The checkpoint has 38 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
