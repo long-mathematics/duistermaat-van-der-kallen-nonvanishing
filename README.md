@@ -6,6 +6,7 @@ We present a resolution-free semialgebraic proof of the following theorem of Dui
 
 ## Preprint and source
 
+- [Preprint PDF](duistermaat_van_der_kallen_nonvanishing.pdf)
 - [LaTeX source](duistermaat_van_der_kallen_nonvanishing.tex)
 
 This repository is the canonical development location for the research draft and its Lean formalization. The manuscript is currently a research draft for adversarial mathematical audit and is not yet formally verified.
