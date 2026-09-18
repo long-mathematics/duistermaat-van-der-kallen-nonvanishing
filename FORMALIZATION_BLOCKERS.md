@@ -224,15 +224,23 @@ isomorphisms in every degree, and composition agrees with concatenation of
 pieces. These local statements require all pieces to stay inside one convex
 good neighborhood.
 
-The next topological obligations are compatibility of coordinate homology maps
-on overlapping neighborhoods, a global local-system construction, and invariance
-of the induced maps under general fixed-endpoint path homotopies. The current
-convex-local comparison does not yet establish those global coherences. Loops
-may act nontrivially; monodromy invariance is not a target. Relevant pinned
-mathlib inputs are `AlgebraicTopology.singularHomologyFunctor`,
-`TopCat.Homotopy.congr_homologyMap_singularChainComplexFunctor`, and the path
-homotopy quotient in `FundamentalGroupoid.Basic`. The deprecated
-`HomotopyInvarianceTopCat` file is not needed.
+`HomologyTransitions` now proves constant coordinate changes across convex
+chart overlaps using straight C¹ paths. `HomologySheaf` glues the resulting
+coordinates into a sheaf of integral modules on the entire good-value locus.
+The construction proves sheaf gluing, identifies actual module stalks with
+actual fiber homology, gives linear germ isomorphisms on each convex chart,
+and proves that the underlying étalé projection is a covering map. Its sections
+agree with the actual ODE homology maps for paths inside a single chart.
+
+The next topological obligations are comparison of arbitrary ODE paths with
+lifts in this covering space, and general fixed-endpoint path-homotopy
+invariance. A proof can subdivide compact paths into chart-contained pieces
+and use the already proved local compatibility; this subdivision and its
+compatibility with the C¹ ODE maps have not yet been formalized. Loops may act
+nontrivially; monodromy invariance is not a target. Relevant pinned mathlib
+inputs include `Topology.Sheaves.EtaleSpace`, `Topology.Covering.Basic`,
+`Topology.Covering.Quotient`, and `Topology.Homotopy.Lifting` in addition to
+the singular-homology functor and local-predicate sheaf APIs.
 
 Period transport, the separate endpoint Hardt sweep, sublevel/logarithmic
 estimates, and residues remain open. Openness of the whole velocity/initial-point

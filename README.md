@@ -53,7 +53,7 @@ The formalization is intended to be independent of the compact-Lie-group develop
 Mathieu corollaries are not yet formally proved. The manuscript remains unchanged.
 
 The project uses Lean 4.34.0 and pinned mathlib. Its root module is
-`DuistermaatVanDerKallen`; the 42 modules in `DuistermaatVanDerKallen/` cover:
+`DuistermaatVanDerKallen`; the 46 modules in `DuistermaatVanDerKallen/` cover:
 
 - Laurent support/separation, the zero-rank case, coordinate invariance, and
   explicitly conditional downstream implications;
@@ -102,9 +102,14 @@ The project uses Lean 4.34.0 and pinned mathlib. Its root module is
 - joint continuity and compact sweeps for C¹ paths and finite chains, together
   with actual integral singular-homology isomorphisms in every degree, finite
   composition, and agreement with local product coordinates inside a convex
-  good neighborhood.
+  good neighborhood;
+- constant coordinate transitions on convex overlaps, a global sheaf of
+  integral homology modules on the good-value locus, linear identification of
+  its actual stalks with fiber homology, linear germ isomorphisms on every
+  convex patch, and a covering étalé space for its underlying set sheaf.
+  Sections agree with ODE transport along paths contained in one patch.
 
-Semialgebraic projection and uniform path bounds, global homology local-system gluing,
+Semialgebraic projection and uniform path bounds, general path-homotopy comparison,
 chain integration, periods, residues, and minimal nonvanishing remain open. No general-rank nonvanishing theorem is
 being claimed from the conditional implications. The general-torus dependency in the
 compact-Lie-group project remains deferred.
