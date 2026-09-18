@@ -419,3 +419,20 @@ including lower-dimensional strata and the exact restricted complex-form
 density. The equal-dimensional critical-image measure theorem here concerns
 real integration only. It neither proves asymptotic critical-value finiteness
 nor changes the required common-radius route.
+
+
+The one-dimensional integration input now has an unconditional parametrized
+version. `ScalarVariation` bounds absolute derivative integrals uniformly using
+the semialgebraic graph's real line fibers. `CurveVariation` applies this to
+every coordinate, deriving a uniform speed integral and velocity integrability
+for bounded families, with no projection or uniform Lipschitz hypothesis.
+`CurveRectifiability` identifies a bound on the actual metric variation via
+FTC and partition sums. Curves need only be C¹ on the open interval and
+continuous at endpoints; unbounded endpoint velocities are allowed.
+
+This reduces the path-side gap to constructing suitable jointly semialgebraic
+model curve families from Hardt/triangulation, bounding their finite regular
+piece counts, and matching them with the actual sphere-component endpoints.
+It does not prove a decomposition theorem for arbitrary continuous
+semialgebraic arcs, does not identify Hausdorff measure with arc length, and
+does not discharge either sphere-path obligation.

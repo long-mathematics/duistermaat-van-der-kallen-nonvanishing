@@ -427,3 +427,23 @@ example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
   DuistermaatVanDerKallen.uniform_semialgebraic_jacobian_bound_of_contDiffAt
     hproj μ E f (fun a => fderiv ℝ (f a)) hgraph hf
     (fun a x hx => (hf a x hx).differentiableAt_one.hasFDerivAt)
+
+#check DuistermaatVanDerKallen.uniform_semialgebraic_scalar_variation
+#check DuistermaatVanDerKallen.uniform_semialgebraic_curve_length_bound
+#check DuistermaatVanDerKallen.uniform_semialgebraic_curve_finite_length
+#check DuistermaatVanDerKallen.eVariationOn_le_integral_speed
+
+-- Actual metric variation, with the uniform constant preceding every family
+-- parameter. Neither projection nor Hardt is a premise for this given family.
+example {ι κ : Type*} [Fintype κ]
+    (γ : (ι → ℝ) → ℝ → EuclideanSpace ℝ κ)
+    (hgraph : ∀ i, DuistermaatVanDerKallen.IsSemialgebraic ((ι ⊕ Unit) ⊕ Unit) {q |
+      q (.inr ()) ∈ Set.Ioo (0 : ℝ) 1 ∧
+      γ (fun j => q (.inl (.inl j))) (q (.inr ())) i = q (.inl (.inr ()))})
+    (hc : ∀ a, ContinuousOn (γ a) (Set.Icc (0 : ℝ) 1))
+    (hγ : ∀ a, ∀ t ∈ Set.Ioo (0 : ℝ) 1, ContDiffAt ℝ 1 (γ a) t)
+    (hbound : ∀ a, ∀ t ∈ Set.Ioo (0 : ℝ) 1, ‖γ a t‖ ≤ 1) :
+    ∃ L : ℝ, 1 ≤ L ∧ ∀ a, BoundedVariationOn (γ a) (Set.Icc (0 : ℝ) 1) ∧
+      eVariationOn (γ a) (Set.Icc (0 : ℝ) 1) ≤ ENNReal.ofReal L :=
+  DuistermaatVanDerKallen.uniform_semialgebraic_rectifiable_curves
+    γ hgraph hc hγ 1 zero_le_one hbound

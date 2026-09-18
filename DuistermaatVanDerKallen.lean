@@ -98,3 +98,6 @@ import DuistermaatVanDerKallen.CountableSemialgebraic
 import DuistermaatVanDerKallen.LocalInjectivePartition
 import DuistermaatVanDerKallen.RegularJacobian
 import DuistermaatVanDerKallen.SemialgebraicJacobian
+import DuistermaatVanDerKallen.ScalarVariation
+import DuistermaatVanDerKallen.CurveVariation
+import DuistermaatVanDerKallen.CurveRectifiability
