@@ -436,3 +436,20 @@ piece counts, and matching them with the actual sphere-component endpoints.
 It does not prove a decomposition theorem for arbitrary continuous
 semialgebraic arcs, does not identify Hausdorff measure with arc length, and
 does not discharge either sphere-path obligation.
+
+
+The finite-model path construction is now proved. `FiniteCoverPaths` gives a
+uniform bound on the number of polygonal segments within each component of a
+fixed finite closed convex cover. `SimplicialPaths` applies this to every finite
+geometric simplicial complex, proves compactness and component finiteness,
+bounds the component count by the number of faces, and constructs actual
+`C1ArcChain` paths with uniform piece-count and length bounds. The ambient real
+normed space need not be finite-dimensional. The face-intersection proof is
+documented as a substitution for the manuscript's one-skeleton route.
+
+The remaining model-to-fiber gap is unchanged in substance: construct the
+finite model by semialgebraic triangulation, obtain the jointly semialgebraic
+Hardt maps, and establish the needed finite regular parametrizations of image
+arcs so the checked curve-variation bound applies. A bounded length in the
+model does not by itself bound the lengths of its images, and no such inference
+is made. Both actual sphere-path obligations remain open.

@@ -447,3 +447,20 @@ example {ι κ : Type*} [Fintype κ]
       eVariationOn (γ a) (Set.Icc (0 : ℝ) 1) ≤ ENNReal.ofReal L :=
   DuistermaatVanDerKallen.uniform_semialgebraic_rectifiable_curves
     γ hgraph hc hγ 1 zero_le_one hbound
+
+#check DuistermaatVanDerKallen.finite_closed_cover_component_chain
+#check DuistermaatVanDerKallen.uniform_finite_relation_chains
+#check DuistermaatVanDerKallen.C1ArcChain.ofNodes_length
+#check DuistermaatVanDerKallen.finite_simplicial_complex_isCompact
+#check DuistermaatVanDerKallen.finite_simplicial_complex_finite_components
+#check DuistermaatVanDerKallen.finite_simplicial_complex_component_card_le
+
+-- Same-component arbitrary endpoints in an actual finite simplicial complex;
+-- the radius bound and C¹-chain length bound are derived, not assumed.
+example {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (K : Geometry.SimplicialComplex ℝ E) (hK : K.faces.Finite) :
+    ∃ N : ℕ, 1 ≤ N ∧ ∃ L : ℝ, 1 ≤ L ∧
+      ∀ x ∈ K.space, ∀ y ∈ connectedComponentIn K.space x,
+        ∃ γ : DuistermaatVanDerKallen.C1ArcChain K.space x y,
+          γ.pieces ≤ N ∧ γ.length ≤ L :=
+  DuistermaatVanDerKallen.finite_simplicial_complex_uniform_C1_chains K hK
