@@ -385,3 +385,20 @@ example {ι : Type*} {S : Set ((ι ⊕ Unit) → ℝ)}
       ({t : ℝ | Sum.elim a (fun _ => t) ∈ S}).Finite →
       ({t : ℝ | Sum.elim a (fun _ => t) ∈ S}).ncard ≤ N :=
   hS.uniform_finite_line_fibers
+
+#check DuistermaatVanDerKallen.IsSemialgebraic.measurableSet
+#check DuistermaatVanDerKallen.IsComplexSemialgebraic.measurableSet
+#check DuistermaatVanDerKallen.uniform_semialgebraic_finite_multiplicity
+#check DuistermaatVanDerKallen.image_membership_count_le_fiber
+#check DuistermaatVanDerKallen.lintegral_abs_det_le_mul_image_of_ae_finite_fibers
+#check DuistermaatVanDerKallen.uniform_semialgebraic_jacobian_bound_of_pieces
+
+-- Uniformity in arbitrary finite-dimensional fibers, including parameters
+-- with infinite fibers. Coordinate projection remains an explicit premise.
+example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation)
+    {ι κ : Type} [Finite ι] [Fintype κ] {S : Set ((ι ⊕ κ) → ℝ)}
+    (hS : DuistermaatVanDerKallen.IsSemialgebraic (ι ⊕ κ) S) :
+    ∃ N : ℕ, ∀ a : ι → ℝ,
+      ({x : κ → ℝ | Sum.elim a x ∈ S}).Finite →
+      ({x : κ → ℝ | Sum.elim a x ∈ S}).ncard ≤ N :=
+  hS.uniform_finite_fibers_of_projection hproj

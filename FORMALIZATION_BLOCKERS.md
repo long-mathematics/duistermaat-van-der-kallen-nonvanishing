@@ -385,3 +385,16 @@ and finite-fiber bounds over their entire parameter space. Zero specializations
 and degree drops are included. This does not eliminate the existential torus
 coordinates in the radius set and does not supply the higher-dimensional
 sphere-family path or Hardt inputs.
+
+`FiniteMultiplicity` now reduces the arbitrary-dimensional uniform count of
+finite fibers to coordinate projection and the checked uniform line-fiber
+bound. The graph theorem retains both the parameter and target value; the
+projection premise remains open. `SemialgebraicMeasurable` gives unconditional
+real/complex measurability. `MultiplicityIntegral` proves a Euclidean Jacobian
+estimate on given countably many disjoint measurable injective pieces, allowing
+a null exceptional target set. Its uniform family theorem combines this with
+the conditional fiber bound. The missing integration steps are now more
+specific: construct the pieces on strata, prove that infinite-fiber targets
+form a negligible set in the required setting, and compare the chart Jacobian
+integrals with the manuscript's restricted complex-form densities. These facts
+are not inferred from the compiled Euclidean estimate.

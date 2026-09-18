@@ -43,8 +43,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicSets`; `SemialgebraicLine`; `SemialgebraicLineFamilies`; `ComplexSemialgebraic`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
 | `std:stokes`: integration and Stokes | None | OPEN | Chain integration, subdivision, reparametrization, finite measure, Stokes, and homology pairing. |
 | `def:density`: absolute restricted complex-form density | None | OPEN | Definition, independence of stratification, density identities, finite-chain multiplicities. |
-| `lem:projection`: uniform finite-multiplicity integration | None | OPEN | Uniform component count; smooth rank decomposition; dimension bounds; change of variables / area formula. |
-| `rem:uniform-parameters`: retain all family parameters | `SemialgebraicLineFamilies`; scope of the sphere obligations | PARTIAL | Uniform component and finite-fiber cardinal bounds are proved for real one-dimensional fibers of a fixed semialgebraic family, with all parameters retained and no compactness assumption. Uniform sphere-family geometry and the general projection-integral bound remain open. Constants in `finite_of_common_radius` remain explicit uniform hypotheses. |
+| `lem:projection`: uniform finite-multiplicity integration | `FiniteMultiplicity`; `MultiplicityIntegral`; `SemialgebraicMeasurable` | PARTIAL / CONDITIONAL | Uniform finite-fiber counts in arbitrary finite dimension follow from the explicit, unproved coordinate-projection premise, retaining both set parameters and target values. The countable-piece Jacobian estimate is proved with actual derivatives and an almost-everywhere fiber-cardinality bound. `uniform_semialgebraic_jacobian_bound_of_pieces` gives one constant for a whole Euclidean family, conditional on projection, disjoint measurable injective pieces, and almost-everywhere finite fibers. Constructing the pieces on manuscript strata, proving the exceptional-target dimension/null bound, and identifying the restricted-form integral remain open. |
+| `rem:uniform-parameters`: retain all family parameters | `SemialgebraicLineFamilies`; scope of the sphere obligations | PARTIAL | Uniform component and finite-fiber cardinal bounds are proved for real one-dimensional fibers of a fixed semialgebraic family, with all parameters retained and no compactness assumption. Arbitrary-dimensional finite-fiber counts and Euclidean Jacobian integration are now conditional as detailed in the preceding row; uniform sphere-family geometry and the full restricted-form projection integral remain open. Constants in `finite_of_common_radius` remain explicit uniform hypotheses. |
 | `cor:bounded-volume`: uniform bounded-family volume | None | OPEN | Projection estimates and real-coordinate wedge bounds. |
 | `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation`; `SphereC1ChainObligation` | OPEN | Both the earlier rectifiable-path version and the finite-C¹-piece version needed by the checked integration estimate are unproved. No equivalence between these formulations is claimed. Hardt + compact triangulation + uniform arc volume, including the needed regular parametrizations, remain dependencies. |
 | `rem:connecting-paths-background`: Teissier/KOS comparison | None | BACKGROUND ONLY | Not used as a replacement input. |
@@ -86,12 +86,15 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Obligation | Status / exact boundary |
 |---|---|
 | Arbitrary-real-coefficient semialgebraic descriptions | PROVED component: `IsSemialgebraic` defines finite Boolean combinations of polynomial inequalities. Finite Boolean closure and real/complex polynomial preimages are proved. `polynomial_real_parts` supplies explicit real polynomials for complex evaluations; `complexCoordinatesHomeomorph` identifies coordinate spaces. Projection and higher-dimensional decomposition remain OPEN. |
+| Real and complex semialgebraic measurability | PROVED: `IsSemialgebraic.measurableSet` and `IsComplexSemialgebraic.measurableSet` follow from continuous polynomial signs and the coordinate homeomorphism. They require only countably many coordinates, hence cover every finite-dimensional set here. No projection or Hardt premise is used. |
 | Coordinate projection / Tarski–Seidenberg | OPEN: `SemialgebraicProjectionObligation` explicitly states this input. `radiusTail_of_semialgebraic_projection` derives the exact specialized `RadiusTailObligation` from it using proved incidence semialgebraicity, exact projection identification, and the univariate tail theorem. Neither obligation is proved. |
 | Univariate Boolean polynomial tail property | PROVED component: `polynomial_nonneg_eventuallyConstant`, `PolynomialSignFormula.eventuallyConstant`, `PolynomialSignFormula.contains_tail_of_unbounded`; `IsSemialgebraic.eventuallyConstant_polynomial_curve`; `IsSemialgebraic.contains_tail_of_unbounded`. Uses polynomial leading-term asymptotics; the set-based definition is now linked directly to them. |
 | Finite union of points/intervals on the whole real line | PROVED: `IsSemialgebraic.finite_interval_cover` expresses the full set as a finite union of `OrdConnected` subsets of ℝ, allowing singleton, empty, bounded, and unbounded intervals. More generally, `finite_convex_cover_polynomial_curve` and `finite_components_polynomial_curve` apply to the inverse image along any polynomial curve. Polynomial-root finiteness bounds the frontier; order cells partition the real line. |
 | Nash stratification compatible with a finite collection | OPEN. |
 | Uniform connected-component counts | PARTIAL: `uniform_components_polynomial_curves` gives one bound for all polynomial curves of bounded degree. `uniform_components_line_fibers` supplies a bound for all real one-dimensional fibers of any fixed semialgebraic family, with parameters unconstrained. Both finiteness and `Nat.card` are proved. Higher-dimensional counts, including the specific sphere family, remain OPEN. |
 | Uniform finite one-dimensional fiber cardinalities | PROVED special case: `uniform_finite_line_fibers` bounds the cardinality of every finite real line fiber of a fixed semialgebraic family, allowing infinite fibers for other parameter values. `uniform_finite_intersection_bound` applies more generally to bounded-degree polynomial curves. No projection or Hardt premise is used. |
+| Uniform finite fibers in arbitrary dimension | CONDITIONAL: `uniform_finite_fibers_of_projection` projects each finite fiber to each coordinate line and bounds its cardinality by the product of the uniform line-image bounds. `uniform_semialgebraic_finite_multiplicity` applies this to a family graph, with both the family parameter and target value retained. The only open premise is `SemialgebraicProjectionObligation`; no Hardt, compactness, or global finiteness of every fiber is assumed. |
+| Countable-piece Euclidean Jacobian bound | PROVED analytic implication: `tsum_measure_le_mul_measure_union_of_ae_multiplicity` controls countable overlaps, and `image_membership_count_le_fiber` derives the overlap count from disjoint source pieces and actual fiber cardinality. `lintegral_abs_det_le_mul_image_of_ae_finite_fibers` uses mathlib change of variables on each injective measurable piece. The target measure may be infinite and a null exceptional target set is permitted. Existence of suitable pieces and almost-everywhere fiber finiteness are explicit premises. The family theorem is CONDITIONAL on these premises and coordinate projection. |
 | Hardt triviality | OPEN. Required separately for path families and endpoint sweep. |
 | Compact semialgebraic triangulation, finite one-skeleton paths | OPEN. |
 | Semialgebraic cycle representatives of compact homology classes | OPEN. |
@@ -580,7 +583,24 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     included. This proves the one-dimensional standard-input components only;
     it does not prove projection, higher-dimensional uniform components, Hardt,
     uniform arc volume, or either required sphere-path obligation.
-35. No mathematical manuscript corrections or changes were made. No alternate
+35. `FiniteMultiplicity` replaces the finite-cardinality portion of the
+    Hardt-based argument by coordinate projections and the proved uniform
+    line-fiber bound. The product of coordinate-image bounds controls every
+    finite fiber, in arbitrary finite dimension including zero dimensions.
+    Projection remains an explicit unproved premise; infinite fibers may occur
+    elsewhere in the same family. The graph formulation retains both the
+    original parameter and the target value.
+    `MultiplicityIntegral` then uses mathlib's actual injective Jacobian
+    change-of-variables theorem, countable additivity, and a pointwise count of
+    overlapping image sets. It proves the Euclidean integral bound on given
+    countably many disjoint measurable injective pieces, assuming finite fibers
+    with uniformly bounded cardinality almost everywhere in the target. The
+    family version obtains the uniform count from the preceding conditional
+    semialgebraic theorem. This is not yet the manuscript's full stratum/form
+    integral: construction of the pieces and negligible exceptional-target
+    set, rank decomposition, and the form/density comparison remain open.
+    `SemialgebraicMeasurable` supplies unconditional real/complex measurability.
+36. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -596,7 +616,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 95 mathematical module files plus the root umbrella and
+The checkpoint has 98 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
