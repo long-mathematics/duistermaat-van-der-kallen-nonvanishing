@@ -45,8 +45,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | `def:density`: absolute restricted complex-form density | None | OPEN | Definition, independence of stratification, density identities, finite-chain multiplicities. |
 | `lem:projection`: uniform finite-multiplicity integration | `FiniteMultiplicity`; `MultiplicityIntegral`; `RegularJacobian`; `SemialgebraicJacobian` | PARTIAL / CONDITIONAL | Uniform finite-fiber counts in arbitrary finite dimension follow from the explicit, unproved coordinate-projection premise, retaining both set parameters and target values. `uniform_semialgebraic_jacobian_bound_of_contDiffAt` proves the equal-dimensional Euclidean family estimate from projection and actual local C¹ regularity/derivatives. Measurable injective pieces, almost-everywhere finite fibers, and removal of the zero-Jacobian singular part are now proved, not assumed. Passage to manifold strata of ambient dimension greater than the integration dimension, negligible images of lower-dimensional strata, and identification with the restricted complex-form density remain open. |
 | `rem:uniform-parameters`: retain all family parameters | `SemialgebraicLineFamilies`; scope of the sphere obligations | PARTIAL | Uniform component and finite-fiber cardinal bounds are proved for real one-dimensional fibers of a fixed semialgebraic family, with all parameters retained and no compactness assumption. Arbitrary-dimensional finite-fiber counts and Euclidean Jacobian integration are now conditional as detailed in the preceding row; uniform sphere-family geometry and the full restricted-form projection integral remain open. Constants in `finite_of_common_radius` remain explicit uniform hypotheses. |
-| `cor:bounded-volume`: uniform bounded-family volume | None | OPEN | Projection estimates and real-coordinate wedge bounds. |
-| `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation`; `SphereC1ChainObligation` | OPEN | Both the earlier rectifiable-path version and the finite-C¹-piece version needed by the checked integration estimate are unproved. No equivalence between these formulations is claimed. Hardt + compact triangulation + uniform arc volume, including the needed regular parametrizations, remain dependencies. |
+| `cor:bounded-volume`: uniform bounded-family volume | `ScalarVariation`; `CurveVariation`; `CurveRectifiability` | PARTIAL | For given parametrized curves with semialgebraic coordinate graphs and local C¹ regularity, uniform integrated-speed and metric-variation bounds are proved directly from line-fiber counts, with no projection premise. This does not yet prove the general Hausdorff-volume statement for arbitrary semialgebraic set families or the higher-dimensional complex-form bound. |
+| `lem:connecting-paths`: uniform compact-family connecting paths | `SpherePathObligation`; `SphereC1ChainObligation` | OPEN | Both the earlier rectifiable-path version and the finite-C¹-piece version needed by the checked integration estimate are unproved. No equivalence between these formulations is claimed. Given bounded continuous curve families with semialgebraic coordinate graphs and C¹ interiors now have uniform metric-variation bounds in `uniform_semialgebraic_rectifiable_curves`, including possibly unbounded endpoint velocities. Constructing the required model families by Hardt and compact triangulation, their decomposition/regular parametrizations, and component counts remain open. |
 | `rem:connecting-paths-background`: Teissier/KOS comparison | None | BACKGROUND ONLY | Not used as a replacement input. |
 | `thm:sublevel`: uniform middle-dimensional sublevel bound | None | OPEN | Full restricted complex density, derivative lemma, uniform coefficient induction. |
 | `lem:derivative`: one-derivative estimate | None | OPEN | Parameter-retaining projection estimate and complex-to-real wedge inequality. |
@@ -102,7 +102,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Compact semialgebraic triangulation, finite one-skeleton paths | OPEN. |
 | Semialgebraic cycle representatives of compact homology classes | OPEN. |
 | Stratification-independent integration and subdivision | OPEN. |
-| Bounded semialgebraic Hausdorff volume | OPEN; does not follow from topological compactness. |
+| Bounded semialgebraic Hausdorff volume | OPEN for arbitrary set families; does not follow from topological compactness. The parametrized-curve integrated-speed and metric-variation special case is proved below. |
+| Uniform scalar and curve variation | PROVED: `uniform_semialgebraic_scalar_variation` obtains one multiplicity bound from actual real line fibers, without projection, then bounds the absolute-derivative integral by the image measure. `uniform_semialgebraic_curve_variation` sums the coordinate estimates for Euclidean curves whose coordinate graphs are semialgebraic. `uniform_semialgebraic_curve_length_bound` chooses one natural-number constant before all family parameters and all bounding radii; `uniform_semialgebraic_curve_finite_length` proves velocity integrability and a uniform real integrated-speed bound. No compactness or connectedness of the measurable source sets, or uniform Lipschitz premise, is imposed. |
+| Metric rectifiability of supplied curve families | PROVED: `eVariationOn_le_integral_speed` bounds the supremum of polygonal chord sums using FTC and adjacent-interval additivity. `uniform_semialgebraic_rectifiable_curves` gives one `L ≥ 1` for a bounded family of continuous curves on `[0,1]` with semialgebraic coordinate graphs and C¹ regularity only on `(0,1)`. Velocities may be unbounded near endpoints. This constructs neither the connecting curves nor their needed finite C¹ decomposition. |
 | Stokes on compact semialgebraic chains | OPEN. Mathlib's box divergence theorem is not this statement. |
 | Agreement with singular-homology integration pairing | OPEN; availability of singular homology alone does not provide the pairing. |
 | Restricted density scalar law, triangle inequality, cancellation example | OPEN. |
@@ -623,7 +625,26 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     premises in this setting; the manifold-stratum and form-density gaps remain.
     The critical-image theorem is a real Jacobian integration input, not a
     Bertini–Sard replacement for the mandatory common-radius K∞ argument.
-37. No mathematical manuscript corrections or changes were made. No alternate
+37. `ScalarVariation` specializes the Euclidean analytic estimate to real
+    source and target. The graph fibers are already one-dimensional, so their
+    countability implies finiteness and their cardinalities are uniformly
+    bounded without coordinate projection. `CurveVariation` bounds Euclidean
+    speed by the sum of absolute coordinate speeds and applies the scalar
+    estimate to each coordinate graph. The natural-number multiplicity bound
+    precedes both the family parameter and bounding radius. Finite velocity
+    integral and actual Bochner integrability are proved, including for
+    noncompact measurable source sets.
+    `CurveRectifiability` uses FTC on each adjacent pair of partition points,
+    adds the intervals, and takes the supremum defining metric variation.
+    Consequently continuous bounded curve families on `[0,1]`, C¹ on the open
+    interval and with semialgebraic coordinate graphs, have a uniform actual
+    rectifiable-length bound. Endpoint derivative bounds are not assumed.
+    This is a direct coordinate-projection estimate for parametrized curves,
+    avoiding a separate Hausdorff-measure identification in this special case.
+    It supplies a length bound for given model paths, not their existence,
+    joint semialgebraic description, finite regular decomposition, or Hardt
+    triviality. No uniform Lipschitz bound for Hardt maps has been introduced.
+38. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -639,7 +660,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 102 mathematical module files plus the root umbrella and
+The checkpoint has 105 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 
