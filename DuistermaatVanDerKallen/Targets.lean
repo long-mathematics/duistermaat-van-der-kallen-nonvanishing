@@ -3,7 +3,9 @@ import Mathlib.Algebra.MonoidAlgebra.MapDomain
 
 /-! Exact target propositions and checked algebraic implications.
 `MinimalNonvanishing` and `OriginInNewtonPowers` below are propositions, not
-proved results or typeclass assumptions. Conditional theorems are labeled as such. -/
+typeclass assumptions. `NewtonPowers` proves the latter and discharges that
+premise in `infinite_of_minimal`; the minimal theorem remains open. Conditional
+theorems are labeled as such. -/
 
 namespace DuistermaatVanDerKallen
 
@@ -13,7 +15,8 @@ def MinimalNonvanishing : Prop :=
     ∃ n : ℕ, 1 ≤ n ∧ constantTerm (f ^ n) ≠ 0
 
 /-- The consequence of Newton-polytope homogeneity needed for infinite nonvanishing.
-This proposition itself is not a proof of homogeneity. -/
+This proposition itself is not a proof of homogeneity. `NewtonPowers` proves
+the full homogeneity identity and then supplies `origin_in_newton_powers`. -/
 def OriginInNewtonPowers : Prop :=
   ∀ (d : ℕ) (f : MultiLaurent d), f ≠ 0 → (0 : Fin d → ℝ) ∈ newtonPolytope f →
     ∀ q : ℕ, 1 ≤ q → (0 : Fin d → ℝ) ∈ newtonPolytope (f ^ q)
@@ -56,7 +59,8 @@ theorem mathieu_of_minimal (hminimal : MinimalNonvanishing)
   · exact eventual_constantTerm_zero_of_newton f h
       ((classification_of_minimal hminimal f hzero).mp hf)
 
-/-- Conditional infinite nonvanishing, with both missing inputs displayed. -/
+/-- The two-input implication, retained for compatibility. `NewtonPowers`
+discharges the second premise; minimal nonvanishing remains open. -/
 theorem infinite_of_minimal_and_newton_powers (hminimal : MinimalNonvanishing)
     (hpowers : OriginInNewtonPowers) : InfiniteNonvanishing := by
   intro d f hf hnewton M

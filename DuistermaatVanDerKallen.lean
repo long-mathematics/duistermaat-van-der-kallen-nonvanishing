@@ -45,3 +45,4 @@ import DuistermaatVanDerKallen.HomologySheaf
 import DuistermaatVanDerKallen.TimeHomology
 import DuistermaatVanDerKallen.HomologyLift
 import DuistermaatVanDerKallen.ChainHomologyHomotopy
+import DuistermaatVanDerKallen.NewtonPowers

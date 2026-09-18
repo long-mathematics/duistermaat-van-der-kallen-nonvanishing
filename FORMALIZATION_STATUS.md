@@ -31,10 +31,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 
 | Manuscript obligation | Lean correspondence | Status | Proof / unresolved dependencies |
 |---|---|---|---|
-| `thm:main`: arbitrary-rank infinite nonvanishing | `InfiniteNonvanishing` in `Targets`; `infinite_of_minimal_and_newton_powers` | CONDITIONAL | Same power argument; requires `MinimalNonvanishing` and `OriginInNewtonPowers`. Neither is proved. |
+| `thm:main`: arbitrary-rank infinite nonvanishing | `InfiniteNonvanishing` in `Targets`; `infinite_of_minimal` in `NewtonPowers` | CONDITIONAL | The manuscript power argument now requires only `MinimalNonvanishing`, which remains unproved. The Newton-power premise is discharged by `origin_in_newton_powers`. The older two-premise implication remains available. |
 | `thm:minimal`: arbitrary-rank minimal nonvanishing | `MinimalNonvanishing`; `minimal_nonvanishing_rank_zero` | PARTIAL | Only rank zero is unconditional. All positive ranks and the analytic contradiction remain open. |
 | `lem:face`: minimal-face reduction | `support_pow_lower_bound` in `Laurent` is related support infrastructure only | OPEN | Exposed face, coefficient identity including cancellation, rational subspace lattice basis, rank reduction and relative interior. |
-| `lem:powers`: Newton polytope of powers | `OriginInNewtonPowers` is an unproved weaker target proposition | OPEN | Neither full homogeneity nor even this origin-preservation consequence is proved. |
+| `lem:powers`: Newton polytope of powers | `newtonPolytope_pow`; `origin_in_newton_powers` in `NewtonPowers` | PROVED | Full equality `Newt(f^n) = n • Newt(f)` in arbitrary finite rank for every `n ≥ 1`. Support containment proves one inclusion; uniquely exposed support vertices survive with coefficient `a_v^n`, and finite convex-hull recovery proves the other. The result also handles the zero polynomial. |
 | `lem:chart`: unimodular vertex chart | `constantTerm_pow_reindex` | PARTIAL | Arbitrary lattice automorphisms preserve all power constant terms. Existence of the cone basis, negative vertex coordinates, and polynomial factorization remain open. |
 | `std:sa`: semialgebraic standard input | `PolynomialTail`; `SemialgebraicObligations` | PARTIAL | Detailed component inventory below. No Hardt/projection input is assumed as a project axiom. |
 | `std:stokes`: integration and Stokes | None | OPEN | Chain integration, subdivision, reparametrization, finite measure, Stokes, and homology pairing. |
@@ -152,6 +152,8 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Residue geometric-series convergence and character coefficient extraction | OPEN. |
 | Analytic continuation of the rational period to the small positive interval | OPEN. |
 | Exponent support estimates, strict separation and eventual multiplier vanishing | PROVED components in `Laurent`; adapted proof provenance below. |
+| Newton-power coefficient and vertex arguments | PROVED: `coeff_pow_unique_min` proves the exact coefficient at `n • v`, `finite_extremePoint_exposed` supplies a strict supporting functional for every extreme point of a finite hull, and `extremePoint_pow_mem` proves vertex survival. `newtonPolytope_mul_subset` and `newtonPolytope_pow_subset` supply the support-based inclusions. |
+| Finite vertex hull and Newton-power homogeneity | PROVED: `newtonPolytope_pow` recovers the finite vertex hull using mathlib's Krein–Milman theorem plus compactness, then proves the full set equality. `origin_in_newton_powers` inhabits the exact previously isolated target proposition. |
 
 ## Proof substitutions and provenance
 
@@ -340,7 +342,21 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     the comparison through the monodromy API for the actual finite chain.
     No regularity of the interpolating path homotopy beyond continuity and
     no triviality of arbitrary loop monodromy are assumed.
-23. No mathematical manuscript corrections or changes were made. No alternate
+23. `NewtonPowers` implements the manuscript's exposed-vertex coefficient
+    argument. Convolution at `n • v` reduces to the unique minimizing exponent,
+    using the existing support lower bound to exclude every other summand.
+    Strict separation of a vertex from the convex hull of the remaining finite
+    support supplies its exposing functional, with minima replacing maxima by
+    sign convention. For the finite-polytope fact that the hull equals the hull
+    of its vertices, the implementation specializes mathlib's Krein–Milman
+    theorem and removes the closure using compactness of the finite vertex hull.
+    This is a documented proof substitution for that convex-geometric step;
+    the Laurent coefficient argument and the full manuscript equality are
+    unchanged. All positive exponents and all finite ranks are covered, and the
+    proof also handles zero polynomials. `infinite_of_minimal` discharges the
+    formerly separate Newton-power premise while leaving minimal nonvanishing
+    explicit and unproved.
+24. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -356,7 +372,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 49 mathematical module files plus the root umbrella and
+The checkpoint has 50 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

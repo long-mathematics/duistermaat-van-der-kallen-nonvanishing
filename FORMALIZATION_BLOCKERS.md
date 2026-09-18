@@ -254,7 +254,11 @@ estimates, and residues remain open. Openness of the whole velocity/initial-poin
 admissible-parameter set has not been asserted and was not needed for the local
 product maps.
 
-Minimal nonvanishing is still the principal unproved target. The conditional
-classification and Laurent Mathieu implications are ready to consume it; infinite
-nonvanishing additionally needs Newton-power origin preservation. The neighboring
+`NewtonPowers` now proves the full arbitrary-rank Newton-polytope power
+identity, including the exact exposed-vertex coefficient argument and finite
+vertex-hull recovery. Thus `origin_in_newton_powers` discharges the isolated
+origin-preservation obligation. `infinite_of_minimal` requires only the minimal
+nonvanishing theorem; the classification and Laurent Mathieu implications are
+also ready to consume that theorem, which remains the principal unproved target.
+The neighboring
 compact-Lie-group project's general-torus DvK dependency must remain deferred.
