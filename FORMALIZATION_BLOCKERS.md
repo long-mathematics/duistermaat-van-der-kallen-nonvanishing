@@ -157,15 +157,15 @@ autonomous continuation and segment existence, uniqueness, and reversal.
 `FiberTransport` and `FiberContinuity` now construct fiber homeomorphisms and
 prove joint continuity in initial point/time and compactness of compact initial
 sweeps. `CurveField`, `CurveIntegral`, `PicardImplicit`, and `LaurentPicard`
-now supply the next local analytic input: a Banach-space Picard branch smooth
-at zero time scale, jointly in velocity and initial point, with nearby regular
-curves solving the actual integral equation and producing scaled ODE trajectories.
+now supply the next local analytic input: a Banach-space Picard branch analytic
+on an open parameter neighborhood of zero time scale, jointly in velocity and
+initial point, with regular curves solving the actual integral equation and
+producing scaled ODE trajectories. This includes nearby nonzero time scales;
+`⊤ : WithTop ℕ∞` is mathlib's analytic differentiability order.
 The zero-time partial derivative is proved to be the identity; no invertibility
 hypothesis has been introduced. Continue by identifying this branch with chosen
-solutions by uniqueness and proving smoothness along complete segments (the
-current `ContDiffAt` at zero alone does not assert smoothness on a fixed
-neighborhood of nonzero times), then smooth fiber diffeomorphisms, period
-transport, the separate endpoint Hardt sweep, sublevel/logarithmic estimates,
+solutions by uniqueness and propagating smooth dependence along complete
+segments, then smooth fiber diffeomorphisms, period transport, the separate endpoint Hardt sweep, sublevel/logarithmic estimates,
 and residues.
 
 Minimal nonvanishing is still the principal unproved target. The conditional

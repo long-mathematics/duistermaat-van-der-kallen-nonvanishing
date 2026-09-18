@@ -54,3 +54,4 @@ Printing a proposition is not a proof of it. -/
 #check DuistermaatVanDerKallen.exists_smooth_picard_branch
 #check DuistermaatVanDerKallen.laurent_exists_smooth_picard_branch
 #check DuistermaatVanDerKallen.laurent_picard_equation_solves_ode
+#check DuistermaatVanDerKallen.laurent_exists_analytic_picard_neighborhood

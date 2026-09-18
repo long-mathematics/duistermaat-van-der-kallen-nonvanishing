@@ -88,6 +88,25 @@ theorem laurent_exists_smooth_picard_branch {d : ℕ} (f : MultiLaurent d)
       extendCurve (curveVectorField (laurentRepresentative f) q.2.1 ((Φ ∘ j) q) i) s at he
   simpa only [extendCurve_vectorField f q.2.1 hq] using he
 
+/-- The differentiability order `⊤` is mathlib's analytic order. Consequently
+one open parameter neighborhood carries an analytic regular Picard branch,
+including nearby nonzero time scales. -/
+theorem laurent_exists_analytic_picard_neighborhood {d : ℕ} (f : MultiLaurent d)
+    {a : ℂ} {z : Fin d → ℂ} (hz : z ∈ laurentRegularDomain f) :
+    ∃ (Ψ : ℝ × (ℂ × (Fin d → ℂ)) → TorusCurves d)
+      (U : Set (ℝ × (ℂ × (Fin d → ℂ)))),
+      IsOpen U ∧ (0, (a, z)) ∈ U ∧ ContDiffOn ℝ ⊤ Ψ U ∧
+      Ψ (0, (a, z)) = constantTorusCurves d z ∧
+      ∀ q ∈ U, (∀ t, (fun i => Ψ q i t) ∈ laurentRegularDomain f) ∧
+        ∀ i t, Ψ q i t = q.2.2 i + q.1 •
+          ∫ s in (0 : ℝ)..t.val,
+            laurentVectorField f q.2.1 (fun j => extendCurve (Ψ q j) s) i := by
+  obtain ⟨Ψ, hs, hzero, heq⟩ := laurent_exists_smooth_picard_branch f (a := a) hz
+  have hall := (hs.eventually (by simp)).and heq
+  obtain ⟨U, hU, hopen, hbase⟩ := mem_nhds_iff.mp hall
+  exact ⟨Ψ, U, hopen, hbase, fun q hq => (hU hq).1.contDiffWithinAt,
+    hzero, fun q hq => (hU hq).2⟩
+
 /-- A regular solution of the actual Picard equation gives an ODE trajectory
 with the asserted derivative even at the endpoints of the unit interval. -/
 theorem laurent_picard_equation_solves_ode {d : ℕ} (f : MultiLaurent d)
