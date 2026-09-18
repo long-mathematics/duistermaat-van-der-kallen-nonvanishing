@@ -274,3 +274,27 @@ example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
       ∀ b : DuistermaatVanDerKallen.residueCircleBase d ε,
         Nat.card (DuistermaatVanDerKallen.residueRootProjection m u ε s ⁻¹' {b}) = m 0 :=
   DuistermaatVanDerKallen.exists_compact_semialgebraic_residue_covering m hm u hu
+
+#print DuistermaatVanDerKallen.SemialgebraicProjectionObligation
+#check DuistermaatVanDerKallen.IsSemialgebraic.eventuallyConstant_polynomial_curve
+#check DuistermaatVanDerKallen.IsSemialgebraic.contains_tail_of_unbounded
+#check DuistermaatVanDerKallen.isSemialgebraic_smallGradientTotalFamily
+#check DuistermaatVanDerKallen.isComplexSemialgebraic_smallGradientSphere
+#check DuistermaatVanDerKallen.isSemialgebraic_radiusIncidence
+#check DuistermaatVanDerKallen.radiusApproximationSet_iff_projection
+
+-- Exact original tail obligation, conditional solely on the unproved
+-- coordinate-projection standard input. This is not a proof of that input.
+example (hproj : DuistermaatVanDerKallen.SemialgebraicProjectionObligation) :
+    DuistermaatVanDerKallen.RadiusTailObligation :=
+  DuistermaatVanDerKallen.radiusTail_of_semialgebraic_projection hproj
+
+-- The same single set includes both varying parameters, not a separate
+-- semialgebraicity claim with constants depending on a fixed radius/threshold.
+example {d : ℕ} (g : Fin d → DuistermaatVanDerKallen.AmbientPolynomial d) :
+    DuistermaatVanDerKallen.IsSemialgebraic
+      (DuistermaatVanDerKallen.RadiusFamilyIndex d)
+      {q | 1 < q (.inl 0) ∧ 0 < q (.inl 1) ∧
+        DuistermaatVanDerKallen.radiusFamilyPoint q ∈
+          DuistermaatVanDerKallen.smallGradientSphere g (q (.inl 0)) (q (.inl 1))} :=
+  DuistermaatVanDerKallen.isSemialgebraic_smallGradientTotalFamily g

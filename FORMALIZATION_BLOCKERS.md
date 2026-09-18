@@ -83,6 +83,17 @@ What has been tried and checked:
    `P_zᵢ − wᵢ² P_wᵢ`: proved. `LaurentEvaluation` now constructs an ambient
    representative of every `MultiLaurent`, with equality of evaluations and
    product/power compatibility on the torus.
+7. `isSemialgebraic_radiusIncidence` now proves the full incidence set
+   semialgebraic by squaring nonnegative norm constraints and clearing the
+   strictly positive polynomial denominators.
+8. `radiusApproximationSet_iff_projection` proves exact agreement of its
+   real coordinate projection with the original radius set.
+9. `IsSemialgebraic.contains_tail_of_unbounded` connects the general finite
+   Boolean sign definition to the checked univariate asymptotic theorem.
+   `radiusTail_of_semialgebraic_projection` consequently derives the exact
+   `RadiusTailObligation` from the explicitly unproved
+   `SemialgebraicProjectionObligation` in `RadiusProjection`. No further
+   encoding or metric-identification premise remains in this implication.
 
 The exact remaining implication is an **existential projection**. E has one
 free radius variable but also `4d` real existential coordinates. Calling it a
@@ -108,7 +119,10 @@ The restricted statement does not even demand semialgebraic parametrization;
 thus proving it is necessary but would not by itself cover the manuscript's
 stronger general compact-family lemma.
 
-Compactness and the correct metric have been proved for this family. The
+Compactness and the correct metric have been proved for this family.
+`isSemialgebraic_smallGradientTotalFamily` now proves semialgebraicity of the
+single family with both radius and threshold as free coordinates, and
+`isComplexSemialgebraic_smallGradientSphere` checks its exact fibers. The
 remaining path theorem cannot be deduced merely from that compactness:
 compact sets in general can have infinitely many components and nonrectifiable
 connected pieces. Nor can a separate finite bound for each fixed R,ε supply
@@ -129,7 +143,7 @@ Developing and auditing those results is a substantial prerequisite project.
 The independent semialgebraic chain-integration and period/residue dependencies
 also remain open, as itemized in the coverage ledger.
 
-No project axiom has been introduced for any of these facts. The two obligation
+No project axiom has been introduced for any of these facts. The geometric and projection obligation
 constants have type `Prop`; they are definitions of goals, not terms proving the
 goals. Conditional results cannot be used to obtain minimal nonvanishing without
 real proofs of their hypotheses. The appendix has not been substituted.
