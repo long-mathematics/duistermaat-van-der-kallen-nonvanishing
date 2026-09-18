@@ -68,7 +68,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Endpoint Hardt application `eq:hardt` and `eq:sweep-boundary` | None | OPEN | Separate normalized Hardt trivialization, semialgebraic cycle representatives, local-system agreement, oriented finite sweep and compact truncations. |
 | `prop:primitive`: quantitative endpoint primitive | None | OPEN | Log-integrability, finite multiplicities, limiting absolute integrals, local compact Stokes and difference-quotient error. |
 | `cor:no-pole`: exclude forced simple pole | None | OPEN | Dyadic primitive estimate and the nonzero `A log 2` integral. |
-| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | Zero-free closed polydisc, strict logarithmic-partial bounds, root-coordinate nonvanishing, and nonzero actual one-variable root derivatives are proved. The scalar generating series converges outside an explicit bound and equals the normalized product-Haar Cauchy integral. Rouché/root count, compact covering cycles, oriented-form comparison, residue sign/normalization, and locally smooth cycle class remain open. |
+| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `ResidueRootLocus`; `ResidueCovering`; `ResidueRootBranches`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | The zero-free polydisc, strict derivative estimates, boundary exclusion for large fiber values, compact root locus in the actual Laurent fiber, and covering projection with finite fibers are proved. Every root has a locally unique complex-smooth branch in the fiber value and remaining coordinates. The scalar generating series converges and equals the normalized Haar Cauchy integral. Exact sheet count, nonemptiness/surjectivity, semialgebraicity, oriented cycles, integration comparison, residue sign/normalization, and the locally smooth homology class remain open. |
 | `cor:classification`: Newton classification | `positive_powers_vanish_of_origin_not_mem`, `classification_of_minimal` | PARTIAL / CONDITIONAL | Exclusion implies all positive powers vanish, unconditionally. Converse requires minimal nonvanishing. |
 | `cor:mathieu`: Laurent Mathieu property | `eventual_constantTerm_zero_of_newton`, `mathieu_of_minimal` | CONDITIONAL | Full separated-support conclusion proved for all ranks and all multipliers. Vanishing-moments premise reaches it only assuming minimal nonvanishing. |
 | `cor:torus`: finite Fourier sums on compact tori | `torus_mathieu_of_minimal` in `TorusMathieu` | CONDITIONAL | The normalized product-Haar/constant-term correspondence is proved on `(ℝ/ℤ)^d`, with actual Haar and probability-measure instances. Finite Fourier sums are exactly finite integer-character sums. The complete Mathieu implication now requires only the still-unproved `MinimalNonvanishing`. No dependence on the neighboring repository is imported. |
@@ -166,6 +166,9 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Constant-term generating function | PROVED: `coeff_pow_norm_le` controls every power coefficient by the finite coefficient mass. `summable_constantTerm_series` proves convergence outside that bound. `generatingFunction_eq_inv_of_vanishing` proves exactly `R(s)=1/s` under the explicit universal-vanishing premise. |
 | Haar Cauchy transform | PROVED: `weightedCoefficientMass` bounds Laurent evaluation on every product circle. `hasSum_constantTerm_torusCauchy` uses dominated convergence and exact power coefficient extraction; `generatingFunction_eq_torusCauchy` identifies the scalar integral. This is not an integration pairing with a residue cycle. |
 | Finite Fourier sum representation | PROVED: `isFiniteFourierSum_iff_coefficients` identifies the Laurent representation with a finite sum of standard integer characters. Continuity, product/power coefficient extraction, and the conditional torus Mathieu theorem are checked. Equivalence with all continuous torus-finite functions remains an open separate remark. |
+| Compact residue root locus | PROVED: `exists_residue_boundary_bound`, `isCompact_residue_root_locus`, and `exists_residue_interior_regular_roots` give the compactness and boundary estimates. `unimodular_vertex_chart_nat` bridges the natural exponents, and `residueFiberPolynomial_zero_iff` identifies the equation with the Laurent fiber. `residueRootPoint` is continuous and injective with compact range. |
+| Residue covering projection | PROVED components: `exists_residue_covering` and `finite_residueRootProjection_fiber` supply the actual covering and finite fibers for all sufficiently large fiber values. Mathlib permits empty covering fibers: no nonemptiness, surjectivity, or exact degree is inferred. `CompactRootCovering` constructs the projection charts explicitly from the implicit function theorem. |
+| Local root variation | PROVED: `exists_residue_covering_with_branches` gives a locally unique complex-smooth root branch at every point of the chosen covering, with the fiber value and other coordinates as parameters. This is local root variation, not yet a cycle or a homology-class variation theorem. |
 
 ## Proof substitutions and provenance
 
@@ -430,7 +433,25 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     and conversion to a residue period remain open. `TorusMathieu` uses the
     Haar bridge to prove the full finite-Fourier implication conditionally
     on `MinimalNonvanishing`; the premise has not been discharged.
-27. No mathematical manuscript corrections or changes were made. No alternate
+27. `ResidueRootLocus` completes the boundary and compactness estimates for
+    the local root equation, converts the checked vertex chart to positive
+    natural exponents, and proves exact agreement with the Laurent fiber.
+    `CompactRootCovering` slices the ordinary product-domain implicit-function
+    chart, keeping the base subset arbitrary, to construct an open partial
+    homeomorphism whose map is the actual base projection. A continuous map
+    from this compact root locus is closed; mathlib's compact local-homeomorphism
+    criterion therefore gives a covering. `PolynomialRootCharts` discharges
+    the differential hypotheses by polynomial induction and the already proved
+    partial-derivative formula. `ResidueCovering` applies this to the manuscript's
+    product circles, including the rank-one empty base product, and proves the
+    fibers finite and the coordinate image compact and injectively parametrized.
+    `ResidueRootBranches` includes the fiber value among the implicit parameters
+    and proves local complex-smooth branches with local uniqueness. This follows
+    the manuscript's compactness/implicit-function argument. No root-counting
+    theorem has been used: empty fibers are allowed by `IsCoveringMap`, so the
+    degree `m₁`, nonemptiness, and surjectivity are still open. No orientation,
+    semialgebraicity, cycle, or homology-class statement follows formally yet.
+28. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -446,7 +467,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 64 mathematical module files plus the root umbrella and
+The checkpoint has 69 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

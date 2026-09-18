@@ -60,3 +60,8 @@ import DuistermaatVanDerKallen.CoefficientSeries
 import DuistermaatVanDerKallen.TorusCoefficients
 import DuistermaatVanDerKallen.TorusCauchySeries
 import DuistermaatVanDerKallen.TorusMathieu
+import DuistermaatVanDerKallen.ResidueRootLocus
+import DuistermaatVanDerKallen.CompactRootCovering
+import DuistermaatVanDerKallen.PolynomialRootCharts
+import DuistermaatVanDerKallen.ResidueCovering
+import DuistermaatVanDerKallen.ResidueRootBranches

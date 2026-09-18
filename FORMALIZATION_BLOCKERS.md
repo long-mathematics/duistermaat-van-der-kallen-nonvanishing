@@ -287,7 +287,15 @@ value `1/s` under universal vanishing. `TorusCoefficients` proves normalized
 product-Haar coefficient extraction, including products and powers, and
 `TorusCauchySeries` identifies the scalar Cauchy transform by dominated
 convergence. The comparison with oriented logarithmic-form integration is not
-proved. Root count, compact covering cycles, orientation, residues, and the
-period identity remain the next residue dependencies. `TorusMathieu` supplies
+proved. The compact root locus, its continuous injective parametrization in
+the actual Laurent fiber, its covering projection with finite fibers, and locally unique complex-smooth
+root branches are now checked in `ResidueRootLocus`, `CompactRootCovering`,
+`PolynomialRootCharts`, `ResidueCovering`, and `ResidueRootBranches`.
+The next exact root-counting obligation is: for the selected radius and all
+sufficiently large fiber values, every fiber of `residueRootProjection` has
+`Nat.card` equal to `m 0`. The current covering theorem allows empty fibers;
+nonemptiness and surjectivity must not be inferred. Semialgebraicity,
+orientation, cycles, residues, and the period identity also remain open.
+`TorusMathieu` supplies
 the complete finite-Fourier torus implication with minimal nonvanishing still
 explicit as its unproved premise.
