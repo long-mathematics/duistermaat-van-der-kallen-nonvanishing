@@ -27,6 +27,24 @@ structure LaurentC1Path {d : ℕ} (f : MultiLaurent d) (s t : ℂ) where
 namespace LaurentC1Path
 variable {d : ℕ} {f : MultiLaurent d} {s t : ℂ}
 
+/-- A straight base segment presented as a C¹ path with matching endpoints. -/
+def line {d : ℕ} {f : MultiLaurent d} {s t : ℂ}
+    (h : GoodSegment f s (t - s)) : LaurentC1Path f s t where
+  base r := s + r • (t - s)
+  velocity _ := t - s
+  velocity_continuous := continuousOn_const
+  base_deriv r _ := by
+    simpa only [one_smul, id_eq] using (((hasDerivAt_id r).smul_const (t - s)).const_add s).hasDerivWithinAt
+  base_zero := by simp
+  base_one := by simp
+  good := h
+
+theorem line_base_mem {d : ℕ} {f : MultiLaurent d} {s t : ℂ}
+    (h : GoodSegment f s (t - s)) {D : Set ℂ} (hc : Convex ℝ D)
+    (hs : s ∈ D) (ht : t ∈ D) {r : ℝ} (hr : r ∈ Icc (0 : ℝ) 1) :
+    (line h).base r ∈ D := by
+  simpa only [line, AffineMap.lineMap_apply_module', add_comm] using hc.lineMap_mem hs ht hr
+
 /-- Normalize a C¹ piece on any nondecreasing compact real interval to unit
 time, scaling the velocity by the interval length. -/
 def ofInterval (α v : ℝ → ℂ) (a b : ℝ) (hab : a ≤ b)

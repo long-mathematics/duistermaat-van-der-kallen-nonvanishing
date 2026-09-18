@@ -50,6 +50,55 @@ theorem localFiberCoordinate_center {d : ℕ} {f : MultiLaurent d}
   exact (laurentSegmentCurve_eq_fiberCurve hp'.2 ⟨z.val, hp'.1, rfl⟩ (by simp)).trans
     (fiberTransport_zero hp'.2 ⟨z.val, hp'.1, rfl⟩)
 
+/-- Inverse of the local fiber coordinate, as a continuous map. -/
+def localFiberFromReference {d : ℕ} {f : MultiLaurent d}
+    {D : TopologicalSpace.Opens ℂ} {b s : ℂ}
+    (hD : GoodBase f D) (hc : Convex ℝ (D : Set ℂ)) (hb : b ∈ D) (hs : s ∈ D) :
+    C(LaurentFiber f b, LaurentFiber f s) := by
+  let : Fact (RegularLaurentValue f b) := ⟨hD.regularValue hb⟩
+  refine ⟨fun z => ⟨(convexTransport hD hc hb (⟨s, hs⟩, z)).val,
+    (convexTransport hD hc hb (⟨s, hs⟩, z)).property.1,
+    convexTransport_base hD hc hb (⟨s, hs⟩, z)⟩, ?_⟩
+  have hcont : Continuous (fun z : LaurentFiber f b =>
+      (convexTransport hD hc hb (⟨s, hs⟩, z) : laurentTubeOpen f D)) :=
+    (convexTransport_contMDiff hD hc hb).continuous.comp (continuous_const.prodMk continuous_id)
+  exact (continuous_subtype_val.comp hcont).subtype_mk _
+
+theorem localFiberCoordinate_left_inv {d : ℕ} {f : MultiLaurent d}
+    {D : TopologicalSpace.Opens ℂ} {b s : ℂ}
+    (hD : GoodBase f D) (hc : Convex ℝ (D : Set ℂ)) (hb : b ∈ D) (hs : s ∈ D)
+    (z : LaurentFiber f s) :
+    localFiberFromReference hD hc hb hs (localFiberCoordinate hD hc hb hs z) = z := by
+  let y := fiberToTube f D hs z
+  have he : (⟨s, hs⟩, (convexTransportBack hD hc hb y).2) = convexTransportBack hD hc hb y := by
+    apply Prod.ext
+    · apply Subtype.ext
+      exact z.property.2.symm
+    · rfl
+  apply Subtype.ext
+  change (convexTransport hD hc hb (⟨s, hs⟩, (convexTransportBack hD hc hb y).2)).val = z.val
+  rw [he]
+  exact congrArg Subtype.val (convexTransport_right_inv hD hc hb y)
+
+theorem localFiberCoordinate_right_inv {d : ℕ} {f : MultiLaurent d}
+    {D : TopologicalSpace.Opens ℂ} {b s : ℂ}
+    (hD : GoodBase f D) (hc : Convex ℝ (D : Set ℂ)) (hb : b ∈ D) (hs : s ∈ D)
+    (z : LaurentFiber f b) :
+    localFiberCoordinate hD hc hb hs (localFiberFromReference hD hc hb hs z) = z := by
+  change (convexTransportBack hD hc hb (convexTransport hD hc hb (⟨s, hs⟩, z))).2 = z
+  rw [convexTransport_left_inv]
+
+def localFiberCoordinateHomeomorph {d : ℕ} {f : MultiLaurent d}
+    {D : TopologicalSpace.Opens ℂ} {b s : ℂ}
+    (hD : GoodBase f D) (hc : Convex ℝ (D : Set ℂ)) (hb : b ∈ D) (hs : s ∈ D) :
+    LaurentFiber f s ≃ₜ LaurentFiber f b where
+  toFun := localFiberCoordinate hD hc hb hs
+  invFun := localFiberFromReference hD hc hb hs
+  left_inv := localFiberCoordinate_left_inv hD hc hb hs
+  right_inv := localFiberCoordinate_right_inv hD hc hb hs
+  continuous_toFun := (localFiberCoordinate hD hc hb hs).continuous
+  continuous_invFun := (localFiberFromReference hD hc hb hs).continuous
+
 namespace LaurentC1Path
 variable {d : ℕ} {f : MultiLaurent d} {s t : ℂ}
 
