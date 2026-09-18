@@ -74,8 +74,9 @@ What has been tried and checked:
    small-gradient sphere are continuous/compact as required: proved.
 6. The actual induced tangent metric and restricted analytic differential norm
    are identified with this expression for true polynomial torus partials
-   `P_zᵢ − wᵢ² P_wᵢ`: proved. The algebraic `MultiLaurent` representation bridge
-   remains open; arbitrary ambient polynomial restrictions are covered.
+   `P_zᵢ − wᵢ² P_wᵢ`: proved. `LaurentEvaluation` now constructs an ambient
+   representative of every `MultiLaurent`, with equality of evaluations and
+   product/power compatibility on the torus.
 
 The exact remaining implication is an **existential projection**. E has one
 free radius variable but also `4d` real existential coordinates. Calling it a
@@ -145,8 +146,11 @@ estimate using the now-proved restricted differential formula, and instantiate
 `finite_of_common_radius` for the actual asymptotic-critical-value set.
 `affineTorus_uniform_gradient`, `compact_regular_controlled_region`, and
 `trajectory_radius_bound` already provide checked downstream control lemmas.
-`PolynomialGradient` now proves actual field smoothness and local ODE existence.
-Continue with global ODE continuation and smooth flow dependence, period transport,
+`LaurentGeometry` specializes actual field smoothness and local existence to
+`MultiLaurent`, proves exact base motion and the proper-radius Gronwall estimate,
+and proves that the controlled coordinate-space set is compact and lies in the
+regular domain. Continue with global ODE continuation and smooth flow dependence,
+period transport,
 the separate endpoint Hardt sweep, sublevel/logarithmic estimates, and residues.
 
 Minimal nonvanishing is still the principal unproved target. The conditional
