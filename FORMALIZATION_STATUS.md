@@ -68,7 +68,7 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Endpoint Hardt application `eq:hardt` and `eq:sweep-boundary` | None | OPEN | Separate normalized Hardt trivialization, semialgebraic cycle representatives, local-system agreement, oriented finite sweep and compact truncations. |
 | `prop:primitive`: quantitative endpoint primitive | None | OPEN | Log-integrability, finite multiplicities, limiting absolute integrals, local compact Stokes and difference-quotient error. |
 | `cor:no-pole`: exclude forced simple pole | None | OPEN | Dyadic primitive estimate and the nonzero `A log 2` integral. |
-| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `ResidueRootLocus`; `ResidueCovering`; `ResidueRootBranches`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | The zero-free polydisc, strict derivative estimates, boundary exclusion for large fiber values, compact root locus in the actual Laurent fiber, and covering projection with finite fibers are proved. Every root has a locally unique complex-smooth branch in the fiber value and remaining coordinates. The scalar generating series converges and equals the normalized Haar Cauchy integral. Exact sheet count, nonemptiness/surjectivity, semialgebraicity, oriented cycles, integration comparison, residue sign/normalization, and the locally smooth homology class remain open. |
+| `lem:residue`: residue-cycle identity | `ResiduePolydisc`; `ResidueRootLocus`; `ResidueCovering`; `ResidueCoveringDegree`; `ResidueRootBranches`; `CoefficientSeries`; `TorusCauchySeries` | PARTIAL | The zero-free polydisc, strict derivative estimates, boundary exclusion for large fiber values, compact root locus in the actual Laurent fiber, and the surjective covering projection with exactly `m₁` points in every fiber are proved. The root locus is nonempty. Every root has a locally unique complex-smooth branch in the fiber value and remaining coordinates. The scalar generating series converges and equals the normalized Haar Cauchy integral. Semialgebraicity, oriented cycles, integration comparison, residue sign/normalization, and the locally smooth homology class remain open. |
 | `cor:classification`: Newton classification | `positive_powers_vanish_of_origin_not_mem`, `classification_of_minimal` | PARTIAL / CONDITIONAL | Exclusion implies all positive powers vanish, unconditionally. Converse requires minimal nonvanishing. |
 | `cor:mathieu`: Laurent Mathieu property | `eventual_constantTerm_zero_of_newton`, `mathieu_of_minimal` | CONDITIONAL | Full separated-support conclusion proved for all ranks and all multipliers. Vanishing-moments premise reaches it only assuming minimal nonvanishing. |
 | `cor:torus`: finite Fourier sums on compact tori | `torus_mathieu_of_minimal` in `TorusMathieu` | CONDITIONAL | The normalized product-Haar/constant-term correspondence is proved on `(ℝ/ℤ)^d`, with actual Haar and probability-measure instances. Finite Fourier sums are exactly finite integer-character sums. The complete Mathieu implication now requires only the still-unproved `MinimalNonvanishing`. No dependence on the neighboring repository is imported. |
@@ -167,8 +167,10 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
 | Haar Cauchy transform | PROVED: `weightedCoefficientMass` bounds Laurent evaluation on every product circle. `hasSum_constantTerm_torusCauchy` uses dominated convergence and exact power coefficient extraction; `generatingFunction_eq_torusCauchy` identifies the scalar integral. This is not an integration pairing with a residue cycle. |
 | Finite Fourier sum representation | PROVED: `isFiniteFourierSum_iff_coefficients` identifies the Laurent representation with a finite sum of standard integer characters. Continuity, product/power coefficient extraction, and the conditional torus Mathieu theorem are checked. Equivalence with all continuous torus-finite functions remains an open separate remark. |
 | Compact residue root locus | PROVED: `exists_residue_boundary_bound`, `isCompact_residue_root_locus`, and `exists_residue_interior_regular_roots` give the compactness and boundary estimates. `unimodular_vertex_chart_nat` bridges the natural exponents, and `residueFiberPolynomial_zero_iff` identifies the equation with the Laurent fiber. `residueRootPoint` is continuous and injective with compact range. |
-| Residue covering projection | PROVED components: `exists_residue_covering` and `finite_residueRootProjection_fiber` supply the actual covering and finite fibers for all sufficiently large fiber values. Mathlib permits empty covering fibers: no nonemptiness, surjectivity, or exact degree is inferred. `CompactRootCovering` constructs the projection charts explicitly from the implicit function theorem. |
+| Residue covering projection | PROVED: `exists_residue_covering_degree` supplies the actual surjective covering with exactly `m 0` points in each fiber. `ResidueDiscData.residueRootSpace_nonempty` proves the root locus nonempty. `CompactRootCovering` constructs the projection charts explicitly from the implicit function theorem. The earlier degree-free covering result is strengthened by the checked deformation argument. |
 | Local root variation | PROVED: `exists_residue_covering_with_branches` gives a locally unique complex-smooth root branch at every point of the chosen covering, with the fiber value and other coordinates as parameters. This is local root variation, not yet a cycle or a homology-class variation theorem. |
+| Uniform root deformation | PROVED: `ResidueDiscData` packages a proved small-disc choice, a uniform evaluation bound, and the strict derivative estimate. `residueDeformationEquation_logderiv`, `deformation_boundary_ne_zero`, and `deformation_regular_root` control `u(t y₁,y′)` uniformly for `‖t‖≤1`. `isCoveringMap_deformationProjection` constructs the compact deformation covering. |
+| Exact root count | PROVED: `complex_monomial_root_card_in_disc` counts the distinct monomial roots using algebraic closedness and separability. `covering_fiber_card_eq_along_path` transports cardinality along the parameter segment. `ResidueDiscData.residueRootProjection_card` identifies its endpoint with the actual residue projection and proves degree `m 0`. This is the documented replacement for the manuscript's Rouché step. |
 
 ## Proof substitutions and provenance
 
@@ -447,11 +449,30 @@ All Lean names below are in `DuistermaatVanDerKallen` unless qualified further.
     fibers finite and the coordinate image compact and injectively parametrized.
     `ResidueRootBranches` includes the fiber value among the implicit parameters
     and proves local complex-smooth branches with local uniqueness. This follows
-    the manuscript's compactness/implicit-function argument. No root-counting
-    theorem has been used: empty fibers are allowed by `IsCoveringMap`, so the
-    degree `m₁`, nonemptiness, and surjectivity are still open. No orientation,
+    the manuscript's compactness/implicit-function argument. This covering
+    construction permits empty fibers; the degree, nonemptiness, and
+    surjectivity require the separate argument in the next item. No orientation,
     semialgebraicity, cycle, or homology-class statement follows formally yet.
-28. No mathematical manuscript corrections or changes were made. No alternate
+28. `ResidueCoveringDegree` replaces the manuscript's Rouché invocation by
+    a fully proved special-case deformation count. On the same small polydisc,
+    replace `u(y₁,y′)` by `u(t y₁,y′)` for `|t|≤1`. The logarithmic derivative
+    identity and strict estimate hold at the scaled point, so every root stays
+    regular. A single uniform bound excludes boundary roots for every base
+    point and parameter. For fixed `y′`, compactness and the implicit function
+    theorem give a covering over the closed unit parameter disc. Mathlib's
+    covering monodromy gives an actual equivalence of the endpoint fibers
+    along `t∈[0,1]`. At zero the equation is `A z^(m 0)=u(0,y′)`;
+    nonzero coefficients, complex algebraic closedness, and separability give
+    exactly `m 0` distinct roots, all strictly inside the chosen disc. Explicit
+    fiber equivalences identify the endpoint at one with the original residue
+    projection. Thus `exists_residue_covering_degree` proves the same sheet
+    count as the manuscript, in every positive rank, and discharges surjectivity
+    and nonemptiness. `residueRoot_local_branch` supplies local smooth branches
+    for this same radius. No general Rouché theorem is assumed or claimed.
+    Semialgebraicity, oriented cycles, residues, and the period identity remain
+    separate open obligations. This auxiliary root deformation does not change
+    the main common-radius / normalized-gradient transport dependency chain.
+29. No mathematical manuscript corrections or changes were made. No alternate
    Bertini–Sard, Puiseux, resolution, or Whitney–Thom route was introduced.
 
 ## Validation and restart
@@ -467,7 +488,7 @@ its successful execution proves no instance of those propositions.
 represented in this ledger. This is a bookkeeping check; semantic statement
 alignment is documented above and is not inferred from a passing script.
 
-The checkpoint has 69 mathematical module files plus the root umbrella and
+The checkpoint has 74 mathematical module files plus the root umbrella and
 2 Lean verification helpers. See `scripts/validation.txt` for exact theorem
 counts, the full build job count, and environment-level axiom/declaration counts. CI runs the same checks in a clean GitHub checkout.
 

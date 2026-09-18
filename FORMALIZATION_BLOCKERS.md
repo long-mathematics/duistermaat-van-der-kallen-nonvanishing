@@ -291,11 +291,18 @@ proved. The compact root locus, its continuous injective parametrization in
 the actual Laurent fiber, its covering projection with finite fibers, and locally unique complex-smooth
 root branches are now checked in `ResidueRootLocus`, `CompactRootCovering`,
 `PolynomialRootCharts`, `ResidueCovering`, and `ResidueRootBranches`.
-The next exact root-counting obligation is: for the selected radius and all
-sufficiently large fiber values, every fiber of `residueRootProjection` has
-`Nat.card` equal to `m 0`. The current covering theorem allows empty fibers;
-nonemptiness and surjectivity must not be inferred. Semialgebraicity,
-orientation, cycles, residues, and the period identity also remain open.
+The exact root-counting obligation is now closed by `ResidueCoveringDegree`:
+for a proved choice of radius and all sufficiently large fiber values, every
+fiber of `residueRootProjection` has `Nat.card` equal to `m 0`. The projection
+is surjective and the compact root locus is nonempty. The implementation
+replaces the manuscript's Rouché step by the regular deformation
+`u(t y₁,y′)`, an endpoint fiber equivalence, and the exact monomial root count.
+The next residue obligations are semialgebraicity of the root locus,
+orientation and cycle construction, comparison of logarithmic-form integration
+with scalar circle integration, and the residue-period identity including
+its sign and normalization. Local smooth root branches are proved; the
+associated cycle and homology-class variation still require their integration
+and cycle infrastructure.
 `TorusMathieu` supplies
 the complete finite-Fourier torus implication with minimal nonvanishing still
 explicit as its unproved premise.

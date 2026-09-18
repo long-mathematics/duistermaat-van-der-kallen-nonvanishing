@@ -232,3 +232,25 @@ example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
   obtain ⟨ε, hε, B, hB⟩ := DuistermaatVanDerKallen.exists_residue_covering m hm u hu
   exact ⟨ε, hε, B, fun s hs => ⟨(hB s hs).1, fun b =>
     DuistermaatVanDerKallen.finite_residueRootProjection_fiber m u ε s (hB s hs).1 b⟩⟩
+
+#check DuistermaatVanDerKallen.nonempty_residueDiscData
+#check DuistermaatVanDerKallen.residueDeformationEquation_logderiv
+#check DuistermaatVanDerKallen.ResidueDiscData.deformation_regular_root
+#check DuistermaatVanDerKallen.ResidueDiscData.isCoveringMap_deformationProjection
+#check DuistermaatVanDerKallen.complex_monomial_root_card_in_disc
+#check DuistermaatVanDerKallen.covering_fiber_card_eq_along_path
+#check DuistermaatVanDerKallen.ResidueDiscData.residueRootProjection_card
+#check DuistermaatVanDerKallen.ResidueDiscData.residueRootSpace_nonempty
+#check DuistermaatVanDerKallen.ResidueDiscData.residueRoot_local_branch
+#check DuistermaatVanDerKallen.exists_residue_covering_degree
+
+-- The actual covering has the precise positive sheet count; no root-count,
+-- boundary-exclusion, or regularity premise is left to be supplied.
+example {d : ℕ} (m : Fin (d + 1) →₀ ℕ) (hm : ∀ i, 0 < m i)
+    (u : MvPolynomial (Fin (d + 1)) ℂ) (hu : u.coeff 0 ≠ 0) :
+    ∃ ε : ℝ, 0 < ε ∧ ∃ B : ℝ, ∀ s : ℂ, B < ‖s‖ →
+      IsCoveringMap (DuistermaatVanDerKallen.residueRootProjection m u ε s) ∧
+      Function.Surjective (DuistermaatVanDerKallen.residueRootProjection m u ε s) ∧
+      ∀ b : DuistermaatVanDerKallen.residueCircleBase d ε,
+        Nat.card (DuistermaatVanDerKallen.residueRootProjection m u ε s ⁻¹' {b}) = m 0 :=
+  DuistermaatVanDerKallen.exists_residue_covering_degree m hm u hu
